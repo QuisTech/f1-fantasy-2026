@@ -24,6 +24,16 @@ export function App() {
   const [fuel, setFuel] = useState<'quali' | 'race' | 'eye-test'>('quali');
   const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'metrics' | 'rivals'>('paddock');
   const [userLineup, setUserLineup] = useState<UserLineup>(MOCK_USER_LINEUP);
+  
+  const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
+  const [constructors, setConstructors] = useState(INITIAL_CONSTRUCTORS);
+  const [circuit, setCircuit] = useState(CURRENT_CIRCUIT);
+
+  const handleDataUpdate = (data: any) => {
+    setDrivers(data.drivers);
+    setConstructors(data.constructors);
+    setCircuit(data.circuit);
+  };
 
   return (
     <div className="min-h-screen bg-[#020617] text-[#f8fafc] p-4 sm:p-6 font-sans">
@@ -31,7 +41,7 @@ export function App() {
         
         {/* Top Header Bar matching fpl-admin */}
         <Header
-          circuit={CURRENT_CIRCUIT}
+          circuit={circuit}
           riskMode={riskMode}
           setRiskMode={setRiskMode}
           fuel={fuel}
@@ -42,7 +52,7 @@ export function App() {
         {/* Left Column: Metrics & Squad Values */}
         <MetricsColumn
           userLineup={userLineup}
-          drivers={INITIAL_DRIVERS}
+          drivers={drivers}
           riskMode={riskMode}
         />
 
@@ -106,8 +116,8 @@ export function App() {
                   exit={{ opacity: 0 }}
                 >
                   <PaddockGrid
-                    drivers={INITIAL_DRIVERS}
-                    constructors={INITIAL_CONSTRUCTORS}
+                    drivers={drivers}
+                    constructors={constructors}
                     userLineup={userLineup}
                     setUserLineup={setUserLineup}
                   />
@@ -120,11 +130,12 @@ export function App() {
                   exit={{ opacity: 0 }}
                 >
                   <TeamBuilder
-                    drivers={INITIAL_DRIVERS}
-                    constructors={INITIAL_CONSTRUCTORS}
+                    drivers={drivers}
+                    constructors={constructors}
                     chips={INITIAL_CHIPS}
                     userLineup={userLineup}
                     setUserLineup={setUserLineup}
+                    onDataUpdate={handleDataUpdate}
                   />
                 </motion.div>
               ) : tab === 'finalfix' ? (
@@ -135,7 +146,7 @@ export function App() {
                   exit={{ opacity: 0 }}
                 >
                   <FinalFixAnalyzer
-                    drivers={INITIAL_DRIVERS}
+                    drivers={drivers}
                     userLineup={userLineup}
                     setUserLineup={setUserLineup}
                   />
@@ -148,8 +159,8 @@ export function App() {
                   exit={{ opacity: 0 }}
                 >
                   <TeammateDominance
-                    drivers={INITIAL_DRIVERS}
-                    constructors={INITIAL_CONSTRUCTORS}
+                    drivers={drivers}
+                    constructors={constructors}
                   />
                 </motion.div>
               ) : (
@@ -160,8 +171,8 @@ export function App() {
                   exit={{ opacity: 0 }}
                 >
                   <RivalSpy
-                    drivers={INITIAL_DRIVERS}
-                    constructors={INITIAL_CONSTRUCTORS}
+                    drivers={drivers}
+                    constructors={constructors}
                   />
                 </motion.div>
               )}
@@ -172,8 +183,8 @@ export function App() {
 
         {/* Right Column: Top Value Picks & Fixture Calendar */}
         <RightColumn
-          drivers={INITIAL_DRIVERS}
-          circuit={CURRENT_CIRCUIT}
+          drivers={drivers}
+          circuit={circuit}
         />
 
       </div>

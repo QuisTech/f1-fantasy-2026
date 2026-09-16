@@ -10,6 +10,7 @@ interface TeamBuilderProps {
   chips: ChipStatus[];
   userLineup: UserLineup;
   setUserLineup: React.Dispatch<React.SetStateAction<UserLineup>>;
+  onDataUpdate?: (data: any) => void;
 }
 
 export const TeamBuilder: React.FC<TeamBuilderProps> = ({
@@ -17,6 +18,7 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   constructors,
   userLineup,
   setUserLineup,
+  onDataUpdate,
 }) => {
   const selectedDrivers = drivers.filter((d) => userLineup.driverIds.includes(d.id));
   const selectedConstructors = constructors.filter((c) => userLineup.constructorIds.includes(c.id));
@@ -64,21 +66,34 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   };
 
   const [isSyncing, setIsSyncing] = React.useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  const handleSync = async () => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
     setIsSyncing(true);
     try {
-      const res = await fetch('/api/import-har', { method: 'POST' });
-      if (res.ok) {
-        window.location.reload();
-      } else {
-        alert('Failed to sync. Make sure fantasy.formula1.com.har exists in your Downloads folder and you run npm run dev.');
+      const text = await file.text();
+      // Dynamically import to keep bundle small if not syncing
+      const { parseHarFile } = await import('../utils/harParser');
+      const data = await parseHarFile(text);
+      if (onDataUpdate) {
+        onDataUpdate(data);
+        alert('Data successfully synced and processed locally!');
       }
-    } catch (err) {
-      alert('Error connecting to dev server API.');
+    } catch (err: any) {
+      alert(`Error parsing HAR file: ${err.message}`);
     } finally {
       setIsSyncing(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
+  };
+
+  const handleSyncClick = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -101,8 +116,15 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
           </div>
 
           <div className="flex flex-col gap-2 w-full md:w-auto shrink-0">
+            <input 
+              type="file" 
+              accept=".har" 
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
+            />
             <button 
-              onClick={handleSync}
+              onClick={handleSyncClick}
               disabled={isSyncing}
               className="bg-blue-600/20 border border-blue-500/50 text-blue-400 font-bold text-[10px] px-3 py-1.5 rounded-lg hover:bg-blue-600/30 transition-all flex items-center justify-center gap-1.5 uppercase tracking-wider w-full disabled:opacity-50"
             >
