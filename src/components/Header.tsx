@@ -7,8 +7,6 @@ interface HeaderProps {
   circuit: Circuit;
   riskMode: 'safe' | 'aggressive' | 'value';
   setRiskMode: (mode: 'safe' | 'aggressive' | 'value') => void;
-  fuel: 'quali' | 'race' | 'eye-test';
-  setFuel: (fuel: 'quali' | 'race' | 'eye-test') => void;
   userLineup: UserLineup;
   onHarUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isSynced: boolean;
@@ -20,8 +18,6 @@ export const Header: React.FC<HeaderProps> = ({
   circuit,
   riskMode,
   setRiskMode,
-  fuel,
-  setFuel,
   userLineup,
   onHarUpload,
   isSynced,

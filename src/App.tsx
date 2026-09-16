@@ -24,8 +24,7 @@ import { optimizeLineup } from './utils/optimizer';
 
 export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
-  const [fuel, setFuel] = useState<'quali' | 'race' | 'eye-test'>('quali');
-  const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
+    const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
   const [userLineup, setUserLineup] = useState<UserLineup>(MOCK_USER_LINEUP);
   
   const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
@@ -120,8 +119,6 @@ export function App() {
           circuit={circuit}
           riskMode={riskMode}
           setRiskMode={setRiskMode}
-          fuel={fuel}
-          setFuel={setFuel}
           userLineup={derivedUserLineup}
           onHarUpload={handleHarUpload}
           isSynced={isSynced}
