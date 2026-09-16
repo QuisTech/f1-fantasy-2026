@@ -120,7 +120,6 @@ export function App() {
           riskMode={riskMode}
           setRiskMode={setRiskMode}
           userLineup={derivedUserLineup}
-          onHarUpload={handleHarUpload}
           isSynced={isSynced}
           wildcardMode={wildcardMode}
           setWildcardMode={setWildcardMode}
@@ -198,12 +197,12 @@ export function App() {
                     constructors={constructors}
                     userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
-                  
-                        lockedDriverIds={lockedDriverIds}
-                        setLockedDriverIds={setLockedDriverIds}
-                        excludedDriverIds={excludedDriverIds}
-                        setExcludedDriverIds={setExcludedDriverIds}
-                      />
+                    lockedDriverIds={lockedDriverIds}
+                    setLockedDriverIds={setLockedDriverIds}
+                    excludedDriverIds={excludedDriverIds}
+                    setExcludedDriverIds={setExcludedDriverIds}
+                    onHarUpload={handleHarUpload}
+                  />
                 </motion.div>
               ) : tab === 'optimizer' ? (
                 <motion.div

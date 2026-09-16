@@ -13,6 +13,7 @@ interface PaddockGridProps {
   setLockedDriverIds: React.Dispatch<React.SetStateAction<string[]>>;
   excludedDriverIds: string[];
   setExcludedDriverIds: React.Dispatch<React.SetStateAction<string[]>>;
+  onHarUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const PaddockGrid: React.FC<PaddockGridProps> = ({
@@ -24,6 +25,7 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
   setLockedDriverIds,
   excludedDriverIds,
   setExcludedDriverIds,
+  onHarUpload,
 }) => {
 
   const toggleLock = (e: React.MouseEvent, id: string) => {
@@ -72,6 +74,12 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
           <span className="font-bold text-fpl-green text-sm">
             +{userLineup.totalExpectedPoints.toFixed(1)} pts
           </span>
+          <span className="text-slate-600 ml-1 mr-1">•</span>
+          <label className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 text-[10px] font-bold rounded cursor-pointer border border-slate-600 transition-colors whitespace-nowrap uppercase tracking-widest">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            SYNC HAR
+            <input type="file" accept=".har" className="hidden" onChange={onHarUpload} />
+          </label>
         </div>
       </div>
 

@@ -8,7 +8,6 @@ interface HeaderProps {
   riskMode: 'safe' | 'aggressive' | 'value';
   setRiskMode: (mode: 'safe' | 'aggressive' | 'value') => void;
   userLineup: UserLineup;
-  onHarUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isSynced: boolean;
   wildcardMode: boolean;
   setWildcardMode: (mode: boolean) => void;
@@ -19,7 +18,6 @@ export const Header: React.FC<HeaderProps> = ({
   riskMode,
   setRiskMode,
   userLineup,
-  onHarUpload,
   isSynced,
   wildcardMode,
   setWildcardMode,
@@ -116,15 +114,6 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             </div>
           </div>
-          
-          <div className="flex flex-col w-full sm:w-auto justify-end h-full pt-[18px]">
-            <label className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 text-xs font-bold rounded cursor-pointer border border-slate-600 transition-colors whitespace-nowrap">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
-              SYNC HAR
-              <input type="file" accept=".har" className="hidden" onChange={onHarUpload} />
-            </label>
-          </div>
-
           
         </div>
 
