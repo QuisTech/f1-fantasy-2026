@@ -1,0 +1,122 @@
+[
+  {
+    "managerId": "0.272905018054707",
+    "managerName": "MichQuis",
+    "rank": 2169686,
+    "points": 177,
+    "drivers": [
+      {
+        "id": "11",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 3
+      },
+      {
+        "id": "11051",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 5
+      },
+      {
+        "id": "111",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 4
+      },
+      {
+        "id": "11161",
+        "isfinal": 0,
+        "iscaptain": 1,
+        "ismgcaptain": 0,
+        "playerpostion": 1
+      },
+      {
+        "id": "13",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 2
+      },
+      {
+        "id": "2636",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 7
+      },
+      {
+        "id": "28",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 6
+      }
+    ],
+    "captainId": "11161",
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": 78662316,
+    "managerName": "Monaco%202",
+    "rank": 1,
+    "points": 4074,
+    "drivers": [
+      {
+        "id": "11",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 4
+      },
+      {
+        "id": "111",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 1
+      },
+      {
+        "id": "11161",
+        "isfinal": 0,
+        "iscaptain": 1,
+        "ismgcaptain": 0,
+        "playerpostion": 2
+      },
+      {
+        "id": "115",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 3
+      },
+      {
+        "id": "121",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 5
+      },
+      {
+        "id": "25",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 6
+      },
+      {
+        "id": "28",
+        "isfinal": 0,
+        "iscaptain": 0,
+        "ismgcaptain": 0,
+        "playerpostion": 7
+      }
+    ],
+    "captainId": "11161",
+    "megaCaptainId": null,
+    "activeChip": null
+  }
+]
