@@ -129,41 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
             </label>
           </div>
 
-          {/* Telemetry Fuel Source Selector */}
-          <div className="flex flex-col w-full sm:w-auto">
-            <span className="text-[10px] uppercase tracking-widest text-slate-400 text-left sm:text-right font-medium whitespace-nowrap">
-              Telemetry Source
-            </span>
-            <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded mt-1 w-full sm:w-auto">
-              <button
-                onClick={() => setFuel('quali')}
-                className={cn(
-                  "flex-1 sm:flex-none px-3 py-1 text-[10px] rounded font-bold transition-all text-center cursor-pointer whitespace-nowrap",
-                  fuel === 'quali' ? "bg-fpl-purple text-white" : "text-slate-400 hover:text-slate-200"
-                )}
-              >
-                QUALI PACE
-              </button>
-              <button
-                onClick={() => setFuel('race')}
-                className={cn(
-                  "flex-1 sm:flex-none px-3 py-1 text-[10px] rounded font-bold transition-all text-center cursor-pointer whitespace-nowrap",
-                  fuel === 'race' ? "bg-f1-red text-white" : "text-slate-400 hover:text-slate-200"
-                )}
-              >
-                LONG RUNS
-              </button>
-              <button
-                onClick={() => setFuel('eye-test')}
-                className={cn(
-                  "flex-1 sm:flex-none px-3 py-1 text-[10px] rounded font-bold transition-all text-center cursor-pointer whitespace-nowrap",
-                  fuel === 'eye-test' ? "bg-amber-400 text-slate-950" : "text-slate-400 hover:text-slate-200"
-                )}
-              >
-                EYE-TEST
-              </button>
-            </div>
-          </div>
+          
         </div>
 
         {/* Divider */}
