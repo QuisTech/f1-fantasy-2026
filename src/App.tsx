@@ -285,7 +285,6 @@ export function App() {
         <RightColumn
           drivers={drivers}
           circuit={circuit}
-          userLineup={derivedUserLineup}
         />
 
       </div>
