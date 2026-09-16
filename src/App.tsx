@@ -18,11 +18,13 @@ import { TeamBuilder } from './components/TeamBuilder';
 import { FinalFixAnalyzer } from './components/FinalFixAnalyzer';
 import { TeammateDominance } from './components/TeammateDominance';
 import { RivalSpy } from './components/RivalSpy';
+import { MultiWeekPlanner } from './components/MultiWeekPlanner';
+import { F1_CALENDAR } from './utils/harParser';
 
 export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
   const [fuel, setFuel] = useState<'quali' | 'race' | 'eye-test'>('quali');
-  const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'metrics' | 'rivals'>('paddock');
+  const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
   const [userLineup, setUserLineup] = useState<UserLineup>(MOCK_USER_LINEUP);
   
   const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
@@ -99,6 +101,7 @@ export function App() {
                     { id: 'paddock', label: 'Paddock Grid' },
                     { id: 'optimizer', label: 'Optimizer' },
                     { id: 'finalfix', label: 'Final Fix' },
+                    { id: 'roadmap', label: 'Multi-Week Planner' },
                     { id: 'metrics', label: 'Metrics' },
                     { id: 'rivals', label: 'Rival Spy' },
                   ] as const
@@ -172,6 +175,20 @@ export function App() {
                     drivers={drivers}
                     userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
+                  />
+                </motion.div>
+              ) : tab === 'roadmap' ? (
+                <motion.div
+                  key="roadmap"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <MultiWeekPlanner
+                    drivers={drivers}
+                    constructors={constructors}
+                    userLineup={derivedUserLineup}
+                    calendar={F1_CALENDAR as any}
                   />
                 </motion.div>
               ) : tab === 'metrics' ? (
