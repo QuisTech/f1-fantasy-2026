@@ -9,7 +9,7 @@ const harImporterPlugin = () => ({
   configureServer(server: any) {
     server.middlewares.use((req: any, res: any, next: any) => {
       if (req.url === '/api/import-har' && req.method === 'POST') {
-        exec('npm run update-data', (error, stdout, stderr) => {
+        exec('node scripts/autoSync.cjs', (error, stdout, stderr) => {
           if (error) {
             console.error('Error running update-data:', stderr);
             res.statusCode = 500;
