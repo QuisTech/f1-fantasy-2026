@@ -1,4 +1,4 @@
-import type { Driver, Constructor, Circuit, UserLineup, TeamId } from '../types/f1';
+import type { Driver, Constructor, Circuit, UserLineup } from '../types/f1';
 import { optimizeLineup } from './optimizer';
 
 export interface QuantProjection {

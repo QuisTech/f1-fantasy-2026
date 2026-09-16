@@ -65,6 +65,7 @@ export interface Constructor {
 
 export interface Circuit {
   id: string;
+  date: string;
   name: string;
   grandPrixName: string;
   location: string;

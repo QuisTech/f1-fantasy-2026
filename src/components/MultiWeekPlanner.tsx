@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Network, ArrowRightLeft, TrendingUp, AlertTriangle, ShieldCheck, Zap } from 'lucide-react';
 import type { Driver, Constructor, UserLineup, Circuit } from '../types/f1';
-import { beamSearchMultiWeek, GameweekState } from '../utils/quantEngine';
+import { beamSearchMultiWeek } from '../utils/quantEngine';
+import type { GameweekState } from '../utils/quantEngine';
 
 interface Props {
   drivers: Driver[];
@@ -97,7 +98,7 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                   
                   {/* Node */}
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border-2 z-10 
-                    ${isHold ? 'bg-slate-900 border-slate-700' : 'bg-fpl-purple/20 border-fpl-purple text-fpl-purple'}`}
+                    ${isHold ? 'bg-slate-900 border-slate-700' : isPenalty ? 'bg-red-500/20 border-red-500 text-red-500' : 'bg-fpl-purple/20 border-fpl-purple text-fpl-purple'}`}
                   >
                     {isHold ? <ShieldCheck className="w-4 h-4 text-slate-400" /> : <ArrowRightLeft className="w-4 h-4" />}
                   </div>
