@@ -904,18 +904,18 @@ export const INITIAL_CONSTRUCTORS: Constructor[] = [
 ];
 
 export const CURRENT_CIRCUIT: Circuit = {
-  id: 'silverstone',
-  name: 'Silverstone Circuit',
-  grandPrixName: 'British Grand Prix',
-  location: 'Silverstone, UK',
-  countryCode: 'GB',
-  laps: 52,
-  lengthKm: 5.891,
-  overtakeDifficulty: 'Medium',
-  scProbability: 72,
-  pitLaneDeltaSec: 20.4,
-  tireDegradation: 'High',
-  activeAeroBenefit: 'Balanced',
+  id: 'baku',
+  name: 'Baku City Circuit',
+  grandPrixName: 'Azerbaijan Grand Prix',
+  location: 'Baku, Azerbaijan',
+  countryCode: 'AZ',
+  laps: 51,
+  lengthKm: 6.003,
+  overtakeDifficulty: 'Easy',
+  scProbability: 85,
+  pitLaneDeltaSec: 21.0,
+  tireDegradation: 'Low',
+  activeAeroBenefit: 'High',
 };
 
 export const INITIAL_CHIPS: ChipStatus[] = [
