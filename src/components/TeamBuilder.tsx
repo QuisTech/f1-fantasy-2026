@@ -11,6 +11,8 @@ interface TeamBuilderProps {
   userLineup: UserLineup;
   setUserLineup: React.Dispatch<React.SetStateAction<UserLineup>>;
   onDataUpdate?: (data: any) => void;
+  lockedDriverIds?: string[];
+  excludedDriverIds?: string[];
 }
 
 export const TeamBuilder: React.FC<TeamBuilderProps> = ({

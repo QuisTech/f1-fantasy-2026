@@ -112,8 +112,8 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
   }
 
   let playersPayload = null;
-  let teamPayload = null;
-  if (data.log && data.log.entries) {
+  let teamPayload: any = null;
+    if (data.log && data.log.entries) {
     for (const entry of data.log.entries) {
       try {
         if (entry.response && entry.response.content && entry.response.content.text) {
@@ -315,5 +315,45 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
     }
   });
 
-  return { drivers, constructors, circuit: getUpcomingCircuit() };
+  let userLineup: UserLineup | undefined = undefined;
+  if (teamPayload && teamPayload.Data && teamPayload.Data.Value && teamPayload.Data.Value.userTeam && teamPayload.Data.Value.userTeam.length > 0) {
+    const teamData = teamPayload.Data.Value.userTeam[0];
+    const extractedDriverIds: string[] = [];
+    const extractedConstructorIds: any[] = [];
+    let extractedCaptainId = teamData.capplayerid ? teamData.capplayerid.toString() : "";
+    
+    if (teamData.playerid) {
+      teamData.playerid.forEach((p: any) => {
+        const idStr = p.id.toString();
+        if (drivers.find((d: any) => d.id === idStr)) {
+          extractedDriverIds.push(idStr);
+          if (p.iscaptain === 1) extractedCaptainId = idStr;
+        } else if (constructorIdMap[idStr]) {
+          extractedConstructorIds.push(constructorIdMap[idStr]);
+        }
+      });
+    }
+
+    const teamBal = teamData.team_info?.teamBal || 0;
+    const teamVal = teamData.team_info?.teamVal || 100.0;
+    
+    userLineup = {
+      driverIds: extractedDriverIds,
+      constructorIds: extractedConstructorIds,
+      drsBoostDriverId: extractedCaptainId,
+      activeChip: null,
+      freeTransfers: teamData.team_info?.userSubsleft || 2,
+      bankBudget: teamBal,
+      totalCost: parseFloat((teamVal - teamBal).toFixed(1)),
+      teamValue: teamVal,
+      totalExpectedPoints: 0
+    };
+  }
+
+  return { 
+    drivers, 
+    constructors, 
+    circuit: getUpcomingCircuit(),
+    userLineup
+  };
 }

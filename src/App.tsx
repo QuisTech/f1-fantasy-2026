@@ -78,12 +78,12 @@ export function App() {
         driverIds: opt.drivers.map(d => d.id),
         constructorIds: opt.constructors.map(c => c.id),
         drsBoostDriverId: opt.drivers[0]?.id || "", // simplest fallback
-        activeChip: 'WILDCARD',
+        activeChip: 'wildcard',
         freeTransfers: 0,
         bankBudget: parseFloat((budget - opt.totalCost).toFixed(1)),
         totalCost: opt.totalCost,
         teamValue: budget,
-        totalExpectedPoints: opt.expectedPoints
+        totalExpectedPoints: opt.totalXP
       };
     }
   }
@@ -253,9 +253,7 @@ export function App() {
                     userLineup={derivedUserLineup}
                     calendar={F1_CALENDAR as any}
                   
-                        lockedDriverIds={lockedDriverIds}
-                        excludedDriverIds={excludedDriverIds}
-                      />
+                         />
                 </motion.div>
               ) : tab === 'metrics' ? (
                 <motion.div
