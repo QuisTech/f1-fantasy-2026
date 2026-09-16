@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Driver, Constructor, UserLineup } from '../types/f1';
 import { F1AssetPhoto } from './F1AssetPhoto';
-import { Star, ArrowUpRight } from 'lucide-react';
+import { Star, ArrowUpRight, Lock, Unlock, Ban } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface PaddockGridProps {
@@ -9,6 +9,10 @@ interface PaddockGridProps {
   constructors: Constructor[];
   userLineup: UserLineup;
   setUserLineup: React.Dispatch<React.SetStateAction<UserLineup>>;
+  lockedDriverIds: string[];
+  setLockedDriverIds: React.Dispatch<React.SetStateAction<string[]>>;
+  excludedDriverIds: string[];
+  setExcludedDriverIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const PaddockGrid: React.FC<PaddockGridProps> = ({
@@ -16,7 +20,32 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
   constructors,
   userLineup,
   setUserLineup,
+  lockedDriverIds,
+  setLockedDriverIds,
+  excludedDriverIds,
+  setExcludedDriverIds,
 }) => {
+
+  const toggleLock = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    if (lockedDriverIds.includes(id)) {
+      setLockedDriverIds(prev => prev.filter(x => x !== id));
+    } else {
+      setLockedDriverIds(prev => [...prev, id]);
+      setExcludedDriverIds(prev => prev.filter(x => x !== id)); // Cannot be both
+    }
+  };
+
+  const toggleExclude = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    if (excludedDriverIds.includes(id)) {
+      setExcludedDriverIds(prev => prev.filter(x => x !== id));
+    } else {
+      setExcludedDriverIds(prev => [...prev, id]);
+      setLockedDriverIds(prev => prev.filter(x => x !== id)); // Cannot be both
+    }
+  };
+
   const selectedDrivers = drivers.filter((d) => userLineup.driverIds.includes(d.id));
   const selectedConstructors = constructors.filter((c) => userLineup.constructorIds.includes(c.id));
   const benchDrivers = drivers.filter((d) => !userLineup.driverIds.includes(d.id)).slice(0, 4);
@@ -129,14 +158,24 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
                     </div>
 
                     {/* Official F1 CDN Driver Headshot */}
-                    <F1AssetPhoto
-                      type="driver"
-                      driverId={driver.id}
-                      driverShortName={driver.shortName}
-                      teamId={driver.teamId}
-                      name={driver.name}
-                      className="w-full h-16 sm:h-20 my-1 shadow-inner rounded-lg"
-                    />
+                    <div className="relative w-full my-1">
+                      <F1AssetPhoto
+                        type="driver"
+                        driverId={driver.id}
+                        driverShortName={driver.shortName}
+                        teamId={driver.teamId}
+                        name={driver.name}
+                        className="w-full h-16 sm:h-20 shadow-inner rounded-lg"
+                      />
+                      <div className="absolute top-1 right-1 flex flex-col gap-1">
+                        <button onClick={(e) => toggleLock(e, driver.id)} className={cn("p-1 rounded-md backdrop-blur shadow", lockedDriverIds.includes(driver.id) ? "bg-amber-500 text-slate-900" : "bg-slate-900/50 text-slate-400 hover:text-white")}>
+                          {lockedDriverIds.includes(driver.id) ? <Lock size={10} /> : <Unlock size={10} />}
+                        </button>
+                        <button onClick={(e) => toggleExclude(e, driver.id)} className={cn("p-1 rounded-md backdrop-blur shadow", excludedDriverIds.includes(driver.id) ? "bg-f1-red text-white" : "bg-slate-900/50 text-slate-400 hover:text-red-400")}>
+                          <Ban size={10} />
+                        </button>
+                      </div>
+                    </div>
 
                     {/* Short code + Full name stacked */}
                     <div className="w-full mt-1">
@@ -183,13 +222,23 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
           {benchDrivers.map((d) => (
             <div
               key={d.id}
-              className="bg-slate-900/70 border border-slate-800 rounded-xl p-2 sm:p-2.5 flex flex-col items-center text-center w-full transition-all hover:bg-slate-800/80"
+              className="bg-slate-900/70 border border-slate-800 rounded-xl p-2 sm:p-2.5 flex flex-col items-center text-center w-full transition-all hover:bg-slate-800/80 relative"
             >
               <div className="w-full flex justify-between items-center text-[9px] font-mono text-slate-500 mb-1">
                 <span>P{d.gridPosition}</span>
               </div>
               
-              <F1AssetPhoto type="driver" driverId={d.id} driverShortName={d.shortName} teamId={d.teamId} name={d.name} className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg shrink-0 my-1" />
+              <div className="relative my-1">
+                <F1AssetPhoto type="driver" driverId={d.id} driverShortName={d.shortName} teamId={d.teamId} name={d.name} className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg shrink-0" />
+                <div className="absolute top-0 right-[-24px] flex flex-col gap-1">
+                  <button onClick={(e) => toggleLock(e, d.id)} className={cn("p-1 rounded-md backdrop-blur shadow", lockedDriverIds.includes(d.id) ? "bg-amber-500 text-slate-900" : "bg-slate-900/50 text-slate-400 hover:text-white")}>
+                    {lockedDriverIds.includes(d.id) ? <Lock size={8} /> : <Unlock size={8} />}
+                  </button>
+                  <button onClick={(e) => toggleExclude(e, d.id)} className={cn("p-1 rounded-md backdrop-blur shadow", excludedDriverIds.includes(d.id) ? "bg-f1-red text-white" : "bg-slate-900/50 text-slate-400 hover:text-red-400")}>
+                    <Ban size={8} />
+                  </button>
+                </div>
+              </div>
 
               <div className="w-full mt-1">
                 <div className="text-[11px] sm:text-xs font-black text-white leading-none">

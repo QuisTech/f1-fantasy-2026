@@ -1,4 +1,4 @@
-import type { Driver, Constructor, Circuit } from '../types/f1';
+import type { Driver, Constructor, Circuit, UserLineup } from '../types/f1';
 
 // 2026 F1 Calendar with Dates and Telemetry
 export const F1_CALENDAR = [
@@ -103,7 +103,7 @@ function generateDeterministicStats(driverName: string) {
   return { delta, tdi, orp, wetWeatherSkill, tireManagement };
 }
 
-export async function parseHarFile(fileContent: string): Promise<{ drivers: Driver[], constructors: Constructor[], circuit: Circuit }> {
+export async function parseHarFile(fileContent: string): Promise<{ drivers: Driver[], constructors: Constructor[], circuit: Circuit, userLineup?: UserLineup }> {
   let data;
   try {
     data = JSON.parse(fileContent);
@@ -112,6 +112,7 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
   }
 
   let playersPayload = null;
+  let teamPayload = null;
   if (data.log && data.log.entries) {
     for (const entry of data.log.entries) {
       try {
@@ -119,7 +120,11 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
           const text = entry.response.content.text;
           if (text.includes('Verstappen') && text.includes('FirstName') && text.includes('PositionName')) {
             playersPayload = JSON.parse(text);
-            break;
+          }
+          if (entry.request.url.includes('getteam') && text.includes('team_info')) {
+            try {
+              teamPayload = JSON.parse(text);
+            } catch(e){}
           }
         }
       } catch (e) {}
@@ -182,6 +187,7 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
 
   const drivers: Driver[] = [];
   const constructors: Constructor[] = [];
+  const constructorIdMap: Record<string, string> = {};
   const RACES_COMPLETED = 17;
 
   rawPlayers.forEach((p: any) => {
@@ -266,6 +272,7 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
       });
     } else if (isConstructor) {
       const teamId = mapTeamId(p.LastName || p.TeamName);
+      constructorIdMap[p.PlayerId.toString()] = teamId;
       constructors.push({
         id: teamId,
         name: p.LastName || p.TeamName,

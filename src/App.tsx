@@ -19,7 +19,8 @@ import { FinalFixAnalyzer } from './components/FinalFixAnalyzer';
 import { TeammateDominance } from './components/TeammateDominance';
 import { RivalSpy } from './components/RivalSpy';
 import { MultiWeekPlanner } from './components/MultiWeekPlanner';
-import { F1_CALENDAR } from './utils/harParser';
+import { F1_CALENDAR, parseHarFile } from './utils/harParser';
+import { optimizeLineup } from './utils/optimizer';
 
 export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
@@ -30,6 +31,35 @@ export function App() {
   const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
   const [constructors, setConstructors] = useState(INITIAL_CONSTRUCTORS);
   const [circuit, setCircuit] = useState(CURRENT_CIRCUIT);
+  
+  const [isSynced, setIsSynced] = useState(false);
+  const [lockedDriverIds, setLockedDriverIds] = useState<string[]>([]);
+  const [excludedDriverIds, setExcludedDriverIds] = useState<string[]>([]);
+  const [wildcardMode, setWildcardMode] = useState(!isSynced); // Defaults to true if not synced
+
+  const handleHarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const text = e.target?.result as string;
+        const result = await parseHarFile(text);
+        setDrivers(result.drivers);
+        setConstructors(result.constructors);
+        setCircuit(result.circuit);
+        if (result.userLineup) {
+          setUserLineup(result.userLineup);
+          setIsSynced(true);
+          setWildcardMode(false); // Switch to their team view
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Failed to parse HAR file.');
+      }
+    };
+    reader.readAsText(file);
+  };
 
   const handleDataUpdate = (data: any) => {
     setDrivers(data.drivers);
@@ -37,9 +67,30 @@ export function App() {
     setCircuit(data.circuit);
   };
 
+  // If Wildcard Mode, we compute the Global Optimum on the fly
+  let effectiveUserLineup = userLineup;
+  if (wildcardMode) {
+    // For wildcard mode, assume 100M budget if not synced, or their real teamValue if synced
+    const budget = isSynced ? effectiveUserLineup.teamValue : 100.0;
+    const opt = optimizeLineup(drivers, constructors, budget, lockedDriverIds, excludedDriverIds);
+    if (opt) {
+      effectiveUserLineup = {
+        driverIds: opt.drivers.map(d => d.id),
+        constructorIds: opt.constructors.map(c => c.id),
+        drsBoostDriverId: opt.drivers[0]?.id || "", // simplest fallback
+        activeChip: 'WILDCARD',
+        freeTransfers: 0,
+        bankBudget: parseFloat((budget - opt.totalCost).toFixed(1)),
+        totalCost: opt.totalCost,
+        teamValue: budget,
+        totalExpectedPoints: opt.expectedPoints
+      };
+    }
+  }
+
   // Derive dynamic totals based on selected IDs
-  const selectedDrivers = drivers.filter(d => userLineup.driverIds.includes(d.id));
-  const selectedConstructors = constructors.filter(c => userLineup.constructorIds.includes(c.id));
+  const selectedDrivers = drivers.filter(d => effectiveUserLineup.driverIds.includes(d.id));
+  const selectedConstructors = constructors.filter(c => effectiveUserLineup.constructorIds.includes(c.id));
   
   const driverCost = selectedDrivers.reduce((acc, d) => acc + d.price, 0);
   const constructorCost = selectedConstructors.reduce((acc, c) => acc + c.price, 0);
@@ -47,16 +98,16 @@ export function App() {
   
   let totalXP = 0;
   selectedDrivers.forEach(d => {
-    totalXP += (d.id === userLineup.drsBoostDriverId) ? d.xP * 2 : d.xP;
+    totalXP += (d.id === effectiveUserLineup.drsBoostDriverId) ? d.xP * 2 : d.xP;
   });
   selectedConstructors.forEach(c => {
     totalXP += c.xP;
   });
 
   const derivedUserLineup = {
-    ...userLineup,
+    ...effectiveUserLineup,
     totalCost,
-    bankBudget: userLineup.teamValue - totalCost,
+    bankBudget: effectiveUserLineup.teamValue - totalCost,
     totalExpectedPoints: totalXP
   };
 
@@ -72,6 +123,10 @@ export function App() {
           fuel={fuel}
           setFuel={setFuel}
           userLineup={derivedUserLineup}
+          onHarUpload={handleHarUpload}
+          isSynced={isSynced}
+          wildcardMode={wildcardMode}
+          setWildcardMode={setWildcardMode}
         />
 
         {/* Left Column: Metrics & Squad Values */}
@@ -146,7 +201,12 @@ export function App() {
                     constructors={constructors}
                     userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
-                  />
+                  
+                        lockedDriverIds={lockedDriverIds}
+                        setLockedDriverIds={setLockedDriverIds}
+                        excludedDriverIds={excludedDriverIds}
+                        setExcludedDriverIds={setExcludedDriverIds}
+                      />
                 </motion.div>
               ) : tab === 'optimizer' ? (
                 <motion.div
@@ -162,7 +222,10 @@ export function App() {
                     userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
                     onDataUpdate={handleDataUpdate}
-                  />
+                  
+                        lockedDriverIds={lockedDriverIds}
+                        excludedDriverIds={excludedDriverIds}
+                      />
                 </motion.div>
               ) : tab === 'finalfix' ? (
                 <motion.div
@@ -189,7 +252,10 @@ export function App() {
                     constructors={constructors}
                     userLineup={derivedUserLineup}
                     calendar={F1_CALENDAR as any}
-                  />
+                  
+                        lockedDriverIds={lockedDriverIds}
+                        excludedDriverIds={excludedDriverIds}
+                      />
                 </motion.div>
               ) : tab === 'metrics' ? (
                 <motion.div

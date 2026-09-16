@@ -10,6 +10,10 @@ interface HeaderProps {
   fuel: 'quali' | 'race' | 'eye-test';
   setFuel: (fuel: 'quali' | 'race' | 'eye-test') => void;
   userLineup: UserLineup;
+  onHarUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isSynced: boolean;
+  wildcardMode: boolean;
+  setWildcardMode: (mode: boolean) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,6 +23,10 @@ export const Header: React.FC<HeaderProps> = ({
   fuel,
   setFuel,
   userLineup,
+  onHarUpload,
+  isSynced,
+  wildcardMode,
+  setWildcardMode,
 }) => {
   return (
     <header className="col-span-12 flex flex-col xl:flex-row gap-4 items-stretch xl:items-center justify-between mb-4">
@@ -83,6 +91,42 @@ export const Header: React.FC<HeaderProps> = ({
                 VALUE
               </button>
             </div>
+          </div>
+
+          <div className="flex flex-col w-full sm:w-auto">
+            <span className="text-[10px] uppercase tracking-widest text-slate-400 text-left sm:text-right font-medium whitespace-nowrap">
+              Team Mode
+            </span>
+            <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded mt-1 w-full sm:w-auto">
+              <button
+                onClick={() => setWildcardMode(false)}
+                disabled={!isSynced}
+                className={cn(
+                  "flex-1 sm:flex-none px-3 py-1 text-[10px] rounded font-bold transition-all text-center whitespace-nowrap",
+                  !wildcardMode ? "bg-f1-red text-white" : "text-slate-500 hover:text-slate-300",
+                  !isSynced && "opacity-30 cursor-not-allowed"
+                )}
+              >
+                {isSynced ? "MY TEAM" : "UNSYNCED"}
+              </button>
+              <button
+                onClick={() => setWildcardMode(true)}
+                className={cn(
+                  "flex-1 sm:flex-none px-3 py-1 text-[10px] rounded font-bold transition-all text-center cursor-pointer whitespace-nowrap flex items-center justify-center gap-1",
+                  wildcardMode ? "bg-cyan-500 text-slate-950" : "text-slate-400 hover:text-slate-200"
+                )}
+              >
+                GLOBAL OPTIMUM
+              </button>
+            </div>
+          </div>
+          
+          <div className="flex flex-col w-full sm:w-auto justify-end h-full pt-[18px]">
+            <label className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 text-xs font-bold rounded cursor-pointer border border-slate-600 transition-colors whitespace-nowrap">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+              SYNC HAR
+              <input type="file" accept=".har" className="hidden" onChange={onHarUpload} />
+            </label>
           </div>
 
           {/* Telemetry Fuel Source Selector */}

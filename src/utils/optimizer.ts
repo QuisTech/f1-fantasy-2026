@@ -15,10 +15,13 @@ export interface OptimizationResult {
 export function optimizeLineup(
   drivers: Driver[],
   constructors: Constructor[],
-  maxBudget: number = 100.0
+  maxBudget: number = 100.0,
+  lockedDriverIds: string[] = [],
+  excludedDriverIds: string[] = []
 ): OptimizationResult | null {
   let bestResult: OptimizationResult | null = null;
   let maxXP = -1;
+  const validDrivers = drivers.filter(d => !excludedDriverIds.includes(d.id));
 
   // Combination generator for 2 constructors out of 10
   for (let c1 = 0; c1 < constructors.length; c1++) {
@@ -31,19 +34,31 @@ export function optimizeLineup(
 
       const remainingDriverBudget = maxBudget - constrCost;
 
-      // 5 drivers out of 20 drivers
-      for (let d1 = 0; d1 < drivers.length; d1++) {
-        for (let d2 = d1 + 1; d2 < drivers.length; d2++) {
-          for (let d3 = d2 + 1; d3 < drivers.length; d3++) {
-            for (let d4 = d3 + 1; d4 < drivers.length; d4++) {
-              for (let d5 = d4 + 1; d5 < drivers.length; d5++) {
+      // 5 drivers out of filtered drivers
+      for (let d1 = 0; d1 < validDrivers.length; d1++) {
+        for (let d2 = d1 + 1; d2 < validDrivers.length; d2++) {
+          for (let d3 = d2 + 1; d3 < validDrivers.length; d3++) {
+            for (let d4 = d3 + 1; d4 < validDrivers.length; d4++) {
+              for (let d5 = d4 + 1; d5 < validDrivers.length; d5++) {
                 const driverCombo = [
-                  drivers[d1],
-                  drivers[d2],
-                  drivers[d3],
-                  drivers[d4],
-                  drivers[d5],
+                  validDrivers[d1],
+                  validDrivers[d2],
+                  validDrivers[d3],
+                  validDrivers[d4],
+                  validDrivers[d5],
                 ];
+                
+                // Enforce lock constraint
+                if (lockedDriverIds.length > 0) {
+                  let hasAllLocked = true;
+                  for (const lockedId of lockedDriverIds) {
+                    if (!driverCombo.find(d => d.id === lockedId)) {
+                      hasAllLocked = false;
+                      break;
+                    }
+                  }
+                  if (!hasAllLocked) continue;
+                }
 
                 const driverCost = driverCombo.reduce((acc, d) => acc + d.price, 0);
 

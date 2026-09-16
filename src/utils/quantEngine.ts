@@ -152,13 +152,21 @@ function generateNextStates(
   projection: QuantProjection,
   drivers: Driver[],
   constructors: Constructor[],
-  gwIndex: number
+  gwIndex: number,
+  lockedDriverIds: string[],
+  excludedDriverIds: string[]
 ): GameweekState[] {
   const nextStates: GameweekState[] = [];
   const maxBudget = currentState.bankBudget + getLineupCost(currentState.driverIds, currentState.constructorIds, drivers, constructors);
 
   // Helper to score and push a state
   const pushState = (newDriverIds: string[], newConstructorIds: string[], actionDesc: string, penalty: number, isWildcard: boolean = false) => {
+    for (const id of newDriverIds) {
+      if (excludedDriverIds.includes(id)) return;
+    }
+    for (const lockedId of lockedDriverIds) {
+      if (!newDriverIds.includes(lockedId)) return;
+    }
     const cost = getLineupCost(newDriverIds, newConstructorIds, drivers, constructors);
     if (cost <= maxBudget) {
       // Auto-assign DRS to highest projected xP driver
@@ -218,7 +226,7 @@ function generateNextStates(
   // Note: For a production scale we would generate 2-transfer combinations and Wildcard combinations here.
   // To keep the UI responsive, we rely on the 1-transfer beam width expansion, which inherently
   // explores 2-transfers over two gameweeks. For Wildcard, we can inject the "Optimize" result.
-  const wcResult = optimizeLineup(drivers, constructors, maxBudget);
+  const wcResult = optimizeLineup(drivers, constructors, maxBudget, lockedDriverIds, excludedDriverIds);
   if (wcResult) {
     const wcDriverIds = wcResult.drivers.map(d => d.id);
     const wcConstructorIds = wcResult.constructors.map(c => c.id);
@@ -234,7 +242,9 @@ export function beamSearchMultiWeek(
   drivers: Driver[],
   constructors: Constructor[],
   upcomingCircuits: Circuit[],
-  beamWidth: number = 10
+  beamWidth: number = 10,
+  lockedDriverIds: string[] = [],
+  excludedDriverIds: string[] = []
 ): GameweekState {
   
   // Initialize beam with start state
@@ -257,7 +267,7 @@ export function beamSearchMultiWeek(
     let nextBeam: GameweekState[] = [];
 
     for (const state of currentBeam) {
-      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw);
+      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds);
       nextBeam = nextBeam.concat(expandedStates);
     }
 
