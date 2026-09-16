@@ -17,7 +17,8 @@ export function optimizeLineup(
   constructors: Constructor[],
   maxBudget: number = 100.0,
   lockedDriverIds: string[] = [],
-  excludedDriverIds: string[] = []
+  excludedDriverIds: string[] = [],
+  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe'
 ): OptimizationResult | null {
   let bestResult: OptimizationResult | null = null;
   let maxXP = -1;
@@ -63,12 +64,19 @@ export function optimizeLineup(
                 const driverCost = driverCombo.reduce((acc, d) => acc + d.price, 0);
 
                 if (driverCost <= remainingDriverBudget) {
-                  // Find driver with highest xP to assign 2x DRS Boost
-                  const sortedByXP = [...driverCombo].sort((a, b) => b.xP - a.xP);
+                  
+                  const getEffectiveXP = (d: Driver) => {
+                    let eff = d.xP;
+                    if (strategyMode === 'aggressive') eff += (d.orp * 0.15);
+                    else if (strategyMode === 'safe') eff -= (d.orp * 0.05);
+                    else if (strategyMode === 'value') eff += (10 / Math.max(d.price, 1));
+                    return eff;
+                  };
+
+                  const sortedByXP = [...driverCombo].sort((a, b) => getEffectiveXP(b) - getEffectiveXP(a));
                   const drsDriver = sortedByXP[0];
                   
-                  // Base xP + extra 1x for DRS Driver (making it 2x total)
-                  const driverXP = driverCombo.reduce((acc, d) => acc + d.xP, 0) + drsDriver.xP;
+                  const driverXP = driverCombo.reduce((acc, d) => acc + getEffectiveXP(d), 0) + getEffectiveXP(drsDriver);
                   const totalLineupXP = driverXP + constrXP;
                   const totalCost = constrCost + driverCost;
 

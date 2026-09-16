@@ -50,9 +50,9 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Control Panel Bar matching FPL Admin */}
-      <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between xl:justify-end gap-3 xl:gap-4 bg-card-bg/50 p-3 sm:p-4 rounded-xl border border-fpl-border w-full xl:w-auto">
+      <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between xl:justify-end gap-4 xl:gap-6 bg-card-bg/50 p-3.5 sm:p-4 rounded-xl border border-fpl-border w-full xl:w-auto">
         
-        <div className="flex flex-wrap items-end sm:items-center justify-start sm:justify-end gap-3 sm:gap-4 w-full xl:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between sm:justify-end gap-3 sm:gap-6 w-full xl:w-auto">
           {/* Strategy Mode Toggle */}
           <div className="flex flex-col w-full sm:w-auto">
             <span className="text-[10px] uppercase tracking-widest text-slate-400 text-left sm:text-right font-medium whitespace-nowrap">
@@ -117,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
           
-          <div className="flex flex-col w-full sm:w-auto justify-end h-full">
+          <div className="flex flex-col w-full sm:w-auto justify-end h-full pt-[18px]">
             <label className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 text-xs font-bold rounded cursor-pointer border border-slate-600 transition-colors whitespace-nowrap">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
               SYNC HAR
@@ -132,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="h-px xl:h-8 w-full xl:w-px bg-slate-800 my-1 xl:my-0 shrink-0"></div>
 
         {/* Expected Points Summary */}
-        <div className="flex flex-wrap items-center justify-between xl:justify-end gap-3 xl:gap-4 w-full xl:w-auto whitespace-nowrap mt-2 xl:mt-0">
+        <div className="flex items-center justify-between xl:justify-end gap-4 xl:gap-6 w-full xl:w-auto whitespace-nowrap">
           <div className="flex flex-col text-left xl:text-right whitespace-nowrap">
             <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium whitespace-nowrap">
               Expected Points

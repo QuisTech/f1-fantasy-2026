@@ -71,7 +71,7 @@ export function App() {
   if (wildcardMode) {
     // For wildcard mode, assume 100M budget if not synced, or their real teamValue if synced
     const budget = isSynced ? effectiveUserLineup.teamValue : 100.0;
-    const opt = optimizeLineup(drivers, constructors, budget, lockedDriverIds, excludedDriverIds);
+    const opt = optimizeLineup(drivers, constructors, budget, lockedDriverIds, excludedDriverIds, riskMode);
     if (opt) {
       effectiveUserLineup = {
         driverIds: opt.drivers.map(d => d.id),
