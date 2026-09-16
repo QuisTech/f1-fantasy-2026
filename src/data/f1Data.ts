@@ -904,18 +904,18 @@ export const INITIAL_CONSTRUCTORS: Constructor[] = [
 ];
 
 export const CURRENT_CIRCUIT: Circuit = {
-  id: 'baku',
-  name: 'Baku City Circuit',
-  grandPrixName: 'Azerbaijan Grand Prix',
-  location: 'Baku, Azerbaijan',
-  countryCode: 'AZ',
-  laps: 51,
-  lengthKm: 6.003,
-  overtakeDifficulty: 'Low',
-  scProbability: 85,
-  pitLaneDeltaSec: 21.0,
-  tireDegradation: 'Low',
-  activeAeroBenefit: 'X-Mode Straights',
+  "id": "baku",
+  "name": "Baku City Circuit",
+  "grandPrixName": "Azerbaijan Grand Prix",
+  "location": "Baku, Azerbaijan",
+  "countryCode": "AZ",
+  "laps": 51,
+  "lengthKm": 6.003,
+  "overtakeDifficulty": "Low",
+  "scProbability": 85,
+  "pitLaneDeltaSec": 21,
+  "tireDegradation": "Low",
+  "activeAeroBenefit": "X-Mode Straights"
 };
 
 export const INITIAL_CHIPS: ChipStatus[] = [
