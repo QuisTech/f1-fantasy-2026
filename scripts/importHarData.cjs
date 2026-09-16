@@ -301,11 +301,11 @@ export const CURRENT_CIRCUIT: Circuit = {
   countryCode: 'AZ',
   laps: 51,
   lengthKm: 6.003,
-  overtakeDifficulty: 'Easy',
+  overtakeDifficulty: 'Low',
   scProbability: 85,
   pitLaneDeltaSec: 21.0,
   tireDegradation: 'Low',
-  activeAeroBenefit: 'High',
+  activeAeroBenefit: 'X-Mode Straights',
 };
 
 export const INITIAL_CHIPS: ChipStatus[] = [
