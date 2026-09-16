@@ -984,8 +984,8 @@ export const MOCK_USER_LINEUP: UserLineup = {
   activeChip: null,
   freeTransfers: 2,
   bankBudget: 2.5,
-  totalCost: 97.5,
-  teamValue: 100.0,
+  totalCost: 106.2,
+  teamValue: 110.0,
   totalExpectedPoints: 175.5,
 };
 

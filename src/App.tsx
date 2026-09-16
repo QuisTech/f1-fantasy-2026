@@ -56,7 +56,7 @@ export function App() {
   const derivedUserLineup = {
     ...userLineup,
     totalCost,
-    bankBudget: 100.0 - totalCost,
+    bankBudget: userLineup.teamValue - totalCost,
     totalExpectedPoints: totalXP
   };
 
