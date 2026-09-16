@@ -16,9 +16,12 @@ const TEAM_LIVERY: Record<TeamId, { primary: string; secondary: string; accent: 
   aston_martin: { primary: '#229971', secondary: '#CEDC00', accent: '#FFFFFF', dark: '#031f16' },
   williams: { primary: '#64C4FF', secondary: '#00205B', accent: '#FFFFFF', dark: '#000c24' },
   rb: { primary: '#6692FF', secondary: '#FFFFFF', accent: '#D1001C', dark: '#0a1638' },
+  racing_bulls: { primary: '#6692FF', secondary: '#FFFFFF', accent: '#D1001C', dark: '#0a1638' },
   haas: { primary: '#B6BABD', secondary: '#E6002B', accent: '#000000', dark: '#1a1a1a' },
   sauber: { primary: '#52E252', secondary: '#000000', accent: '#FFFFFF', dark: '#072407' },
   alpine: { primary: '#0093CC', secondary: '#FF87BC', accent: '#FFFFFF', dark: '#001824' },
+  audi: { primary: '#E3000F', secondary: '#000000', accent: '#FFFFFF', dark: '#1a0000' },
+  cadillac: { primary: '#FFB81C', secondary: '#000000', accent: '#FFFFFF', dark: '#1a1400' },
 };
 
 export const F1CarGraphic: React.FC<F1CarGraphicProps> = ({

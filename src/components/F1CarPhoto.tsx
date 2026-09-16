@@ -10,9 +10,12 @@ const OFFICIAL_F1_CAR_IMAGES: Record<TeamId, string> = {
   aston_martin: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/astonmartin.png',
   williams: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/williams.png',
   rb: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/rb.png',
+  racing_bulls: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/rb.png',
   haas: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/haas.png',
   sauber: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/sauber.png',
   alpine: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/alpine.png',
+  audi: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/audi.png',
+  cadillac: 'https://media.formula1.com/image/upload/v1740000000/fom-website/2026/cars/cadillac.png',
 };
 
 // Fallback high-resolution car cutout renders
@@ -24,9 +27,12 @@ const OFFICIAL_F1_CAR_FALLBACKS: Record<TeamId, string> = {
   aston_martin: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/astonmartin_side.png',
   williams: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/williams_side.png',
   rb: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/rb_side.png',
+  racing_bulls: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/rb_side.png',
   haas: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/haas_side.png',
   sauber: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/sauber_side.png',
   alpine: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/alpine_side.png',
+  audi: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/audi_side.png',
+  cadillac: 'https://raw.githubusercontent.com/f1-data/assets/main/2026/cars/cadillac_side.png',
 };
 
 // Team Color Tokens
@@ -38,9 +44,12 @@ const TEAM_COLORS: Record<TeamId, { primary: string; secondary: string }> = {
   aston_martin: { primary: '#229971', secondary: '#CEDC00' },
   williams: { primary: '#64C4FF', secondary: '#00205B' },
   rb: { primary: '#6692FF', secondary: '#FFFFFF' },
+  racing_bulls: { primary: '#6692FF', secondary: '#FFFFFF' },
   haas: { primary: '#B6BABD', secondary: '#E6002B' },
   sauber: { primary: '#52E252', secondary: '#000000' },
   alpine: { primary: '#0093CC', secondary: '#FF87BC' },
+  audi: { primary: '#E3000F', secondary: '#000000' },
+  cadillac: { primary: '#FFB81C', secondary: '#000000' },
 };
 
 interface F1CarPhotoProps {
