@@ -35,6 +35,29 @@ export function App() {
     setCircuit(data.circuit);
   };
 
+  // Derive dynamic totals based on selected IDs
+  const selectedDrivers = drivers.filter(d => userLineup.driverIds.includes(d.id));
+  const selectedConstructors = constructors.filter(c => userLineup.constructorIds.includes(c.id));
+  
+  const driverCost = selectedDrivers.reduce((acc, d) => acc + d.price, 0);
+  const constructorCost = selectedConstructors.reduce((acc, c) => acc + c.price, 0);
+  const totalCost = driverCost + constructorCost;
+  
+  let totalXP = 0;
+  selectedDrivers.forEach(d => {
+    totalXP += (d.id === userLineup.drsBoostDriverId) ? d.xP * 2 : d.xP;
+  });
+  selectedConstructors.forEach(c => {
+    totalXP += c.xP;
+  });
+
+  const derivedUserLineup = {
+    ...userLineup,
+    totalCost,
+    bankBudget: 100.0 - totalCost,
+    totalExpectedPoints: totalXP
+  };
+
   return (
     <div className="min-h-screen bg-[#020617] text-[#f8fafc] p-4 sm:p-6 font-sans">
       <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-4 auto-rows-min">
@@ -46,12 +69,12 @@ export function App() {
           setRiskMode={setRiskMode}
           fuel={fuel}
           setFuel={setFuel}
-          userLineup={userLineup}
+          userLineup={derivedUserLineup}
         />
 
         {/* Left Column: Metrics & Squad Values */}
         <MetricsColumn
-          userLineup={userLineup}
+          userLineup={derivedUserLineup}
           drivers={drivers}
           riskMode={riskMode}
         />
@@ -118,7 +141,7 @@ export function App() {
                   <PaddockGrid
                     drivers={drivers}
                     constructors={constructors}
-                    userLineup={userLineup}
+                    userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
                   />
                 </motion.div>
@@ -133,7 +156,7 @@ export function App() {
                     drivers={drivers}
                     constructors={constructors}
                     chips={INITIAL_CHIPS}
-                    userLineup={userLineup}
+                    userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
                     onDataUpdate={handleDataUpdate}
                   />
@@ -147,7 +170,7 @@ export function App() {
                 >
                   <FinalFixAnalyzer
                     drivers={drivers}
-                    userLineup={userLineup}
+                    userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
                   />
                 </motion.div>
