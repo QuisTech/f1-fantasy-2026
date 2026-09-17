@@ -899,15 +899,15 @@ export const INITIAL_CHIPS: ChipStatus[] = [
 
 export const DEFAULT_USER_TEAMS: Record<ManagedTeamId, UserLineup> = {
   T1: {
-    driverIds: ["11161", "121", "12", "118", "11031"],
+    driverIds: ["11161", "121", "11059", "111", "11031"],
     constructorIds: ["mercedes", "racing_bulls"],
     drsBoostDriverId: "11161",
     activeChip: 'wildcard',
     freeTransfers: 0,
-    bankBudget: 2.9,
-    totalCost: 99.3,
+    bankBudget: 3.2,
+    totalCost: 99.0,
     teamValue: 102.2,
-    totalExpectedPoints: 176.5,
+    totalExpectedPoints: 176.7,
     teamName: "MichQuis",
     teamCode: "T1",
   },
