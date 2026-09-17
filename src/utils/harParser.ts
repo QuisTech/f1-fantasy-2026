@@ -103,7 +103,7 @@ function generateDeterministicStats(driverName: string) {
   return { delta, tdi, orp, wetWeatherSkill, tireManagement };
 }
 
-export async function parseHarFile(fileContent: string): Promise<{ drivers: Driver[], constructors: Constructor[], circuit: Circuit, userLineup?: UserLineup }> {
+export async function parseHarFile(fileContent: string): Promise<{ drivers: Driver[], constructors: Constructor[], circuit: Circuit, userLineup?: UserLineup, eliteCohort?: any[] }> {
   let data;
   try {
     data = JSON.parse(fileContent);
@@ -113,7 +113,8 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
 
   let playersPayload = null;
   let teamPayload: any = null;
-    if (data.log && data.log.entries) {
+  let eliteCohortPayload: any = null;
+  if (data.log && data.log.entries) {
     for (const entry of data.log.entries) {
       try {
         if (entry.response && entry.response.content && entry.response.content.text) {
@@ -124,6 +125,14 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
           if (entry.request.url.includes('getteam') && text.includes('team_info')) {
             try {
               teamPayload = JSON.parse(text);
+            } catch(e){}
+          }
+          if ((entry.request.url.includes('list_1_0_1.json') || entry.request.url.includes('leaderboard')) && text.includes('leaderboard')) {
+            try {
+              const parsed = JSON.parse(text);
+              if (parsed.Value && parsed.Value.leaderboard) {
+                eliteCohortPayload = parsed.Value.leaderboard;
+              }
             } catch(e){}
           }
         }
@@ -350,10 +359,30 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
     };
   }
 
+  let eliteCohort: any[] | undefined = undefined;
+  if (eliteCohortPayload && Array.isArray(eliteCohortPayload)) {
+    eliteCohort = eliteCohortPayload.map((m: any) => {
+      let name = m.team_name || m.user_name || 'Manager';
+      try { name = decodeURIComponent(name); } catch(e){}
+      return {
+        managerId: m.social_id || m.user_guid,
+        managerName: name,
+        userName: m.user_name || '',
+        rank: m.cur_rank || 0,
+        points: m.cur_points || 0,
+        drivers: Array.isArray(m.user_team) ? m.user_team : [],
+        captainId: null,
+        megaCaptainId: null,
+        activeChip: null
+      };
+    });
+  }
+
   return { 
     drivers, 
     constructors, 
     circuit: getUpcomingCircuit(),
-    userLineup
+    userLineup,
+    eliteCohort
   };
 }

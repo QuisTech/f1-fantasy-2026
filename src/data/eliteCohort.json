@@ -1,121 +1,9512 @@
 [
   {
-    "managerId": "0.272905018054707",
-    "managerName": "MichQuis",
-    "rank": 2169686,
-    "points": 177,
+    "managerId": "78662316",
+    "managerName": "Monaco 2",
+    "userName": "Donald Marino",
+    "rank": 1,
+    "points": 4074,
     "drivers": [
-      {
-        "id": "11",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 3
-      },
-      {
-        "id": "11051",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 5
-      },
-      {
-        "id": "111",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 4
-      },
-      {
-        "id": "11161",
-        "isfinal": 0,
-        "iscaptain": 1,
-        "ismgcaptain": 0,
-        "playerpostion": 1
-      },
-      {
-        "id": "13",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 2
-      },
-      {
-        "id": "2636",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 7
-      },
-      {
-        "id": "28",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 6
-      }
+      "111",
+      "11161",
+      "115",
+      "11",
+      "121",
+      "25",
+      "28"
     ],
-    "captainId": "11161",
+    "captainId": null,
     "megaCaptainId": null,
     "activeChip": null
   },
   {
-    "managerId": 78662316,
-    "managerName": "Monaco%202",
-    "rank": 1,
-    "points": 4074,
+    "managerId": "218135234",
+    "managerName": "ZEEMAX",
+    "userName": "Paul Zanecchia",
+    "rank": 2,
+    "points": 4063,
     "drivers": [
-      {
-        "id": "11",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 4
-      },
-      {
-        "id": "111",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 1
-      },
-      {
-        "id": "11161",
-        "isfinal": 0,
-        "iscaptain": 1,
-        "ismgcaptain": 0,
-        "playerpostion": 2
-      },
-      {
-        "id": "115",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 3
-      },
-      {
-        "id": "121",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 5
-      },
-      {
-        "id": "25",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 6
-      },
-      {
-        "id": "28",
-        "isfinal": 0,
-        "iscaptain": 0,
-        "ismgcaptain": 0,
-        "playerpostion": 7
-      }
+      "117",
+      "11161",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
     ],
-    "captainId": "11161",
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "181049416",
+    "managerName": "Mr. Moser",
+    "userName": "William OS",
+    "rank": 3,
+    "points": 4056,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "76158873",
+    "managerName": "Escuderia Luso-Americano",
+    "userName": "Nelson Teves",
+    "rank": 4,
+    "points": 4047,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188871147",
+    "managerName": "Benicio Del Toro Rosso",
+    "userName": "Ben Blium",
+    "rank": 5,
+    "points": 4038,
+    "drivers": [
+      "115",
+      "11161",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "39650110",
+    "managerName": "overtake is available",
+    "userName": "Brian Kirkham",
+    "rank": 6,
+    "points": 4036,
+    "drivers": [
+      "111",
+      "115",
+      "11",
+      "11161",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217999343",
+    "managerName": "2 drivers 1 car",
+    "userName": "Ainis Margalikas",
+    "rank": 7,
+    "points": 4035,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "226901927",
+    "managerName": "Bradichello",
+    "userName": "Marko Konfic",
+    "rank": 8,
+    "points": 4032,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "165950841",
+    "managerName": "nå alligevel",
+    "userName": "Mathias Yde",
+    "rank": 9,
+    "points": 4031,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "129",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218051168",
+    "managerName": "LaRams",
+    "userName": "Rami Boraie",
+    "rank": 10,
+    "points": 4022,
+    "drivers": [
+      "11161",
+      "11051",
+      "111",
+      "11149",
+      "11059",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "159597866",
+    "managerName": "DRS or Bust",
+    "userName": "Steph MacDonald",
+    "rank": 11,
+    "points": 4018,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11149",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "223879099",
+    "managerName": "787 PFKR",
+    "userName": "Francisco Lopez",
+    "rank": 11,
+    "points": 4018,
+    "drivers": [
+      "117",
+      "11161",
+      "11",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "167178023",
+    "managerName": "P8 Gasly",
+    "userName": "Moinul Islam",
+    "rank": 13,
+    "points": 4017,
+    "drivers": [
+      "124",
+      "111",
+      "11161",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "191149756",
+    "managerName": "Bolso Locura 1899",
+    "userName": "Martín Gutiérrez",
+    "rank": 14,
+    "points": 4014,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "144494115",
+    "managerName": "superlekker",
+    "userName": "Kayla Yoon",
+    "rank": 15,
+    "points": 4013,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218080803",
+    "managerName": "Vermin Supreme",
+    "userName": "Alexander Ghouse",
+    "rank": 16,
+    "points": 4011,
+    "drivers": [
+      "11161",
+      "117",
+      "11051",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "182449462",
+    "managerName": "AwayWeGo",
+    "userName": "Chris Khan",
+    "rank": 16,
+    "points": 4011,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11051",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "114416759",
+    "managerName": "Too Fast Too Festy",
+    "userName": "Daniel Lovisotto",
+    "rank": 18,
+    "points": 4010,
+    "drivers": [
+      "124",
+      "111",
+      "11",
+      "11161",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "115073426",
+    "managerName": "gold rush",
+    "userName": "Chris Nesbit",
+    "rank": 18,
+    "points": 4010,
+    "drivers": [
+      "11161",
+      "11149",
+      "111",
+      "11",
+      "116",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "133052088",
+    "managerName": "EVR team 1.0",
+    "userName": "Ewan VanRensburg",
+    "rank": 20,
+    "points": 4009,
+    "drivers": [
+      "11149",
+      "11161",
+      "111",
+      "12",
+      "115",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "221313075",
+    "managerName": "F1TZ...",
+    "userName": "Brian Curcio",
+    "rank": 21,
+    "points": 4008,
+    "drivers": [
+      "115",
+      "11161",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202517570",
+    "managerName": "Zarathustra Racing",
+    "userName": "Yaroslav Parshutin",
+    "rank": 21,
+    "points": 4008,
+    "drivers": [
+      "115",
+      "11161",
+      "11",
+      "111",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217701093",
+    "managerName": "Inferno Racing 3",
+    "userName": "Josef Ong",
+    "rank": 23,
+    "points": 4007,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "211743500",
+    "managerName": "Looking Good Lewis",
+    "userName": "JohnT Jables",
+    "rank": 23,
+    "points": 4007,
+    "drivers": [
+      "121",
+      "11161",
+      "11149",
+      "111",
+      "124",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "201904954",
+    "managerName": "Pack a Lap",
+    "userName": "Jonathan La Para",
+    "rank": 25,
+    "points": 4003,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178801472",
+    "managerName": "Carlitos55",
+    "userName": "carlos martí",
+    "rank": 25,
+    "points": 4003,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179447390",
+    "managerName": "Makova88",
+    "userName": "Davor Bozic",
+    "rank": 27,
+    "points": 4002,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "43114813",
+    "managerName": "JJ Lehto Cruises 3",
+    "userName": "Obama Opa",
+    "rank": 28,
+    "points": 3997,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "129",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "198577097",
+    "managerName": "AndreaTeam2",
+    "userName": "Andrea Ricci",
+    "rank": 29,
+    "points": 3996,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "223984521",
+    "managerName": "SlowHorses1",
+    "userName": "Konstantin Todorović",
+    "rank": 30,
+    "points": 3995,
+    "drivers": [
+      "131",
+      "11161",
+      "11149",
+      "12",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "46872557",
+    "managerName": "TheViper&Newey_Pranav",
+    "userName": "Pranav Narang",
+    "rank": 30,
+    "points": 3995,
+    "drivers": [
+      "111",
+      "11161",
+      "11149",
+      "124",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217712139",
+    "managerName": "Jedi Master",
+    "userName": "Russel Fairweather",
+    "rank": 32,
+    "points": 3994,
+    "drivers": [
+      "11161",
+      "131",
+      "13",
+      "111",
+      "121",
+      "28",
+      "29"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177681461",
+    "managerName": "Scuderia Gaston Fasito",
+    "userName": "Jagernaut ll",
+    "rank": 33,
+    "points": 3993,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "190909026",
+    "managerName": "Baldelicious",
+    "userName": "Thomas Baldacci",
+    "rank": 34,
+    "points": 3992,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231967661",
+    "managerName": "Blueprint",
+    "userName": "Johannes Salvesen-Lunde",
+    "rank": 35,
+    "points": 3990,
+    "drivers": [
+      "11161",
+      "116",
+      "12",
+      "11",
+      "111",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202580439",
+    "managerName": "Deep Racing",
+    "userName": "Andrea D'Ippoliti",
+    "rank": 36,
+    "points": 3989,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188426468",
+    "managerName": "AtaraxiaRacing",
+    "userName": "ryan carduner",
+    "rank": 37,
+    "points": 3988,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177979504",
+    "managerName": "CHAMPION '25",
+    "userName": "Jackson Taylor",
+    "rank": 37,
+    "points": 3988,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217861250",
+    "managerName": "PancevoGP",
+    "userName": "Milan Runic",
+    "rank": 39,
+    "points": 3987,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "205259183",
+    "managerName": "Aazir Ahamed",
+    "userName": "Aazir Ahamed",
+    "rank": 40,
+    "points": 3986,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179450904",
+    "managerName": "Tramersiz!",
+    "userName": "goktug karabulut",
+    "rank": 40,
+    "points": 3986,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217836058",
+    "managerName": "EFLFANTASYJOSH",
+    "userName": "Josh Jones",
+    "rank": 40,
+    "points": 3986,
+    "drivers": [
+      "117",
+      "11161",
+      "121",
+      "111",
+      "11",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "110698490",
+    "managerName": "Rishi #1",
+    "userName": "Rishi Thariani",
+    "rank": 43,
+    "points": 3985,
+    "drivers": [
+      "115",
+      "11161",
+      "111",
+      "11149",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189001522",
+    "managerName": "Ultimate Delulu ;)",
+    "userName": "Karam Alamad",
+    "rank": 43,
+    "points": 3985,
+    "drivers": [
+      "11161",
+      "124",
+      "11051",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "191548063",
+    "managerName": "G4F12026",
+    "userName": "Grant Ferry",
+    "rank": 43,
+    "points": 3985,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177984545",
+    "managerName": "Kauniit Kampelat F1",
+    "userName": "Santeri Kotajärvi",
+    "rank": 46,
+    "points": 3984,
+    "drivers": [
+      "11161",
+      "121",
+      "117",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "180824040",
+    "managerName": "Brian the Snail",
+    "userName": "Brian Clayton",
+    "rank": 46,
+    "points": 3984,
+    "drivers": [
+      "11149",
+      "11161",
+      "18",
+      "111",
+      "11051",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217928226",
+    "managerName": "Prancing Silver Arrows",
+    "userName": "Vish Pillai",
+    "rank": 48,
+    "points": 3982,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178827202",
+    "managerName": "Boxx Boxx 26",
+    "userName": "Robert Hartmann",
+    "rank": 48,
+    "points": 3982,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "198079744",
+    "managerName": "Team Dynamix",
+    "userName": "Michael Consuelos",
+    "rank": 50,
+    "points": 3981,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11051",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "132446372",
+    "managerName": "Ron Dennisin keskikaista",
+    "userName": "Joonas Tanninen",
+    "rank": 50,
+    "points": 3981,
+    "drivers": [
+      "124",
+      "11",
+      "11161",
+      "121",
+      "111",
+      "25",
+      "28",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232395465",
+    "managerName": "Verstaliban F1",
+    "userName": "Ekaterina Delendik",
+    "rank": 50,
+    "points": 3981,
+    "drivers": [
+      "1982",
+      "11161",
+      "121",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232068160",
+    "managerName": "Pickle Rick - Delta",
+    "userName": "Richard Runkle",
+    "rank": 53,
+    "points": 3980,
+    "drivers": [
+      "115",
+      "11161",
+      "111",
+      "11051",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203043225",
+    "managerName": "O'Con Air",
+    "userName": "Mitchell Smith",
+    "rank": 54,
+    "points": 3978,
+    "drivers": [
+      "11149",
+      "121",
+      "124",
+      "11161",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177917478",
+    "managerName": "Redbull Espresso",
+    "userName": "Rahul Kanjani",
+    "rank": 54,
+    "points": 3978,
+    "drivers": [
+      "129",
+      "11161",
+      "11149",
+      "124",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178028226",
+    "managerName": "Viggo & Stefan Dreamteam",
+    "userName": "Viggo Sjöblom",
+    "rank": 56,
+    "points": 3977,
+    "drivers": [
+      "11161",
+      "111",
+      "117",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188484842",
+    "managerName": "Checo's Sombreros",
+    "userName": "Ari Pelli-Nilsen",
+    "rank": 56,
+    "points": 3977,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "185781462",
+    "managerName": "Giussa B&B Global Racing.",
+    "userName": "Giussa giussa",
+    "rank": 58,
+    "points": 3976,
+    "drivers": [
+      "11161",
+      "111",
+      "11031",
+      "124",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217652095",
+    "managerName": "Stop Gass-lyting Me",
+    "userName": "Bryan Brockman",
+    "rank": 58,
+    "points": 3976,
+    "drivers": [
+      "117",
+      "121",
+      "11161",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "187781011",
+    "managerName": "Rcogidubnus",
+    "userName": "Ruben Gordon",
+    "rank": 58,
+    "points": 3976,
+    "drivers": [
+      "11161",
+      "111",
+      "121",
+      "124",
+      "11",
+      "28",
+      "25",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217785337",
+    "managerName": "papaya zoom",
+    "userName": "Joakim Lindkvist",
+    "rank": 58,
+    "points": 3976,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11031",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189051940",
+    "managerName": "Klopp of the pops",
+    "userName": "Santiago Lopez",
+    "rank": 62,
+    "points": 3975,
+    "drivers": [
+      "11161",
+      "111",
+      "124",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178985741",
+    "managerName": "Dad's DNF Support Group",
+    "userName": "Brett Hailey",
+    "rank": 63,
+    "points": 3974,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "201958647",
+    "managerName": "P1 Lawson",
+    "userName": "Max McGuire",
+    "rank": 64,
+    "points": 3973,
+    "drivers": [
+      "110",
+      "11161",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231802148",
+    "managerName": "Babriel Gortoleto",
+    "userName": "Mateus Varela",
+    "rank": 64,
+    "points": 3973,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "147305952",
+    "managerName": "Sanfer NaboRT",
+    "userName": "David Flores",
+    "rank": 66,
+    "points": 3972,
+    "drivers": [
+      "124",
+      "121",
+      "11149",
+      "111",
+      "11161",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179197506",
+    "managerName": "Smooth Daviderator",
+    "userName": "Dennis Ameling",
+    "rank": 67,
+    "points": 3971,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202663660",
+    "managerName": "BEEP BEEP FACTORY",
+    "userName": "Michele Vezzoli",
+    "rank": 68,
+    "points": 3970,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218012923",
+    "managerName": "Ben's tricky reds",
+    "userName": "Ben Hay",
+    "rank": 68,
+    "points": 3970,
+    "drivers": [
+      "117",
+      "11161",
+      "121",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232588423",
+    "managerName": "LSDTurbo8",
+    "userName": "Liana Dueck",
+    "rank": 70,
+    "points": 3969,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232559224",
+    "managerName": "F1 Scholar",
+    "userName": "Lois Conovan",
+    "rank": 70,
+    "points": 3969,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "115450849",
+    "managerName": "SLHDK3",
+    "userName": "Sigurd Hansen",
+    "rank": 72,
+    "points": 3968,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218142843",
+    "managerName": "SallyF1",
+    "userName": "Diana Ramirez",
+    "rank": 73,
+    "points": 3967,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "180590874",
+    "managerName": "lawless lawson",
+    "userName": "Stanton Borthwick",
+    "rank": 74,
+    "points": 3966,
+    "drivers": [
+      "11149",
+      "121",
+      "124",
+      "11161",
+      "111",
+      "25",
+      "28",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217730872",
+    "managerName": "Sandbag Haters",
+    "userName": "Khye Bailey",
+    "rank": 74,
+    "points": 3966,
+    "drivers": [
+      "11161",
+      "129",
+      "111",
+      "124",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "90732244",
+    "managerName": "Still InDOMitable!",
+    "userName": "Dominic Oxford",
+    "rank": 76,
+    "points": 3965,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217983702",
+    "managerName": "2025 Global Rank 4 - T2",
+    "userName": "Maciej Kaliński",
+    "rank": 77,
+    "points": 3962,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "209642046",
+    "managerName": "Petrjesuper",
+    "userName": "",
+    "rank": 77,
+    "points": 3962,
+    "drivers": [
+      "117",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "44495305",
+    "managerName": "ARobarCarteras2",
+    "userName": "Jacobo Lopez Pedrouzo",
+    "rank": 79,
+    "points": 3961,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "151860807",
+    "managerName": "Irons Racing",
+    "userName": "Nathan Smith",
+    "rank": 79,
+    "points": 3961,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217884046",
+    "managerName": "Need for Speed and Points",
+    "userName": "Matthew Williams",
+    "rank": 81,
+    "points": 3960,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "198451105",
+    "managerName": "Memola F1",
+    "userName": "Daymon Sanchez",
+    "rank": 81,
+    "points": 3960,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "184885539",
+    "managerName": "Strolling into a DNF",
+    "userName": "James Wood",
+    "rank": 83,
+    "points": 3958,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "75826301",
+    "managerName": "JumpInDaCadillac",
+    "userName": "Jevon Nesarajah",
+    "rank": 83,
+    "points": 3958,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "39207348",
+    "managerName": "Kring Racing",
+    "userName": "Christoffer Yde Kring",
+    "rank": 85,
+    "points": 3957,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179184382",
+    "managerName": "SuckMyHaasss",
+    "userName": "Hindrik Lamar",
+    "rank": 86,
+    "points": 3956,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "224025963",
+    "managerName": "Pierre's Smooth Operators",
+    "userName": "Adam Ryan",
+    "rank": 86,
+    "points": 3956,
+    "drivers": [
+      "11161",
+      "111",
+      "11051",
+      "1982",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "48940064",
+    "managerName": "APPLE MORNINGSTAR F1 TEAM",
+    "userName": "Jorge Barroso",
+    "rank": 86,
+    "points": 3956,
+    "drivers": [
+      "11161",
+      "11051",
+      "124",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178460163",
+    "managerName": "Merc F1 Domination",
+    "userName": "Rafael Machado",
+    "rank": 86,
+    "points": 3956,
+    "drivers": [
+      "124",
+      "111",
+      "11161",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178484312",
+    "managerName": "\"Eh, Why Not?\"",
+    "userName": "Michael Cronje",
+    "rank": 90,
+    "points": 3955,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11149",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178189239",
+    "managerName": "Max AirForceOne",
+    "userName": "Valentin Toma",
+    "rank": 90,
+    "points": 3955,
+    "drivers": [
+      "11161",
+      "111",
+      "11149",
+      "11051",
+      "115",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "42985079",
+    "managerName": "Nahar Three",
+    "userName": "Nahar Abdul Rahman Sabri",
+    "rank": 92,
+    "points": 3954,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "173108950",
+    "managerName": "Cigarettes",
+    "userName": "Rob Rogacki",
+    "rank": 92,
+    "points": 3954,
+    "drivers": [
+      "121",
+      "11161",
+      "111",
+      "11149",
+      "124",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35153948",
+    "managerName": "A7B RAC1NG",
+    "userName": "Adam Bendali",
+    "rank": 92,
+    "points": 3954,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "191391019",
+    "managerName": "F1 Academy JessyG",
+    "userName": "Jessy G Ponce de Leon",
+    "rank": 95,
+    "points": 3953,
+    "drivers": [
+      "115",
+      "11161",
+      "11",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188937008",
+    "managerName": "AK All Day T2",
+    "userName": "Andrew Kleshinski",
+    "rank": 96,
+    "points": 3952,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11149",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "180927981",
+    "managerName": "Bunch of Wonkers",
+    "userName": "Ketan Sachdeva",
+    "rank": 96,
+    "points": 3952,
+    "drivers": [
+      "11161",
+      "124",
+      "12",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178560587",
+    "managerName": "FanAmp Fantasy HQ",
+    "userName": "Adam Medeiros",
+    "rank": 96,
+    "points": 3952,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156366783",
+    "managerName": "Bonkers4F1",
+    "userName": "Matthew Wieduwilt",
+    "rank": 96,
+    "points": 3952,
+    "drivers": [
+      "11161",
+      "11149",
+      "111",
+      "11051",
+      "130",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188575836",
+    "managerName": "Still I Rise Canada2",
+    "userName": "Stephen Stanger",
+    "rank": 96,
+    "points": 3952,
+    "drivers": [
+      "117",
+      "11161",
+      "121",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "230191023",
+    "managerName": "sweat baby. ki ki KIMI",
+    "userName": "Andrew Xu",
+    "rank": 101,
+    "points": 3951,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "183222178",
+    "managerName": "Lando Slowrris",
+    "userName": "Putra Juharis",
+    "rank": 101,
+    "points": 3951,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232216152",
+    "managerName": "Lucky Geon",
+    "userName": "Geon Suresh",
+    "rank": 101,
+    "points": 3951,
+    "drivers": [
+      "11161",
+      "115",
+      "11",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177817430",
+    "managerName": "San Vini",
+    "userName": "Vinicio Olivier",
+    "rank": 101,
+    "points": 3951,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202716252",
+    "managerName": "Haas-ta La Vista Son",
+    "userName": "Jan Maroske",
+    "rank": 101,
+    "points": 3951,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "174645601",
+    "managerName": "T2 EL_Plan_Is_Fast_Racing",
+    "userName": "Jennifer Schwartz",
+    "rank": 106,
+    "points": 3950,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178996564",
+    "managerName": "Steve has Tacos",
+    "userName": "Steve Cooper",
+    "rank": 106,
+    "points": 3950,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "174051137",
+    "managerName": "Junes 1",
+    "userName": "Arnulfo Gonzalez",
+    "rank": 108,
+    "points": 3949,
+    "drivers": [
+      "130",
+      "11161",
+      "18",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202310908",
+    "managerName": "Ferrari Fizz",
+    "userName": "TRE VA",
+    "rank": 109,
+    "points": 3948,
+    "drivers": [
+      "111",
+      "11161",
+      "11",
+      "121",
+      "124",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177872184",
+    "managerName": "DaireF1",
+    "userName": "Dáire Meehan",
+    "rank": 109,
+    "points": 3948,
+    "drivers": [
+      "124",
+      "11161",
+      "11051",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218028032",
+    "managerName": "Clinching B4 Summer Again",
+    "userName": "Jimmie Thurman",
+    "rank": 109,
+    "points": 3948,
+    "drivers": [
+      "117",
+      "11161",
+      "111",
+      "121",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232138396",
+    "managerName": "i show peed",
+    "userName": "Harrison McGinniss",
+    "rank": 112,
+    "points": 3947,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156249413",
+    "managerName": "@yankthemike3",
+    "userName": "Michael Fierman",
+    "rank": 112,
+    "points": 3947,
+    "drivers": [
+      "11161",
+      "111",
+      "124",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203057264",
+    "managerName": "Turnball Tornado",
+    "userName": "Nigel Southall",
+    "rank": 114,
+    "points": 3946,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232050198",
+    "managerName": "Hamilton's Hill",
+    "userName": "Simon Down",
+    "rank": 114,
+    "points": 3946,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203059852",
+    "managerName": "Yos is cheating",
+    "userName": "Ivan Yudistira",
+    "rank": 116,
+    "points": 3945,
+    "drivers": [
+      "124",
+      "111",
+      "11161",
+      "11051",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "200911626",
+    "managerName": "Testing Grounds 3",
+    "userName": "Susan Merriam",
+    "rank": 117,
+    "points": 3944,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "121198660",
+    "managerName": "SBINNALAA",
+    "userName": "Thomas Hordle",
+    "rank": 117,
+    "points": 3944,
+    "drivers": [
+      "115",
+      "11161",
+      "11051",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "198496853",
+    "managerName": "Gromits Greats",
+    "userName": "Heather Pedley",
+    "rank": 119,
+    "points": 3943,
+    "drivers": [
+      "11161",
+      "124",
+      "11051",
+      "121",
+      "111",
+      "25",
+      "28",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156732765",
+    "managerName": "No VERstopping Me II",
+    "userName": "Georges Al SAYEGH",
+    "rank": 120,
+    "points": 3942,
+    "drivers": [
+      "11",
+      "11161",
+      "117",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178186251",
+    "managerName": "Ruri Cadillac F1 Team",
+    "userName": "Rubén Colmenares",
+    "rank": 120,
+    "points": 3942,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "129",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232615421",
+    "managerName": "InSainz in the membrane,",
+    "userName": "Michael Weightman",
+    "rank": 122,
+    "points": 3941,
+    "drivers": [
+      "111",
+      "117",
+      "11",
+      "11149",
+      "11161",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "224000586",
+    "managerName": "WDC (Oscar's Version)",
+    "userName": "Dylan McCowan",
+    "rank": 122,
+    "points": 3941,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "174820263",
+    "managerName": "therealdeal1",
+    "userName": "Svetoslav Ivanov",
+    "rank": 122,
+    "points": 3941,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "201966607",
+    "managerName": "mHAASterClass",
+    "userName": "Antonino Valenti",
+    "rank": 122,
+    "points": 3941,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179392466",
+    "managerName": "Bloomin' Onion",
+    "userName": "Taylor Jackson",
+    "rank": 122,
+    "points": 3941,
+    "drivers": [
+      "11161",
+      "11051",
+      "11",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217686187",
+    "managerName": "МРІЯ - Din 3",
+    "userName": "Dmytro Chelyadin",
+    "rank": 122,
+    "points": 3941,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "163477231",
+    "managerName": "Annihilators",
+    "userName": "Vaibhav Tibrewal",
+    "rank": 128,
+    "points": 3940,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "79320104",
+    "managerName": "PinkMiru",
+    "userName": "Miruna Amico",
+    "rank": 128,
+    "points": 3940,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "194215717",
+    "managerName": "Opius the great",
+    "userName": "",
+    "rank": 128,
+    "points": 3940,
+    "drivers": [
+      "121",
+      "111",
+      "11161",
+      "11149",
+      "124",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202708589",
+    "managerName": "Kiss my Aston!",
+    "userName": "Jake McMullan",
+    "rank": 131,
+    "points": 3939,
+    "drivers": [
+      "11161",
+      "116",
+      "11051",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232153460",
+    "managerName": "Vitesse Apex",
+    "userName": "Vanessa Liew",
+    "rank": 131,
+    "points": 3939,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188628424",
+    "managerName": "RoadToBarcelona2027",
+    "userName": "Samuel Dancak",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189355489",
+    "managerName": "Sweet JP",
+    "userName": "Lawrence Kwok",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "115",
+      "11161",
+      "11149",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "183930220",
+    "managerName": "Hazard_NRS",
+    "userName": "Nish Salia",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202736331",
+    "managerName": "ooh la la GP",
+    "userName": "Olivier Pierre-Noel",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "1982",
+      "11",
+      "111",
+      "11149",
+      "11161",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "54783423",
+    "managerName": "Ferr..ahh stop!",
+    "userName": "Colin Sutton",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "115",
+      "11161",
+      "11",
+      "129",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179431547",
+    "managerName": "F2ASKO",
+    "userName": "Marius Klemp Petersen",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202700415",
+    "managerName": "Red Italy F1F",
+    "userName": "Emmanuele Di Liberto",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217891569",
+    "managerName": "Scuderia LaRecova Racing",
+    "userName": "Joan Scoseria",
+    "rank": 133,
+    "points": 3938,
+    "drivers": [
+      "11161",
+      "11149",
+      "11051",
+      "11059",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218036088",
+    "managerName": "What's in the Box Box",
+    "userName": "Alex Mac",
+    "rank": 141,
+    "points": 3937,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11",
+      "111",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "61747557",
+    "managerName": "Snabb som fan",
+    "userName": "Albin Nejman",
+    "rank": 141,
+    "points": 3937,
+    "drivers": [
+      "124",
+      "11",
+      "111",
+      "121",
+      "11161",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178145024",
+    "managerName": "VrõnnVrõnn",
+    "userName": "Triin Laht",
+    "rank": 141,
+    "points": 3937,
+    "drivers": [
+      "111",
+      "11161",
+      "116",
+      "130",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177849606",
+    "managerName": "Breadman's Army",
+    "userName": "Sam McGlashan",
+    "rank": 141,
+    "points": 3937,
+    "drivers": [
+      "121",
+      "11149",
+      "117",
+      "11161",
+      "111",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "135373564",
+    "managerName": "Zacs Hotline",
+    "userName": "Neil Sneyd",
+    "rank": 145,
+    "points": 3936,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217873513",
+    "managerName": "Chocobanana Leclerc",
+    "userName": "Alan Carlson",
+    "rank": 145,
+    "points": 3936,
+    "drivers": [
+      "11161",
+      "1982",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "161620023",
+    "managerName": "PompoRacing",
+    "userName": "Roberto De Sousa",
+    "rank": 147,
+    "points": 3935,
+    "drivers": [
+      "11161",
+      "117",
+      "129",
+      "111",
+      "11",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "132416743",
+    "managerName": "2 HAAS too Furious",
+    "userName": "James Newton",
+    "rank": 147,
+    "points": 3935,
+    "drivers": [
+      "11161",
+      "111",
+      "11059",
+      "11051",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "75984670",
+    "managerName": "mercurial duo",
+    "userName": "Udhbav Bharadwaj",
+    "rank": 147,
+    "points": 3935,
+    "drivers": [
+      "121",
+      "11161",
+      "11",
+      "111",
+      "124",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188196475",
+    "managerName": "zero-sidepod",
+    "userName": "Collins Muyangwa",
+    "rank": 147,
+    "points": 3935,
+    "drivers": [
+      "11161",
+      "11149",
+      "115",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "49615398",
+    "managerName": "Battery Drain",
+    "userName": "Matt Burnett",
+    "rank": 147,
+    "points": 3935,
+    "drivers": [
+      "117",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "180444996",
+    "managerName": "Ostur Pínuraspi 81",
+    "userName": "Hákon Magnusson",
+    "rank": 152,
+    "points": 3934,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "167467648",
+    "managerName": "McLardonk",
+    "userName": "Vincent Bcn",
+    "rank": 152,
+    "points": 3934,
+    "drivers": [
+      "115",
+      "11161",
+      "11149",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "120953393",
+    "managerName": "leclerc it cook",
+    "userName": "Dan Fradana",
+    "rank": 152,
+    "points": 3934,
+    "drivers": [
+      "11161",
+      "111",
+      "11051",
+      "117",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231965208",
+    "managerName": "K-Clubbb",
+    "userName": "Wiktoria Popińska",
+    "rank": 152,
+    "points": 3934,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188206002",
+    "managerName": "Milhouse T2",
+    "userName": "Andrew Stasiewski",
+    "rank": 152,
+    "points": 3934,
+    "drivers": [
+      "124",
+      "111",
+      "11161",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178001623",
+    "managerName": "Brewed Awakening",
+    "userName": "Terry Widdows",
+    "rank": 157,
+    "points": 3933,
+    "drivers": [
+      "111",
+      "11161",
+      "124",
+      "121",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232534291",
+    "managerName": "GrandeKimi!!!",
+    "userName": "Joey Kao",
+    "rank": 158,
+    "points": 3932,
+    "drivers": [
+      "11161",
+      "111",
+      "11149",
+      "116",
+      "11051",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "216760578",
+    "managerName": "Grim Racing V2",
+    "userName": "Daniel O'Brien",
+    "rank": 158,
+    "points": 3932,
+    "drivers": [
+      "11161",
+      "111",
+      "115",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178667771",
+    "managerName": "Goose F1",
+    "userName": "Theo Wildgoose",
+    "rank": 158,
+    "points": 3932,
+    "drivers": [
+      "124",
+      "11161",
+      "129",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189016540",
+    "managerName": "CulersF2",
+    "userName": "Ahmet Suljkanovic",
+    "rank": 158,
+    "points": 3932,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "129",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "206661388",
+    "managerName": "Baa-Rain Racing Team",
+    "userName": "Alex Smith",
+    "rank": 162,
+    "points": 3931,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "111",
+      "12",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178570029",
+    "managerName": "CHANEL15/10/25",
+    "userName": "kouki koko",
+    "rank": 162,
+    "points": 3931,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "129",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188770097",
+    "managerName": "Livin' Rent Free...",
+    "userName": "Mike Moorhouse",
+    "rank": 162,
+    "points": 3931,
+    "drivers": [
+      "11161",
+      "115",
+      "11",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217514629",
+    "managerName": "Stroll is Beached",
+    "userName": "Nick Reid",
+    "rank": 162,
+    "points": 3931,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202438882",
+    "managerName": "natalewis",
+    "userName": "natalie aronson",
+    "rank": 162,
+    "points": 3931,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217037982",
+    "managerName": "KuriousJuju",
+    "userName": "Kurious Juju",
+    "rank": 167,
+    "points": 3930,
+    "drivers": [
+      "11161",
+      "117",
+      "11051",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156356202",
+    "managerName": "Cardashians 2.0",
+    "userName": "Lotta Lausjärvi",
+    "rank": 167,
+    "points": 3930,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218816912",
+    "managerName": "Lumley Speed Syndicate",
+    "userName": "Gareth Lumley",
+    "rank": 167,
+    "points": 3930,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "155950328",
+    "managerName": "Bench boys",
+    "userName": "Sathwik Alladi",
+    "rank": 167,
+    "points": 3930,
+    "drivers": [
+      "124",
+      "11161",
+      "11051",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156356202",
+    "managerName": "Vantaan vauhti",
+    "userName": "Lotta Lausjärvi",
+    "rank": 167,
+    "points": 3930,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "228254122",
+    "managerName": "999ʞɹɐɯ",
+    "userName": "Mark Mangroo",
+    "rank": 167,
+    "points": 3930,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "155231390",
+    "managerName": "Alejandro_Vegan F1",
+    "userName": "Alejandro Betancourt",
+    "rank": 173,
+    "points": 3929,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231795414",
+    "managerName": "Josefien Prullemie",
+    "userName": "Josefien Borremans",
+    "rank": 173,
+    "points": 3929,
+    "drivers": [
+      "111",
+      "11161",
+      "124",
+      "11",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "161655881",
+    "managerName": "Arvizu F1 Team",
+    "userName": "Ricardo Arvizu",
+    "rank": 175,
+    "points": 3928,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "183134048",
+    "managerName": "ForMag",
+    "userName": "Magnus Stattin Rönn",
+    "rank": 175,
+    "points": 3928,
+    "drivers": [
+      "11161",
+      "115",
+      "121",
+      "13",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202535921",
+    "managerName": "Pain InThe Bottas",
+    "userName": "Gabriel Pereira Simoes",
+    "rank": 175,
+    "points": 3928,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "185167070",
+    "managerName": "Crawling Tortoise 2",
+    "userName": "Calvin Wong",
+    "rank": 175,
+    "points": 3928,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217742532",
+    "managerName": "King Fred",
+    "userName": "FH Ameling",
+    "rank": 175,
+    "points": 3928,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "129",
+      "11051",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179178564",
+    "managerName": "all-fishlis-f1",
+    "userName": "Myriam Garas",
+    "rank": 180,
+    "points": 3927,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189892032",
+    "managerName": "Mazespin on top",
+    "userName": "George Lawrence",
+    "rank": 180,
+    "points": 3927,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "47156142",
+    "managerName": "Taras26",
+    "userName": "Matthew Taras",
+    "rank": 182,
+    "points": 3926,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218059084",
+    "managerName": "Du_Du_Du_DuMaxVerstappen",
+    "userName": "Joris Gorsen",
+    "rank": 182,
+    "points": 3926,
+    "drivers": [
+      "11161",
+      "11",
+      "11149",
+      "110",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "182634359",
+    "managerName": "JayD 2",
+    "userName": "Jadrick Guérard",
+    "rank": 182,
+    "points": 3926,
+    "drivers": [
+      "11161",
+      "11149",
+      "111",
+      "115",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "43089789",
+    "managerName": "The Team With No Name",
+    "userName": "GLENN GRANT",
+    "rank": 182,
+    "points": 3926,
+    "drivers": [
+      "115",
+      "11149",
+      "11",
+      "11161",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "98907974",
+    "managerName": "MAINGOAL Consulting F1",
+    "userName": "Bruno Rodrigues",
+    "rank": 182,
+    "points": 3926,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "212878520",
+    "managerName": "Crank It",
+    "userName": "Izak Jansen van Vuuren",
+    "rank": 182,
+    "points": 3926,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "76321059",
+    "managerName": "Pepega Racing Team 3",
+    "userName": "Mmm Vtec",
+    "rank": 188,
+    "points": 3925,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156562496",
+    "managerName": "Mrs Griffo 3",
+    "userName": "Denise Griffith",
+    "rank": 188,
+    "points": 3925,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11149",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177869662",
+    "managerName": "Genold Stopović Racing",
+    "userName": "iQar Box Box",
+    "rank": 188,
+    "points": 3925,
+    "drivers": [
+      "11161",
+      "115",
+      "11",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35284683",
+    "managerName": "AngeloRacingF2",
+    "userName": "Angelo Cabreja",
+    "rank": 188,
+    "points": 3925,
+    "drivers": [
+      "11161",
+      "115",
+      "121",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218031428",
+    "managerName": "RH Points Team",
+    "userName": "Ryan Hussey",
+    "rank": 192,
+    "points": 3924,
+    "drivers": [
+      "11161",
+      "110",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "204235075",
+    "managerName": "Alpine's#1Fan",
+    "userName": "Leica Ma",
+    "rank": 192,
+    "points": 3924,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177935453",
+    "managerName": "Hope is the game plan",
+    "userName": "Bobcat Davis",
+    "rank": 192,
+    "points": 3924,
+    "drivers": [
+      "118",
+      "11161",
+      "11051",
+      "130",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179309547",
+    "managerName": "Shalshal",
+    "userName": "Dor Sholdanrain",
+    "rank": 192,
+    "points": 3924,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11149",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "222549797",
+    "managerName": "xcRacing",
+    "userName": "Amy Hodder",
+    "rank": 192,
+    "points": 3924,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232277909",
+    "managerName": "TimsF1Team",
+    "userName": "Tim Lehmann",
+    "rank": 192,
+    "points": 3924,
+    "drivers": [
+      "11161",
+      "114",
+      "118",
+      "11031",
+      "11051",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "184418443",
+    "managerName": "Wade in America 2",
+    "userName": "Wade Gross",
+    "rank": 192,
+    "points": 3924,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "129",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "220737667",
+    "managerName": "RB: Racing Buns",
+    "userName": "Lj Jalme",
+    "rank": 199,
+    "points": 3923,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "159330840",
+    "managerName": "RKN Racing",
+    "userName": "Shazy Noorazman",
+    "rank": 199,
+    "points": 3923,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "143956550",
+    "managerName": "Team 2 2 2",
+    "userName": "Kye Millinson",
+    "rank": 201,
+    "points": 3922,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "216727387",
+    "managerName": "Morph Racing",
+    "userName": "Morphr Natus",
+    "rank": 201,
+    "points": 3922,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217738794",
+    "managerName": "Međimurski Lepi Dečki",
+    "userName": "Ante Bralic",
+    "rank": 203,
+    "points": 3921,
+    "drivers": [
+      "11161",
+      "117",
+      "11051",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "172828951",
+    "managerName": "Viski Hadjarin sisällä",
+    "userName": "Niklas Johansson",
+    "rank": 203,
+    "points": 3921,
+    "drivers": [
+      "117",
+      "11161",
+      "111",
+      "11051",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178788604",
+    "managerName": "Pompey Racing 1",
+    "userName": "Chris Knott",
+    "rank": 203,
+    "points": 3921,
+    "drivers": [
+      "121",
+      "11161",
+      "111",
+      "11",
+      "124",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203734390",
+    "managerName": "PPP Paco's pole position",
+    "userName": "Francisco Ubeda",
+    "rank": 203,
+    "points": 3921,
+    "drivers": [
+      "11161",
+      "111",
+      "115",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "133066718",
+    "managerName": "Antoniastri Martinelli",
+    "userName": "Never Look Back Martins",
+    "rank": 203,
+    "points": 3921,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "152473513",
+    "managerName": "FLEETWOODMAX1",
+    "userName": "Hayden Neil",
+    "rank": 203,
+    "points": 3921,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "13",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202689557",
+    "managerName": "Darb Resarf",
+    "userName": "Brad Fraser",
+    "rank": 203,
+    "points": 3921,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156627465",
+    "managerName": "Tanner-1",
+    "userName": "Tanner Greschner",
+    "rank": 210,
+    "points": 3920,
+    "drivers": [
+      "130",
+      "11161",
+      "111",
+      "11149",
+      "18",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189814916",
+    "managerName": "Horizon Dynamics",
+    "userName": "John Kobryn",
+    "rank": 210,
+    "points": 3920,
+    "drivers": [
+      "11161",
+      "115",
+      "121",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202327288",
+    "managerName": "Tranquilo Ese",
+    "userName": "Brandon Looij",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "11161",
+      "116",
+      "130",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217726963",
+    "managerName": "L1tes out and away we go",
+    "userName": "Jordan Cote",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "115",
+      "11161",
+      "11",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "191186530",
+    "managerName": "Senna916",
+    "userName": "Joel Marsden",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "111",
+      "11161",
+      "11",
+      "117",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178970401",
+    "managerName": "Dadbod Racing Reserves",
+    "userName": "Zack Baker-Watermam",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "201555866",
+    "managerName": "points farming",
+    "userName": "Robert Miszczuk",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "42921330",
+    "managerName": "Wind Me Up Racing",
+    "userName": "Matthew Smit",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218158982",
+    "managerName": "OttimoGigio1",
+    "userName": "Topo Gigio",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188932455",
+    "managerName": "Zhou Mama's Car So Slow..",
+    "userName": "Sanjay Rau",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "11161",
+      "111",
+      "124",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231797277",
+    "managerName": "Broozer 2",
+    "userName": "Brae Robinson",
+    "rank": 212,
+    "points": 3919,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "162955916",
+    "managerName": "Scottyduz",
+    "userName": "Scott Thomas",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "11161",
+      "116",
+      "111",
+      "11149",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217023383",
+    "managerName": "Zizou1",
+    "userName": "Adam Barrdahl",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "152712128",
+    "managerName": "mabraham_t2",
+    "userName": "Michael Abraham",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11051",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "172534360",
+    "managerName": "Turn 1 Carnage",
+    "userName": "Nixzy Nixzy",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "43337485",
+    "managerName": "Vincent Digirolamo 1",
+    "userName": "Vincent Digirolamo",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "117",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232531080",
+    "managerName": "F1 Fantasy Newbie 1",
+    "userName": "David Oliver",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "115",
+      "11161",
+      "111",
+      "121",
+      "11",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231689758",
+    "managerName": "Apex Harvesting Team",
+    "userName": "Dave Plowman",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11051",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217724555",
+    "managerName": "LN4rever",
+    "userName": "Stephanie Kjelstrom",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "11149",
+      "11161",
+      "117",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "210672656",
+    "managerName": "Grussell My Kimmies",
+    "userName": "Jessa Gill",
+    "rank": 221,
+    "points": 3918,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217788712",
+    "managerName": "Lind Bladen",
+    "userName": "Mahdhi Mahdhi",
+    "rank": 230,
+    "points": 3917,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "214832865",
+    "managerName": "Come44Back",
+    "userName": "Kevin Zhou",
+    "rank": 230,
+    "points": 3917,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178754015",
+    "managerName": "F1.Suzuki",
+    "userName": "cristobal ewing",
+    "rank": 230,
+    "points": 3917,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188283623",
+    "managerName": "BEST IN SA",
+    "userName": "Christian Jordaan",
+    "rank": 233,
+    "points": 3916,
+    "drivers": [
+      "11161",
+      "111",
+      "115",
+      "129",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188862462",
+    "managerName": "kirstyyyyys team",
+    "userName": "Kirsty Ingram",
+    "rank": 233,
+    "points": 3916,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188598564",
+    "managerName": "NIK POBEDNIK",
+    "userName": "Nikola Djordjevic",
+    "rank": 233,
+    "points": 3916,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "152033302",
+    "managerName": "PPM-F1",
+    "userName": "Tom Pullinger",
+    "rank": 236,
+    "points": 3915,
+    "drivers": [
+      "115",
+      "11161",
+      "121",
+      "111",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "201324420",
+    "managerName": "Dori's Grid Gods",
+    "userName": "Rory Duckworth",
+    "rank": 236,
+    "points": 3915,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11149",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "180223653",
+    "managerName": "Faulty Starters",
+    "userName": "Stevon Hobson",
+    "rank": 236,
+    "points": 3915,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35898390",
+    "managerName": "Martello in Maranello",
+    "userName": "Henry Moreira",
+    "rank": 236,
+    "points": 3915,
+    "drivers": [
+      "11161",
+      "124",
+      "129",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232157940",
+    "managerName": "Brojes3",
+    "userName": "sulthan irawan",
+    "rank": 236,
+    "points": 3915,
+    "drivers": [
+      "11059",
+      "11161",
+      "11149",
+      "111",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232091734",
+    "managerName": "Stroll by name...",
+    "userName": "Ryan Forsythe",
+    "rank": 236,
+    "points": 3915,
+    "drivers": [
+      "11161",
+      "124",
+      "11051",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232119875",
+    "managerName": "Where is Yuki Tsunoda?",
+    "userName": "James Shomberg",
+    "rank": 236,
+    "points": 3915,
+    "drivers": [
+      "115",
+      "11161",
+      "11149",
+      "121",
+      "111",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "187926337",
+    "managerName": "Scudelulu Ferrari",
+    "userName": "Lui Gagliardi",
+    "rank": 243,
+    "points": 3914,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188070460",
+    "managerName": "Ghost of Q8",
+    "userName": "NASER ALOTHAIMIN",
+    "rank": 243,
+    "points": 3914,
+    "drivers": [
+      "115",
+      "11161",
+      "129",
+      "13",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "169237737",
+    "managerName": "Jordan Racing",
+    "userName": "Daniel Jordan",
+    "rank": 243,
+    "points": 3914,
+    "drivers": [
+      "11161",
+      "11",
+      "124",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231758109",
+    "managerName": "Scuderia Light",
+    "userName": "Paul Leger",
+    "rank": 243,
+    "points": 3914,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "111",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "154611546",
+    "managerName": "Pmer F2 Team",
+    "userName": "Pierre-Marc Lefebvre",
+    "rank": 243,
+    "points": 3914,
+    "drivers": [
+      "11161",
+      "117",
+      "11051",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217691496",
+    "managerName": "VanICE Racing",
+    "userName": "Kyle Van Ysseldyk",
+    "rank": 243,
+    "points": 3914,
+    "drivers": [
+      "11161",
+      "111",
+      "117",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "45421636",
+    "managerName": "SkullRing11 Project F1",
+    "userName": "Šarūnas Stirbis",
+    "rank": 243,
+    "points": 3914,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232413571",
+    "managerName": "Resnik Racing",
+    "userName": "Martin Resnik",
+    "rank": 250,
+    "points": 3913,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "113411158",
+    "managerName": "poloshunchos",
+    "userName": "Oliver Pole",
+    "rank": 250,
+    "points": 3913,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "12",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156419628",
+    "managerName": "Alcyone Apex F1 Team",
+    "userName": "Jose Espinosa",
+    "rank": 252,
+    "points": 3912,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217833421",
+    "managerName": "TarmacTyrantz",
+    "userName": "Tavi Parusel",
+    "rank": 252,
+    "points": 3912,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177829240",
+    "managerName": "Getaway Car",
+    "userName": "Emma Kent",
+    "rank": 252,
+    "points": 3912,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218043097",
+    "managerName": "Ka-Chow Motors V1",
+    "userName": "Jai Mirvana Kushwaha",
+    "rank": 252,
+    "points": 3912,
+    "drivers": [
+      "124",
+      "11161",
+      "11051",
+      "111",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "201932110",
+    "managerName": "Biker Boyz",
+    "userName": "Chris Hill",
+    "rank": 252,
+    "points": 3912,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217459946",
+    "managerName": "Jednorenki F1 Team",
+    "userName": "Bartłomiej Pluta",
+    "rank": 252,
+    "points": 3912,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "54563072",
+    "managerName": "Skywalkers",
+    "userName": "Jacek Zychmański",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "115",
+      "111",
+      "11161",
+      "11",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217679405",
+    "managerName": "Sbee81",
+    "userName": "Srinikesh Atluri",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "11161",
+      "111",
+      "11",
+      "116",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "210704120",
+    "managerName": "WellinTeams",
+    "userName": "Wellington Castillo Reyes",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232567229",
+    "managerName": "Charlie Brawn GP",
+    "userName": "Lucas Melo",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "11161",
+      "121",
+      "117",
+      "11051",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "190495821",
+    "managerName": "Ronz83",
+    "userName": "Ronald Prescod",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "194130281",
+    "managerName": "Toto’s Spreadsheet",
+    "userName": "Burak Birer",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "11161",
+      "124",
+      "11051",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231680172",
+    "managerName": "F1 Kers",
+    "userName": "andrew paterson",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "81949268",
+    "managerName": "Burzi1",
+    "userName": "Marcel Burzawa",
+    "rank": 258,
+    "points": 3911,
+    "drivers": [
+      "11161",
+      "11051",
+      "11149",
+      "116",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "201889545",
+    "managerName": "Ray J's Sloppy Seconds",
+    "userName": "Ashley Wookey",
+    "rank": 266,
+    "points": 3910,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "46872557",
+    "managerName": "Eccentric_Pranav",
+    "userName": "Pranav Narang",
+    "rank": 266,
+    "points": 3910,
+    "drivers": [
+      "111",
+      "11161",
+      "117",
+      "129",
+      "12",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188224577",
+    "managerName": "fantasy expert",
+    "userName": "Veer Jain",
+    "rank": 266,
+    "points": 3910,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "129",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "211638600",
+    "managerName": "Outstanding Penalty?",
+    "userName": "Markéta Cábová",
+    "rank": 266,
+    "points": 3910,
+    "drivers": [
+      "117",
+      "11161",
+      "11051",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218112001",
+    "managerName": "F1 Harven",
+    "userName": "Harvey Hendry",
+    "rank": 270,
+    "points": 3909,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178500469",
+    "managerName": "Carbon Neutral",
+    "userName": "Lee Bassett",
+    "rank": 270,
+    "points": 3909,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11149",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188394971",
+    "managerName": "Haasta La Vista, Baby",
+    "userName": "Oliver Ratcliffe",
+    "rank": 270,
+    "points": 3909,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11149",
+      "111",
+      "28",
+      "25",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178831464",
+    "managerName": "2026-Champion",
+    "userName": "Mathew Ledoan",
+    "rank": 273,
+    "points": 3908,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232392603",
+    "managerName": "GoogleAI.team",
+    "userName": "Dale Wright",
+    "rank": 273,
+    "points": 3908,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217776241",
+    "managerName": "Wacky Racers 5",
+    "userName": "Gareth Lewis",
+    "rank": 273,
+    "points": 3908,
+    "drivers": [
+      "124",
+      "11051",
+      "121",
+      "111",
+      "11161",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188076453",
+    "managerName": "Woody.",
+    "userName": "Luke Smith",
+    "rank": 273,
+    "points": 3908,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "211355646",
+    "managerName": "~Must~be~the~water~",
+    "userName": "Cher Dickson",
+    "rank": 273,
+    "points": 3908,
+    "drivers": [
+      "121",
+      "124",
+      "11149",
+      "111",
+      "11161",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178569160",
+    "managerName": "Dave16F13",
+    "userName": "Daven Aiyer",
+    "rank": 273,
+    "points": 3908,
+    "drivers": [
+      "11161",
+      "11149",
+      "124",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "223785803",
+    "managerName": "Hami_44",
+    "userName": "Elizabeth Garcia",
+    "rank": 279,
+    "points": 3907,
+    "drivers": [
+      "11161",
+      "11",
+      "115",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188581788",
+    "managerName": "GRAZIA Team",
+    "userName": "Emidio Giovannozzi",
+    "rank": 279,
+    "points": 3907,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "95024331",
+    "managerName": "Mackay Motorsports 1",
+    "userName": "Craig Mackay",
+    "rank": 279,
+    "points": 3907,
+    "drivers": [
+      "11161",
+      "11",
+      "111",
+      "116",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202695323",
+    "managerName": "The Switcheroos",
+    "userName": "Daniel Cunha Byström",
+    "rank": 279,
+    "points": 3907,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "132446372",
+    "managerName": "Erkki Kastamuri",
+    "userName": "Joonas Tanninen",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "124",
+      "111",
+      "11161",
+      "121",
+      "11",
+      "25",
+      "28",
+      "131"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217770468",
+    "managerName": "Mr Lucky",
+    "userName": "Martins MR",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "222583120",
+    "managerName": "Prettyy Boyz",
+    "userName": "Eric Kelln",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "13",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202834614",
+    "managerName": "F1Ben26",
+    "userName": "Ben Frederik",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "117",
+      "11161",
+      "111",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "78409480",
+    "managerName": "Piston_Broke!",
+    "userName": "Douglas Girvan",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "111",
+      "11161",
+      "115",
+      "121",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218152499",
+    "managerName": "JuRRari",
+    "userName": "Juliano Leone",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "184854408",
+    "managerName": "Goat Latifi Racing",
+    "userName": "Emiel Tuinte",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "13",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "75866479",
+    "managerName": "JuicyAss Racers",
+    "userName": "Jonny Goldberg",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "11161",
+      "116",
+      "11051",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156128046",
+    "managerName": "Box Box 3",
+    "userName": "Patryk Popiński",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178828506",
+    "managerName": "Derb Racing",
+    "userName": "Alan Armendariz",
+    "rank": 283,
+    "points": 3906,
+    "drivers": [
+      "110",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "161104008",
+    "managerName": "yuki's rage",
+    "userName": "Kevin Verstaphinfection",
+    "rank": 293,
+    "points": 3905,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11149",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "229961193",
+    "managerName": "Pirin F1",
+    "userName": "Vasil Kitanov",
+    "rank": 293,
+    "points": 3905,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "12",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188960322",
+    "managerName": "OMADARA1908",
+    "userName": "Chris Liamakeros",
+    "rank": 293,
+    "points": 3905,
+    "drivers": [
+      "11161",
+      "111",
+      "129",
+      "117",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188358114",
+    "managerName": "Ban George Russell in F1",
+    "userName": "Scott Witney",
+    "rank": 293,
+    "points": 3905,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "180686439",
+    "managerName": "Silverstone Storm",
+    "userName": "Marissa Gatt",
+    "rank": 293,
+    "points": 3905,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156378865",
+    "managerName": "Kirev.",
+    "userName": "Alexander Kirev",
+    "rank": 293,
+    "points": 3905,
+    "drivers": [
+      "111",
+      "124",
+      "121",
+      "11161",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188335982",
+    "managerName": "F1 Prophecy",
+    "userName": "Patrik Roncinsky",
+    "rank": 293,
+    "points": 3905,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11051",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203142221",
+    "managerName": "I am very much reserve 1",
+    "userName": "Matt Davis",
+    "rank": 300,
+    "points": 3904,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177903342",
+    "managerName": "LoveIsInTheDirtyAir",
+    "userName": "dkm dkm",
+    "rank": 300,
+    "points": 3904,
+    "drivers": [
+      "11161",
+      "115",
+      "11",
+      "111",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "80438614",
+    "managerName": "Bunch of Prixs",
+    "userName": "Paul Fayet-Faber",
+    "rank": 300,
+    "points": 3904,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188444893",
+    "managerName": "Ran out of Gas(ly)",
+    "userName": "Kieran Stewart",
+    "rank": 300,
+    "points": 3904,
+    "drivers": [
+      "11161",
+      "111",
+      "116",
+      "11149",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217029650",
+    "managerName": "Water - Words of Wisdom",
+    "userName": "Cullum Miller",
+    "rank": 300,
+    "points": 3904,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "12",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188406310",
+    "managerName": "BenF126",
+    "userName": "Ben Murphy",
+    "rank": 305,
+    "points": 3903,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202332524",
+    "managerName": "I LiCo Bearman",
+    "userName": "Geraint Langford",
+    "rank": 305,
+    "points": 3903,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178843324",
+    "managerName": "Stupavský Žebrák",
+    "userName": "Branislav Lukac",
+    "rank": 305,
+    "points": 3903,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178118129",
+    "managerName": "Shadow Sector",
+    "userName": "Aamer Ali",
+    "rank": 308,
+    "points": 3902,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188568931",
+    "managerName": "Press F for Ferrari",
+    "userName": "José Meireles",
+    "rank": 308,
+    "points": 3902,
+    "drivers": [
+      "111",
+      "11161",
+      "124",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "152534011",
+    "managerName": "Achilleus",
+    "userName": "Konrad Widder",
+    "rank": 308,
+    "points": 3902,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "111",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202391719",
+    "managerName": "alexmf1",
+    "userName": "Alex Monson",
+    "rank": 308,
+    "points": 3902,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202568366",
+    "managerName": "i rly need the money",
+    "userName": "Shannon Hughes",
+    "rank": 312,
+    "points": 3901,
+    "drivers": [
+      "11161",
+      "124",
+      "13",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218102994",
+    "managerName": "SpeedoTorpedo",
+    "userName": "Ryan Cheeseman",
+    "rank": 312,
+    "points": 3901,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "98114914",
+    "managerName": "Maximum Ferrari Copium",
+    "userName": "Travis Winstead",
+    "rank": 312,
+    "points": 3901,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "78826211",
+    "managerName": "The 12th Team",
+    "userName": "Josh Krane",
+    "rank": 315,
+    "points": 3900,
+    "drivers": [
+      "111",
+      "11161",
+      "11149",
+      "11",
+      "116",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202508415",
+    "managerName": "Adr1an Shoey",
+    "userName": "Kevin Lim",
+    "rank": 316,
+    "points": 3899,
+    "drivers": [
+      "11161",
+      "111",
+      "115",
+      "11",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "205388428",
+    "managerName": "Feisty_Pancake",
+    "userName": "Shaun Hatcher",
+    "rank": 316,
+    "points": 3899,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217895898",
+    "managerName": "Mistyfikacja",
+    "userName": "Piotr Szczepanek",
+    "rank": 316,
+    "points": 3899,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202716396",
+    "managerName": "Tyre Whispers_VS",
+    "userName": "Get Set Go",
+    "rank": 316,
+    "points": 3899,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "151860807",
+    "managerName": "Irons Racing 2",
+    "userName": "Nathan Smith",
+    "rank": 320,
+    "points": 3898,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188426576",
+    "managerName": "Lotus Teo",
+    "userName": "matteo Casoli",
+    "rank": 320,
+    "points": 3898,
+    "drivers": [
+      "11161",
+      "11031",
+      "11051",
+      "11149",
+      "111",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35267995",
+    "managerName": "Eldorado",
+    "userName": "Herman Vos",
+    "rank": 320,
+    "points": 3898,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218260558",
+    "managerName": "GT63PRO",
+    "userName": "Ivan Mihailovic",
+    "rank": 320,
+    "points": 3898,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11149",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232095498",
+    "managerName": "Formula 1 Street",
+    "userName": "Mary Conovan",
+    "rank": 320,
+    "points": 3898,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "78861821",
+    "managerName": "Shaking and Baking",
+    "userName": "Andrew Gatland",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "193755454",
+    "managerName": "ISSA JOKE",
+    "userName": "Pedro Santana",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217768351",
+    "managerName": "Winning session",
+    "userName": "Imre Halasz",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "115",
+      "11161",
+      "111",
+      "12",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "169896520",
+    "managerName": "AKATSUKI F1 TEAM",
+    "userName": "Efthimis Mourelatos",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "129",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202787808",
+    "managerName": "Thordarson F1 Racing",
+    "userName": "Mathias Thordarson",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202995466",
+    "managerName": "Colapinto F1",
+    "userName": "Ramon Boom",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "11",
+      "117",
+      "11149",
+      "11161",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177868256",
+    "managerName": "WrecklessMEDIC",
+    "userName": "Christian King",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "11161",
+      "1982",
+      "11149",
+      "11051",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "174084338",
+    "managerName": "SLB MAX POINTS",
+    "userName": "Rafael Soares",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "129",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "229076220",
+    "managerName": "When Will Mazepin Spin",
+    "userName": "Darth Verstappen",
+    "rank": 325,
+    "points": 3897,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217939607",
+    "managerName": "The Champ Returns",
+    "userName": "Eddy Jones",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "132442802",
+    "managerName": "Cadillick my nuts",
+    "userName": "Dan osborne",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "116",
+      "11149",
+      "111",
+      "11051",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217743401",
+    "managerName": "Black Flags Matter",
+    "userName": "John Steele",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "115",
+      "11161",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "78361092",
+    "managerName": "Pizza on your Focus",
+    "userName": "William Goedbloed",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "121",
+      "124",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "176681619",
+    "managerName": "Epstein Grand Prix",
+    "userName": "Charles Sylvander",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "1982",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "115154666",
+    "managerName": "Bronnie team 2",
+    "userName": "Bronwyn Collier",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11051",
+      "11161",
+      "11031",
+      "111",
+      "11149",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "185031675",
+    "managerName": "The Macarena",
+    "userName": "Ariel Ladegård",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179460007",
+    "managerName": "Moneyball Racing",
+    "userName": "Alyson Gomes",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "85157026",
+    "managerName": "Bovine Racing",
+    "userName": "Trevor Lunn",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "111",
+      "130",
+      "18",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217732114",
+    "managerName": "Gum Tape Deathmatch",
+    "userName": "Connor Denier",
+    "rank": 334,
+    "points": 3896,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "129",
+      "121",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "76321059",
+    "managerName": "Pepega Racing Team 2",
+    "userName": "Mmm Vtec",
+    "rank": 344,
+    "points": 3895,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177903342",
+    "managerName": "AMGoingForHighScore",
+    "userName": "dkm dkm",
+    "rank": 344,
+    "points": 3895,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "129",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178871914",
+    "managerName": "LecRusAnt Had Ham",
+    "userName": "Joonas Vepsäläinen",
+    "rank": 344,
+    "points": 3895,
+    "drivers": [
+      "11149",
+      "11161",
+      "111",
+      "117",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "155470461",
+    "managerName": "kikikiRRAsweatsweat",
+    "userName": "Matej Metelko",
+    "rank": 344,
+    "points": 3895,
+    "drivers": [
+      "117",
+      "11161",
+      "11149",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188992796",
+    "managerName": "Jochsy",
+    "userName": "Michael Crawford",
+    "rank": 344,
+    "points": 3895,
+    "drivers": [
+      "110",
+      "11161",
+      "111",
+      "12",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217879402",
+    "managerName": "Holz-Racing",
+    "userName": "Sebastian Pe",
+    "rank": 349,
+    "points": 3894,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11051",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "191150679",
+    "managerName": "Steller Split Strategy",
+    "userName": "Rebecca Steller",
+    "rank": 349,
+    "points": 3894,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "214787136",
+    "managerName": "cook or be cooked",
+    "userName": "Cate Balasubramanian",
+    "rank": 349,
+    "points": 3894,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156814029",
+    "managerName": "Ralph & Spock Racing Team",
+    "userName": "Simon Ellery",
+    "rank": 349,
+    "points": 3894,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231802148",
+    "managerName": "Benson Jutton",
+    "userName": "Mateus Varela",
+    "rank": 349,
+    "points": 3894,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156150188",
+    "managerName": "Starr Racing",
+    "userName": "Jonathan Starr",
+    "rank": 349,
+    "points": 3894,
+    "drivers": [
+      "11161",
+      "116",
+      "111",
+      "11149",
+      "130",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232350870",
+    "managerName": "Valder",
+    "userName": "Maximillian Nolke",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "115",
+      "131",
+      "11149",
+      "111",
+      "28",
+      "2640"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "114252166",
+    "managerName": "Ollie's Really Cool Team",
+    "userName": "Oliver Persson",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "115",
+      "11161",
+      "111",
+      "11",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202975448",
+    "managerName": "Gorkaola F1 TEAM",
+    "userName": "Gorka Olaizola",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203116314",
+    "managerName": "BlazingBurnouts",
+    "userName": "Jeffrey Lee",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "76797118",
+    "managerName": "EasyMode",
+    "userName": "Justas Zemaitis",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188824264",
+    "managerName": "JennB2",
+    "userName": "Jennifer Bradbury",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "128520697",
+    "managerName": "Westvale Racing",
+    "userName": "Chris Brisi",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188367272",
+    "managerName": "Tototally Insane",
+    "userName": "Kaleb Lora",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "192062020",
+    "managerName": "TheGaslyters",
+    "userName": "Jason Morin",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35584836",
+    "managerName": "Forza Juve",
+    "userName": "Arijit Ghosh",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35320239",
+    "managerName": "SuperMax #3 DutchLions",
+    "userName": "Erik Van leeuwen",
+    "rank": 355,
+    "points": 3893,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202388902",
+    "managerName": "PiP Stop Strategy",
+    "userName": "Aadam Khan",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "129",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "219635364",
+    "managerName": "Mini Coopers V3",
+    "userName": "Harry Coop",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "132436255",
+    "managerName": "faboibale I.",
+    "userName": "Fabio Baumgaertel",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "182188104",
+    "managerName": "ScuRMR3",
+    "userName": "Rodrigo Molina",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "184751268",
+    "managerName": "J Hart",
+    "userName": "Jason Hart",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188820163",
+    "managerName": "Auld Lang Sainz",
+    "userName": "Hannah Dunstan",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "208737786",
+    "managerName": "Never Lewis Faith",
+    "userName": "Jane Alexander",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "115",
+      "129",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "132123931",
+    "managerName": "B33rman",
+    "userName": "Thibo Indevuyst",
+    "rank": 366,
+    "points": 3892,
+    "drivers": [
+      "11161",
+      "111",
+      "124",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232358432",
+    "managerName": "Ru55311 up 7r0ub13",
+    "userName": "Catherine Rogers",
+    "rank": 374,
+    "points": 3891,
+    "drivers": [
+      "117",
+      "11161",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202379026",
+    "managerName": "F1 banned my team name_",
+    "userName": "Patrick Moore",
+    "rank": 374,
+    "points": 3891,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "80342817",
+    "managerName": "RB Buffet Money Farming",
+    "userName": "Jacob Kim",
+    "rank": 376,
+    "points": 3890,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "197830947",
+    "managerName": "blondie_two",
+    "userName": "Dan Brahnea",
+    "rank": 376,
+    "points": 3890,
+    "drivers": [
+      "11161",
+      "116",
+      "11149",
+      "130",
+      "11051",
+      "28",
+      "2636"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177817662",
+    "managerName": "Shoey & The Beast",
+    "userName": "Cian Plaster",
+    "rank": 376,
+    "points": 3890,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202434066",
+    "managerName": "Hakon Airlines",
+    "userName": "Kristófer Helgi Jóhannsson",
+    "rank": 376,
+    "points": 3890,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179112359",
+    "managerName": "Redbulls_on_Parade",
+    "userName": "John Fortner",
+    "rank": 376,
+    "points": 3890,
+    "drivers": [
+      "11161",
+      "11149",
+      "121",
+      "115",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "214768578",
+    "managerName": "NG Racing 1",
+    "userName": "Nikhil Gupta",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "183156520",
+    "managerName": "Toto Eclipse of the Start",
+    "userName": "Liam Mulcahy",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "116",
+      "11",
+      "111",
+      "11149",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189406537",
+    "managerName": "Broke Haas",
+    "userName": "Timothy Ives",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "159366268",
+    "managerName": "Last Lap Overtakers",
+    "userName": "Oleksii Moisiienko",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "229973592",
+    "managerName": "Lewis and LeClark",
+    "userName": "Daven Rock",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "183223246",
+    "managerName": "Rainmaker",
+    "userName": "Eric Hansen",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "11149",
+      "115",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202331936",
+    "managerName": "STS180",
+    "userName": "Peter Drei",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "11149",
+      "11051",
+      "111",
+      "11",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202036674",
+    "managerName": "Ce doit être l'eau",
+    "userName": "Siobhan Pett",
+    "rank": 381,
+    "points": 3889,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "199593481",
+    "managerName": "Spider415 Racing",
+    "userName": "Christian Lombard",
+    "rank": 389,
+    "points": 3888,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203084374",
+    "managerName": "Formula Ole Ole Ole",
+    "userName": "Ole Mansfeldt",
+    "rank": 389,
+    "points": 3888,
+    "drivers": [
+      "111",
+      "11161",
+      "11149",
+      "18",
+      "11051",
+      "25",
+      "28",
+      "11059"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178257565",
+    "managerName": "502 Bad Gateway",
+    "userName": "Emilio Robles Fernández",
+    "rank": 389,
+    "points": 3888,
+    "drivers": [
+      "117",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179525676",
+    "managerName": "Portuguese Armada",
+    "userName": "Andre Dias",
+    "rank": 389,
+    "points": 3888,
+    "drivers": [
+      "111",
+      "11161",
+      "11149",
+      "117",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203063269",
+    "managerName": "elleoj",
+    "userName": "Samuel Unéus",
+    "rank": 393,
+    "points": 3887,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "121",
+      "13",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "219651497",
+    "managerName": "Britney Rosberg Co.",
+    "userName": "Deklan Winfield",
+    "rank": 393,
+    "points": 3887,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "157030212",
+    "managerName": "Brushy#F3",
+    "userName": "Sean Breuche",
+    "rank": 393,
+    "points": 3887,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "211959883",
+    "managerName": "jesus loves you",
+    "userName": "Iverson Lai",
+    "rank": 393,
+    "points": 3887,
+    "drivers": [
+      "11161",
+      "110",
+      "12",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188482270",
+    "managerName": "Coopercharged",
+    "userName": "Dan Cooper",
+    "rank": 393,
+    "points": 3887,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "133432504",
+    "managerName": "TOOL F1 Team",
+    "userName": "Rafael Rossi",
+    "rank": 393,
+    "points": 3887,
+    "drivers": [
+      "111",
+      "11161",
+      "11051",
+      "11149",
+      "125",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202338186",
+    "managerName": "DNF Racing 01",
+    "userName": "Linus Guddorf",
+    "rank": 393,
+    "points": 3887,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11051",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202961098",
+    "managerName": "team-rabih",
+    "userName": "Rabih Saliba",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "167159735",
+    "managerName": "This year is our year?",
+    "userName": "Andrew Yuan",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "174632679",
+    "managerName": "Checo Pires",
+    "userName": "David Pires",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203325087",
+    "managerName": "Hipster Runoff",
+    "userName": "Kris Carter",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "11149",
+      "12",
+      "111",
+      "110",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "140286435",
+    "managerName": "Scuderia Onomatopeia",
+    "userName": "Matt Lawrence",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "11149",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "43371608",
+    "managerName": "Granny Smith",
+    "userName": "Mohamed Omar",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "129",
+      "111",
+      "1982",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "39263985",
+    "managerName": "It's Scuderover",
+    "userName": "Max Pearce",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156597062",
+    "managerName": "PIFFAUDI",
+    "userName": "Alex Piffanelli",
+    "rank": 400,
+    "points": 3886,
+    "drivers": [
+      "11161",
+      "11051",
+      "111",
+      "121",
+      "117",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "158012258",
+    "managerName": "All up in that Haas",
+    "userName": "Damien Bishop",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188070460",
+    "managerName": "off meta dream",
+    "userName": "NASER ALOTHAIMIN",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "115",
+      "129",
+      "111",
+      "13",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188472949",
+    "managerName": "Michael's Ski Instuctor",
+    "userName": "Ryan Walsh",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156167405",
+    "managerName": "Rafakoke99 F1 Team",
+    "userName": "Rafa García Sancho",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218522519",
+    "managerName": "Muralla Racing",
+    "userName": "Facundo Verón",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "11059",
+      "114",
+      "11051",
+      "111",
+      "25",
+      "28",
+      "11149"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "177119572",
+    "managerName": "Migros F1",
+    "userName": "Mischa Wymann",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217806343",
+    "managerName": "Stifler's Stepmom",
+    "userName": "michael Soliday",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "111",
+      "11051",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35469969",
+    "managerName": "Momčilo TEAM DEATH",
+    "userName": "Momcilo Jovanov",
+    "rank": 408,
+    "points": 3885,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35580207",
+    "managerName": "Köra bil fort",
+    "userName": "Gustav Bergman",
+    "rank": 416,
+    "points": 3884,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178794599",
+    "managerName": "Money Mo Money",
+    "userName": "Tyler Low",
+    "rank": 416,
+    "points": 3884,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178957269",
+    "managerName": "ASStroll_Martin",
+    "userName": "Luis Menendez",
+    "rank": 416,
+    "points": 3884,
+    "drivers": [
+      "11161",
+      "115",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218238355",
+    "managerName": "V' Motor Sports",
+    "userName": "Chris Chariskos",
+    "rank": 416,
+    "points": 3884,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202187438",
+    "managerName": "Merceredes",
+    "userName": "Jack Mercer",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202798810",
+    "managerName": "Alyssa16",
+    "userName": "Alyssa Shand",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "219619406",
+    "managerName": "Pits-a Perfection",
+    "userName": "Eros Lucatuorto",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11051",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "208683539",
+    "managerName": "Run Mallya Run",
+    "userName": "Oliver Taylor",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "121",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "42951737",
+    "managerName": "Ki Ki Ki Ra Racing",
+    "userName": "James Clode",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "11161",
+      "124",
+      "11051",
+      "13",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "151620375",
+    "managerName": "Baas F1",
+    "userName": "Henri Pasanen",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "11051",
+      "11149",
+      "18",
+      "11161",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "156150507",
+    "managerName": "TRI-02",
+    "userName": "Tristen Hoeben",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "11161",
+      "11149",
+      "11059",
+      "130",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217741997",
+    "managerName": "Ferrari Hopium FTW",
+    "userName": "Christos Malliakos",
+    "rank": 420,
+    "points": 3883,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "182783756",
+    "managerName": "SmoothOperator11",
+    "userName": "Adolfo Dehesa",
+    "rank": 428,
+    "points": 3882,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "121",
+      "111",
+      "28",
+      "25",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "173360010",
+    "managerName": "Lights Out Baby",
+    "userName": "Lauren Phillipou",
+    "rank": 428,
+    "points": 3882,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "11149",
+      "28",
+      "25",
+      "117"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217762598",
+    "managerName": "colegas",
+    "userName": "Julio Martínez",
+    "rank": 428,
+    "points": 3882,
+    "drivers": [
+      "131",
+      "11161",
+      "111",
+      "11149",
+      "11031",
+      "28",
+      "2640"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "154106580",
+    "managerName": "Invictus F1 team",
+    "userName": "Fatima Is’haq",
+    "rank": 428,
+    "points": 3882,
+    "drivers": [
+      "111",
+      "115",
+      "11051",
+      "11161",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217747243",
+    "managerName": "Scuderia Greenleaf",
+    "userName": "Vadim Shestakov",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202888932",
+    "managerName": "TeamGurkan3",
+    "userName": "Gurkan Atabay",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231575335",
+    "managerName": "aaaAaaaaaA123",
+    "userName": "Tommy Chapman",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "117",
+      "124",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202444492",
+    "managerName": "Toro F1 Team",
+    "userName": "Andres Cruz",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218463670",
+    "managerName": "FPLDaxter I",
+    "userName": "Bailey Bradshaw-Nuttall",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "111",
+      "124",
+      "11161",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "162689348",
+    "managerName": "Vito back OnStage",
+    "userName": "Toto Vito Wolff",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "11161",
+      "115",
+      "11051",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189351869",
+    "managerName": "Kylä Lähtee",
+    "userName": "Samuli Mustajarvi",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "11059",
+      "11",
+      "111",
+      "11161",
+      "11149",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217794751",
+    "managerName": "Car-tello",
+    "userName": "Geremia Borghi",
+    "rank": 432,
+    "points": 3881,
+    "drivers": [
+      "124",
+      "11161",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217773511",
+    "managerName": "HoB Racing",
+    "userName": "Martin Reichl",
+    "rank": 440,
+    "points": 3880,
+    "drivers": [
+      "111",
+      "115",
+      "11161",
+      "11149",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "43263747",
+    "managerName": "ferrari has a chance",
+    "userName": "Justin Tierney",
+    "rank": 440,
+    "points": 3880,
+    "drivers": [
+      "116",
+      "11051",
+      "11161",
+      "111",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232586070",
+    "managerName": "Leomax3",
+    "userName": "Leo Max",
+    "rank": 440,
+    "points": 3880,
+    "drivers": [
+      "11161",
+      "11149",
+      "121",
+      "116",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218101726",
+    "managerName": "squiffys",
+    "userName": "James Dunlop",
+    "rank": 440,
+    "points": 3880,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218067004",
+    "managerName": "Team K-Pop",
+    "userName": "Kevin Terry",
+    "rank": 440,
+    "points": 3880,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232142137",
+    "managerName": "Allan's F1 Team 1",
+    "userName": "Allan Edward Snape",
+    "rank": 440,
+    "points": 3880,
+    "drivers": [
+      "11161",
+      "124",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231763182",
+    "managerName": "F2 Fantasy Pole Position",
+    "userName": "Euan Leith",
+    "rank": 446,
+    "points": 3879,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11051",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232505814",
+    "managerName": "Back That Haas Uppppppppp",
+    "userName": "Sam Gilley",
+    "rank": 446,
+    "points": 3879,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "78483244",
+    "managerName": "Fat Abbot Racing Team 2",
+    "userName": "CRAIG BLACK",
+    "rank": 446,
+    "points": 3879,
+    "drivers": [
+      "117",
+      "11161",
+      "111",
+      "11051",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217711919",
+    "managerName": "Caleb's Squad",
+    "userName": "Caleb O’Connor",
+    "rank": 446,
+    "points": 3879,
+    "drivers": [
+      "11149",
+      "115",
+      "111",
+      "11161",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232195434",
+    "managerName": "Scottness monster grr",
+    "userName": "scott coleman",
+    "rank": 446,
+    "points": 3879,
+    "drivers": [
+      "11161",
+      "11149",
+      "124",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202734727",
+    "managerName": "Ayatollah of Acceleration",
+    "userName": "Chad Kehoe",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "11",
+      "111",
+      "124",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "194297229",
+    "managerName": "MclarenAndFurious",
+    "userName": "Calem Brown",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11149",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203095942",
+    "managerName": "||||||",
+    "userName": "Matsoe van der Stap",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "115",
+      "111",
+      "11149",
+      "11161",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "200911626",
+    "managerName": "Testing Grounds 1",
+    "userName": "Susan Merriam",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "110",
+      "11051",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "155231390",
+    "managerName": "Alejandro_Vegan F2",
+    "userName": "Alejandro Betancourt",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188433781",
+    "managerName": "Flyin' Bryan",
+    "userName": "Bryan Kraitberg",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "115",
+      "11",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232171961",
+    "managerName": "Asshaas",
+    "userName": "Roko Ozic Pezelj",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "1982",
+      "111",
+      "129",
+      "13",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "180375129",
+    "managerName": "Tea Break While You At It",
+    "userName": "Daniel Keith",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "124",
+      "111",
+      "11161",
+      "11149",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "81274073",
+    "managerName": "DC333333",
+    "userName": "Daniel Cohen",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "11149",
+      "110",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "181049416",
+    "managerName": "Williamos",
+    "userName": "William OS",
+    "rank": 451,
+    "points": 3878,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202554123",
+    "managerName": "Cleland44",
+    "userName": "Kevin Cleland",
+    "rank": 461,
+    "points": 3877,
+    "drivers": [
+      "11149",
+      "11161",
+      "117",
+      "111",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218038784",
+    "managerName": "Banana Leclerk",
+    "userName": "Krish Kumar",
+    "rank": 461,
+    "points": 3877,
+    "drivers": [
+      "11161",
+      "117",
+      "11149",
+      "111",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179169500",
+    "managerName": "Professional Runner-Up",
+    "userName": "Pedro Alvares",
+    "rank": 461,
+    "points": 3877,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179184382",
+    "managerName": "LicklercMyBallz",
+    "userName": "Hindrik Lamar",
+    "rank": 461,
+    "points": 3877,
+    "drivers": [
+      "11161",
+      "117",
+      "11",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178274356",
+    "managerName": "LAPL 20",
+    "userName": "Luis Pacheco Leon",
+    "rank": 461,
+    "points": 3877,
+    "drivers": [
+      "115",
+      "11161",
+      "11149",
+      "11",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "76824081",
+    "managerName": "JustWinthisYear2",
+    "userName": "Vaibhav Sharma",
+    "rank": 461,
+    "points": 3877,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217612197",
+    "managerName": "Formula E vs WW3",
+    "userName": "Andrew Reid",
+    "rank": 467,
+    "points": 3876,
+    "drivers": [
+      "11161",
+      "115",
+      "121",
+      "111",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "152212323",
+    "managerName": "Racing 40",
+    "userName": "Daniel Guest",
+    "rank": 467,
+    "points": 3876,
+    "drivers": [
+      "11161",
+      "116",
+      "11149",
+      "11051",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "188351690",
+    "managerName": "TBCTBC",
+    "userName": "Jamie Russell",
+    "rank": 467,
+    "points": 3876,
+    "drivers": [
+      "11161",
+      "115",
+      "11149",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189667303",
+    "managerName": "Togfelelele1",
+    "userName": "Christoffer Österberg",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "121",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202428500",
+    "managerName": "Seattle Slew",
+    "userName": "JW eng",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "11149",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "35676556",
+    "managerName": "HKG ALL STAR",
+    "userName": "Henry Chan",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "11161",
+      "121",
+      "111",
+      "116",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "202574562",
+    "managerName": "Rorskerino 3",
+    "userName": "Rory Heath",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "124",
+      "11051",
+      "11161",
+      "111",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "220821776",
+    "managerName": "Lego Racing F1 Team",
+    "userName": "Vlad B",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "11161",
+      "117",
+      "129",
+      "111",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179313079",
+    "managerName": "Zarate kid 2",
+    "userName": "Liam Grey",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179273539",
+    "managerName": "Papitrucking",
+    "userName": "Thebe Mothibinyane",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "124",
+      "11161",
+      "11",
+      "129",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218131948",
+    "managerName": "Fraudmilton",
+    "userName": "Murray Lowe",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "79047933",
+    "managerName": "F1 Exe Team B",
+    "userName": "Exequiel Oliva",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "11161",
+      "129",
+      "11149",
+      "11059",
+      "111",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "218135789",
+    "managerName": "Joe t2",
+    "userName": "Joe Read",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "117",
+      "11161",
+      "11051",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "113437052",
+    "managerName": "Super Cheese",
+    "userName": "Simon Presland",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "11161",
+      "116",
+      "129",
+      "111",
+      "18",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217849910",
+    "managerName": "₍^. .^₎⟆",
+    "userName": "Jaroslaw Gutowski",
+    "rank": 470,
+    "points": 3875,
+    "drivers": [
+      "1982",
+      "11161",
+      "111",
+      "11",
+      "11051",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "161411965",
+    "managerName": "Iceman - Leave Me Alone",
+    "userName": "Nico König",
+    "rank": 482,
+    "points": 3874,
+    "drivers": [
+      "11161",
+      "124",
+      "11",
+      "121",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217731454",
+    "managerName": "bottASS GP",
+    "userName": "Adil Islam",
+    "rank": 482,
+    "points": 3874,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231806403",
+    "managerName": "im just useless",
+    "userName": "Joseph Latham",
+    "rank": 482,
+    "points": 3874,
+    "drivers": [
+      "11161",
+      "111",
+      "124",
+      "121",
+      "11149",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "217856787",
+    "managerName": "DRT2026",
+    "userName": "David Thompson",
+    "rank": 482,
+    "points": 3874,
+    "drivers": [
+      "117",
+      "11161",
+      "11051",
+      "111",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178307867",
+    "managerName": "COL_1997",
+    "userName": "SCP 2022",
+    "rank": 482,
+    "points": 3874,
+    "drivers": [
+      "11161",
+      "130",
+      "11149",
+      "111",
+      "11051",
+      "28",
+      "27"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "155261005",
+    "managerName": "T2 Mixitup",
+    "userName": "Kevin Reckelhoff",
+    "rank": 482,
+    "points": 3874,
+    "drivers": [
+      "11161",
+      "115",
+      "111",
+      "11149",
+      "11",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "196304459",
+    "managerName": "Havertz Your Way",
+    "userName": "",
+    "rank": 482,
+    "points": 3874,
+    "drivers": [
+      "11051",
+      "111",
+      "11161",
+      "124",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "232609151",
+    "managerName": "Sí se puede",
+    "userName": "Theologos Giamaios",
+    "rank": 489,
+    "points": 3873,
+    "drivers": [
+      "124",
+      "11161",
+      "111",
+      "121",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "178548714",
+    "managerName": "DRSimba",
+    "userName": "Sebastian Rechsteiner",
+    "rank": 489,
+    "points": 3873,
+    "drivers": [
+      "124",
+      "11161",
+      "129",
+      "111",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "155649631",
+    "managerName": "Taylor's Swift Boys",
+    "userName": "Taylor Johnston",
+    "rank": 489,
+    "points": 3873,
+    "drivers": [
+      "11161",
+      "124",
+      "121",
+      "129",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "43092952",
+    "managerName": "IcebreakerF1",
+    "userName": "Jukkapekka Lalu",
+    "rank": 489,
+    "points": 3873,
+    "drivers": [
+      "11161",
+      "117",
+      "121",
+      "111",
+      "129",
+      "27",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "189006645",
+    "managerName": "Ruotsigoat1337",
+    "userName": "Ludwig Sehammar",
+    "rank": 489,
+    "points": 3873,
+    "drivers": [
+      "11161",
+      "111",
+      "124",
+      "121",
+      "11149",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "34833174",
+    "managerName": "Eustace Shurgnein F1 Team",
+    "userName": "Luis Fernando Tamayo Torres",
+    "rank": 489,
+    "points": 3873,
+    "drivers": [
+      "11161",
+      "124",
+      "111",
+      "11",
+      "121",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "159354739",
+    "managerName": "Bsure #3",
+    "userName": "Olav Helland",
+    "rank": 495,
+    "points": 3872,
+    "drivers": [
+      "11161",
+      "11",
+      "111",
+      "115",
+      "129",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179055136",
+    "managerName": "A casa tua",
+    "userName": "Riccardo Burinato",
+    "rank": 495,
+    "points": 3872,
+    "drivers": [
+      "124",
+      "11161",
+      "121",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "196345042",
+    "managerName": "TikiTaka",
+    "userName": "Rodrigo Alvarez",
+    "rank": 495,
+    "points": 3872,
+    "drivers": [
+      "11161",
+      "1982",
+      "11149",
+      "11",
+      "111",
+      "25",
+      "28"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "203067694",
+    "managerName": "flaggg 3.0",
+    "userName": "Jennifer Ralls",
+    "rank": 495,
+    "points": 3872,
+    "drivers": [
+      "11161",
+      "117",
+      "111",
+      "11051",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "231836349",
+    "managerName": "Liquidators",
+    "userName": "Andrew Quaye",
+    "rank": 495,
+    "points": 3872,
+    "drivers": [
+      "115",
+      "11161",
+      "11149",
+      "111",
+      "129",
+      "28",
+      "25"
+    ],
+    "captainId": null,
+    "megaCaptainId": null,
+    "activeChip": null
+  },
+  {
+    "managerId": "179052219",
+    "managerName": "James w**ks on all 4s",
+    "userName": "Jamie Morris",
+    "rank": 495,
+    "points": 3872,
+    "drivers": [
+      "11161",
+      "131",
+      "111",
+      "121",
+      "11",
+      "25",
+      "28"
+    ],
+    "captainId": null,
     "megaCaptainId": null,
     "activeChip": null
   }
