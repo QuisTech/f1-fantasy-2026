@@ -192,7 +192,8 @@ async function buildHistoricalDataset() {
       let squadCost = 0;
       const driverIds = [];
 
-      (m.drivers || []).forEach(d => {
+      const activeLineup = (m.drivers || []).filter(d => (d.playerpostion || 1) <= 7);
+      activeLineup.forEach(d => {
         const dId = String(d.id || d);
         driverIds.push(dId);
         const pPts = pointsMap[dId] !== undefined ? pointsMap[dId] : 0;

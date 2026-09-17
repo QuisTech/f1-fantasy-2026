@@ -13,20 +13,16 @@ export interface EliteConsensusData {
 
 export const F1_RAW_CONSTRUCTOR_ID_MAP: Record<string, string> = {
   '28': 'mercedes',
-  '25': 'ferrari',
-  '27': 'mclaren',
   '29': 'red_bull',
-  '2636': 'racing_bulls',
-  '24': 'aston_martin',
-  '117': 'aston_martin',
-  '26': 'haas',
-  '131': 'haas',
-  '2640': 'audi',
+  '27': 'mclaren',
+  '25': 'ferrari',
   '23': 'alpine',
-  '11059': 'alpine',
-  '2641': 'cadillac',
-  '11149': 'cadillac',
+  '2636': 'racing_bulls',
+  '26': 'haas',
+  '2640': 'audi',
   '210': 'williams',
+  '2641': 'cadillac',
+  '24': 'aston_martin',
 };
 
 /**

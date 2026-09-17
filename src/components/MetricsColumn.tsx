@@ -677,7 +677,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                               userName: manager.userName,
                               rank: manager.roundRank,
                               points: manager.roundPoints,
-                              drivers: manager.driverIds.map((id, pIdx) => ({
+                              drivers: manager.driverIds.slice(0, 7).map((id, pIdx) => ({
                                 id,
                                 playerpostion: pIdx + 1,
                                 iscaptain: id === manager.captainId ? 1 : 0,
@@ -702,7 +702,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                           <span className="text-emerald-400">Total: +{rawPoints} pts</span>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
-                          {manager.driverIds.map((id, pIdx) => {
+                          {manager.driverIds.slice(0, 7).map((id, pIdx) => {
                             const isCap = id === manager.captainId;
                             const player = resolvePlayer(id);
                             const score = isCap ? player.points * 2 : player.points;

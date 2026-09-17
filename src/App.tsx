@@ -48,10 +48,10 @@ export function App() {
     manager.drivers.forEach((p: any) => {
       const idStr = String(p.id);
       if (p.playerpostion <= 5) {
-        selectedDIds.push(idStr);
-      } else {
+        if (selectedDIds.length < 5) selectedDIds.push(idStr);
+      } else if (p.playerpostion <= 7) {
         const teamId = F1_RAW_CONSTRUCTOR_ID_MAP[idStr] || idStr;
-        selectedCIds.push(teamId);
+        if (selectedCIds.length < 2) selectedCIds.push(teamId);
       }
     });
 
