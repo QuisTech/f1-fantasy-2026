@@ -248,7 +248,7 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
       }
 
       drivers.push({
-        id: p.PlayerId,
+        id: String(p.PlayerId),
         name: p.FirstName + ' ' + p.LastName,
         shortName: shortName,
         number: 1, 

@@ -3,6 +3,7 @@ import { Network, ArrowRightLeft, TrendingUp, AlertTriangle, ShieldCheck, Zap } 
 import type { Driver, Constructor, UserLineup, Circuit } from '../types/f1';
 import { beamSearchMultiWeek } from '../utils/quantEngine';
 import type { GameweekState } from '../utils/quantEngine';
+import { optimizeLineup } from '../utils/optimizer';
 
 interface Props {
   drivers: Driver[];
@@ -90,11 +91,23 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
             {bestPath.pathHistory.map((step, idx) => {
               const stepDetail = bestPath.pathSteps?.[idx];
               const isHold = step.includes('Hold Lineup');
-              const isWildcard = stepDetail?.isWildcard || step.includes('WILDCARD');
+              const isWildcard = Boolean(stepDetail?.isWildcard || step.toLowerCase().includes('wildcard'));
               const isPenalty = step.includes('Expected') && bestPath.transferPenaltiesTotal > 0 && !isHold && idx > 0;
               
-              const stepDrivers = stepDetail ? drivers.filter(d => stepDetail.driverIds.includes(d.id)) : [];
-              const stepConstructors = stepDetail ? constructors.filter(c => stepDetail.constructorIds.includes(c.id)) : [];
+              let stepDrivers = stepDetail ? drivers.filter(d => stepDetail.driverIds.map(String).includes(String(d.id))) : [];
+              let stepConstructors = stepDetail ? constructors.filter(c => stepDetail.constructorIds.map(String).includes(String(c.id))) : [];
+              let drsBoostId = stepDetail?.drsBoostDriverId;
+
+              // Fallback: If wildcard step, ensure full lineup is resolved even if stepDetail had mismatched IDs
+              if (isWildcard && (stepDrivers.length === 0 || stepConstructors.length === 0)) {
+                const budget = userLineup.teamValue > 0 ? userLineup.teamValue : 100.0;
+                const opt = optimizeLineup(drivers, constructors, budget, [], [], strategyMode);
+                if (opt) {
+                  stepDrivers = opt.drivers;
+                  stepConstructors = opt.constructors;
+                  drsBoostId = opt.drsBoostDriver.id;
+                }
+              }
 
               return (
                 <div key={idx} className="relative flex items-start gap-4">
@@ -134,7 +147,7 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                     </p>
 
                     {/* If Wildcard, render full roster breakdown & 1-click apply button */}
-                    {isWildcard && stepDetail && stepDrivers.length > 0 && (
+                    {isWildcard && stepDrivers.length > 0 && (
                       <div className="mt-3 pt-3 border-t border-amber-500/20 space-y-2.5">
                         <div className="text-[11px] font-bold text-amber-300 uppercase tracking-wider flex items-center justify-between">
                           <span>Wildcard Suggested Squad</span>
@@ -158,7 +171,7 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                         <div className="flex flex-wrap gap-1.5 items-center">
                           <span className="text-[10px] font-semibold text-slate-400 uppercase w-14 shrink-0">Drivers:</span>
                           {stepDrivers.map(d => {
-                            const isDrs = d.id === stepDetail.drsBoostDriverId;
+                            const isDrs = String(d.id) === String(drsBoostId);
                             return (
                               <span
                                 key={d.id}
@@ -185,7 +198,11 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                           <div className="pt-2 flex justify-end">
                             <button
                               type="button"
-                              onClick={() => onApplySquad(stepDetail.driverIds, stepDetail.constructorIds, stepDetail.drsBoostDriverId)}
+                              onClick={() => onApplySquad(
+                                stepDrivers.map(d => String(d.id)),
+                                stepConstructors.map(c => String(c.id)),
+                                String(drsBoostId || stepDrivers[0]?.id || '')
+                              )}
                               className="px-3 py-1.5 rounded-lg bg-fpl-green hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,255,133,0.3)] transition-all cursor-pointer active:scale-95"
                             >
                               <Zap className="w-3.5 h-3.5 fill-slate-950" />
