@@ -1,7 +1,6 @@
 import React from 'react';
 import { cn } from '../lib/utils';
-import type { Circuit, UserLineup } from '../types/f1';
-import { UserCircle } from 'lucide-react';
+import type { Circuit, UserLineup, ManagedTeamId } from '../types/f1';
 
 interface HeaderProps {
   circuit: Circuit;
@@ -11,6 +10,8 @@ interface HeaderProps {
   isSynced: boolean;
   wildcardMode: boolean;
   setWildcardMode: (mode: boolean) => void;
+  activeTeamId?: ManagedTeamId;
+  onSelectTeam?: (id: ManagedTeamId) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -21,6 +22,8 @@ export const Header: React.FC<HeaderProps> = ({
   isSynced,
   wildcardMode,
   setWildcardMode,
+  activeTeamId = 'T1',
+  onSelectTeam,
 }) => {
   return (
     <header className="col-span-12 flex flex-col xl:flex-row gap-4 items-stretch xl:items-center justify-between mb-4">
@@ -51,6 +54,51 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between xl:justify-end gap-4 xl:gap-6 bg-card-bg/50 p-3.5 sm:p-4 rounded-xl border border-fpl-border w-full xl:w-auto">
         
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between sm:justify-end gap-3 sm:gap-6 w-full xl:w-auto">
+          {/* Active Team Switcher (T1, T2, T3) */}
+          {onSelectTeam && (
+            <div className="flex flex-col w-full sm:w-auto">
+              <div className="flex items-center justify-between sm:justify-start gap-1.5">
+                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium whitespace-nowrap">
+                  Squad
+                </span>
+                {userLineup.teamName && (
+                  <span className="text-[9px] font-mono text-emerald-400 font-bold px-1.5 py-0.2 rounded bg-emerald-950/60 border border-emerald-500/30">
+                    {userLineup.teamName}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded mt-1 w-full sm:w-auto">
+                {(
+                  [
+                    { id: 'T1', name: 'MichQuis', budget: '$102.2M' },
+                    { id: 'T2', name: 'QuisMich', budget: '$100.0M' },
+                    { id: 'T3', name: 'SmichQui', budget: '$100.0M' },
+                  ] as const
+                ).map((tm) => {
+                  const isActive = activeTeamId === tm.id;
+                  return (
+                    <button
+                      key={tm.id}
+                      onClick={() => onSelectTeam(tm.id)}
+                      className={cn(
+                        "flex-1 sm:flex-none px-2.5 py-1 text-[10px] rounded font-bold transition-all text-center cursor-pointer whitespace-nowrap flex items-center gap-1",
+                        isActive
+                          ? "bg-f1-red text-white shadow-[0_0_12px_rgba(235,0,0,0.35)]"
+                          : "text-slate-400 hover:text-slate-200 hover:bg-slate-900"
+                      )}
+                      title={`${tm.id} (${tm.name}) - Budget: ${tm.budget}`}
+                    >
+                      <span className={cn("px-1 py-0.2 text-[8px] font-mono font-black rounded", isActive ? "bg-black/35 text-white" : "bg-slate-800 text-slate-300")}>
+                        {tm.id}
+                      </span>
+                      <span>{tm.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Strategy Mode Toggle */}
           <div className="flex flex-col w-full sm:w-auto">
             <span className="text-[10px] uppercase tracking-widest text-slate-400 text-left sm:text-right font-medium whitespace-nowrap">
@@ -99,7 +147,7 @@ export const Header: React.FC<HeaderProps> = ({
                   !wildcardMode ? "bg-f1-red text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
                 )}
               >
-                {isSynced ? "MY TEAM" : "CUSTOM SQUAD"}
+                {userLineup.teamName || (isSynced ? "MY TEAM" : "CUSTOM SQUAD")}
               </button>
               <button
                 onClick={() => setWildcardMode(true)}
@@ -133,11 +181,6 @@ export const Header: React.FC<HeaderProps> = ({
               5 Drivers + 2 Constructors (Cap 2×)
             </span>
           </div>
-          
-          <button className="flex items-center gap-2 bg-fpl-green text-slate-950 px-3.5 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-fpl-green/90 transition-colors shrink-0 whitespace-nowrap">
-            <UserCircle className="w-4 h-4 shrink-0" />
-            <span className="hidden sm:inline whitespace-nowrap">Paddock Auth</span>
-          </button>
         </div>
 
       </div>

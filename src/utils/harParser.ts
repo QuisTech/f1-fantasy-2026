@@ -247,7 +247,7 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
         tireManagement = fb.tireManagement;
       }
 
-      drivers.push({
+      const driverObj: Driver = {
         id: String(p.PlayerId),
         name: p.FirstName + ' ' + p.LastName,
         shortName: shortName,
@@ -278,11 +278,22 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
         },
         wetWeatherSkill,
         tireManagement
-      });
+      };
+
+      const existingDIdx = drivers.findIndex(
+        (d) => d.shortName === shortName || d.name.toLowerCase() === driverObj.name.toLowerCase()
+      );
+      if (existingDIdx >= 0) {
+        if (Number(p.PlayerId) >= Number(drivers[existingDIdx].id)) {
+          drivers[existingDIdx] = driverObj;
+        }
+      } else {
+        drivers.push(driverObj);
+      }
     } else if (isConstructor) {
       const teamId = mapTeamId(p.LastName || p.TeamName);
       constructorIdMap[p.PlayerId.toString()] = teamId;
-      constructors.push({
+      const constrObj: Constructor = {
         id: teamId,
         name: p.LastName || p.TeamName,
         shortName: p.DriverTLA || p.TeamName.substring(0, 3).toUpperCase(),
@@ -297,7 +308,14 @@ export async function parseHarFile(fileContent: string): Promise<{ drivers: Driv
         totalPoints: overallPoints,
         color: getTeamColor(teamId),
         secondaryColor: '#FFFFFF'
-      });
+      };
+
+      const existingCIdx = constructors.findIndex((c) => c.id === teamId);
+      if (existingCIdx >= 0) {
+        constructors[existingCIdx] = constrObj;
+      } else {
+        constructors.push(constrObj);
+      }
     }
   });
 

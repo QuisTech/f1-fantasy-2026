@@ -225,7 +225,7 @@ async function parseHar() {
         qualiWins = fb.delta < 0 ? 10 : 2;
       }
 
-      drivers.push({
+      const driverObj = {
         id: p.PlayerId,
         name: p.FirstName + ' ' + p.LastName,
         shortName: shortName,
@@ -254,10 +254,21 @@ async function parseHar() {
           qualiWins: qualiWins,
           qualiLosses: 17 - qualiWins
         }
-      });
+      };
+
+      const existingDIdx = drivers.findIndex(
+        (d) => d.shortName === shortName || d.name.toLowerCase() === driverObj.name.toLowerCase()
+      );
+      if (existingDIdx >= 0) {
+        if (Number(p.PlayerId) >= Number(drivers[existingDIdx].id)) {
+          drivers[existingDIdx] = driverObj;
+        }
+      } else {
+        drivers.push(driverObj);
+      }
     } else if (isConstructor) {
       const teamId = mapTeamId(p.LastName || p.TeamName);
-      constructors.push({
+      const constrObj = {
         id: teamId,
         name: p.LastName || p.TeamName,
         shortName: p.DriverTLA || p.TeamName.substring(0, 3).toUpperCase(),
@@ -272,7 +283,14 @@ async function parseHar() {
         totalPoints: overallPoints,
         color: getTeamColor(teamId),
         secondaryColor: '#FFFFFF'
-      });
+      };
+
+      const existingCIdx = constructors.findIndex((c) => c.id === teamId);
+      if (existingCIdx >= 0) {
+        constructors[existingCIdx] = constrObj;
+      } else {
+        constructors.push(constrObj);
+      }
     }
   });
 

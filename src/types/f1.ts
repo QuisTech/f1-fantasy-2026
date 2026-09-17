@@ -95,6 +95,8 @@ export interface ChipStatus {
   isAvailable: boolean;
 }
 
+export type ManagedTeamId = 'T1' | 'T2' | 'T3';
+
 export interface UserLineup {
   driverIds: string[]; // 5 drivers
   constructorIds: TeamId[]; // 2 constructors
@@ -105,6 +107,8 @@ export interface UserLineup {
   totalCost: number; // Current lineup cost ($M)
   teamValue: number; // Total team value ($M) - Target $115M for World #1
   totalExpectedPoints: number;
+  teamName?: string;
+  teamCode?: ManagedTeamId;
 }
 
 export interface FinalFixRecommendation {

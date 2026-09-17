@@ -7,9 +7,9 @@ import {
   INITIAL_DRIVERS,
   INITIAL_CONSTRUCTORS,
   INITIAL_CHIPS,
-  MOCK_USER_LINEUP,
+  DEFAULT_USER_TEAMS,
 } from './data/f1Data';
-import type { UserLineup, TeamId, RoundKey } from './types/f1';
+import type { UserLineup, TeamId, RoundKey, ManagedTeamId } from './types/f1';
 import { Header } from './components/Header';
 import { MetricsColumn } from './components/MetricsColumn';
 import { RightColumn } from './components/RightColumn';
@@ -27,12 +27,34 @@ export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
   const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
   const [activeRound, setActiveRound] = useState<RoundKey>('R14');
+  const [activeTeamId, setActiveTeamId] = useState<ManagedTeamId>(() => {
+    try {
+      const saved = localStorage.getItem('f1_active_team_id');
+      if (saved === 'T1' || saved === 'T2' || saved === 'T3') return saved;
+    } catch (e) {}
+    return 'T1';
+  });
+
+  const [managedTeams, setManagedTeams] = useState<Record<ManagedTeamId, UserLineup>>(() => {
+    try {
+      const saved = localStorage.getItem('f1_managed_teams');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return DEFAULT_USER_TEAMS;
+  });
+
   const [userLineup, setUserLineup] = useState<UserLineup>(() => {
     try {
+      const savedTeams = localStorage.getItem('f1_managed_teams');
+      const savedActive = localStorage.getItem('f1_active_team_id') as ManagedTeamId | null;
+      if (savedTeams && savedActive && (savedActive === 'T1' || savedActive === 'T2' || savedActive === 'T3')) {
+        const parsed = JSON.parse(savedTeams);
+        if (parsed[savedActive]) return parsed[savedActive];
+      }
       const saved = localStorage.getItem('f1_user_lineup');
       if (saved) return JSON.parse(saved);
     } catch (e) {}
-    return MOCK_USER_LINEUP;
+    return DEFAULT_USER_TEAMS.T1;
   });
   
   const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
@@ -54,10 +76,42 @@ export function App() {
   useEffect(() => {
     try {
       localStorage.setItem('f1_user_lineup', JSON.stringify(userLineup));
+      localStorage.setItem('f1_active_team_id', activeTeamId);
+      localStorage.setItem('f1_managed_teams', JSON.stringify(managedTeams));
       localStorage.setItem('f1_is_synced', String(isSynced));
       localStorage.setItem('f1_wildcard_mode', String(wildcardMode));
     } catch (e) {}
-  }, [userLineup, isSynced, wildcardMode]);
+  }, [userLineup, activeTeamId, managedTeams, isSynced, wildcardMode]);
+
+  const handleUpdateUserLineup = (updater: React.SetStateAction<UserLineup>) => {
+    setUserLineup((prev) => {
+      const updated = typeof updater === 'function' ? updater(prev) : updater;
+      setManagedTeams((prevTeams) => {
+        const updatedTeams = {
+          ...prevTeams,
+          [activeTeamId]: {
+            ...updated,
+            teamName: prevTeams[activeTeamId]?.teamName || updated.teamName,
+            teamCode: activeTeamId,
+          },
+        };
+        try {
+          localStorage.setItem('f1_managed_teams', JSON.stringify(updatedTeams));
+        } catch (e) {}
+        return updatedTeams;
+      });
+      return updated;
+    });
+  };
+
+  const handleSelectTeam = (teamId: ManagedTeamId) => {
+    setActiveTeamId(teamId);
+    const targetTeam = managedTeams[teamId] || DEFAULT_USER_TEAMS[teamId];
+    setUserLineup(targetTeam);
+    setWildcardMode(false);
+    setToastMessage(`🏎️ Switched to ${teamId}: ${targetTeam.teamName || teamId} ($${targetTeam.teamValue.toFixed(1)}M | ${targetTeam.totalExpectedPoints.toFixed(1)} xP)`);
+    setTimeout(() => setToastMessage(null), 3500);
+  };
 
   const handleSyncSquad = (manager: any) => {
     if (!manager || !manager.drivers) return;
@@ -91,7 +145,7 @@ export function App() {
       totalXP += c.xP;
     });
 
-    setUserLineup({
+    handleUpdateUserLineup({
       driverIds: selectedDIds,
       constructorIds: selectedCIds as TeamId[],
       drsBoostDriverId: drsId,
@@ -121,7 +175,7 @@ export function App() {
         setConstructors(result.constructors);
         setCircuit(result.circuit);
         if (result.userLineup) {
-          setUserLineup(result.userLineup);
+          handleUpdateUserLineup(result.userLineup);
           setIsSynced(true);
           setWildcardMode(false); // Switch to their team view
         }
@@ -222,12 +276,14 @@ export function App() {
           isSynced={isSynced}
           wildcardMode={wildcardMode}
           setWildcardMode={setWildcardMode}
+          activeTeamId={activeTeamId}
+          onSelectTeam={handleSelectTeam}
         />
 
         {/* Left Column: Metrics & Squad Values */}
         <MetricsColumn
           userLineup={derivedUserLineup}
-          setUserLineup={setUserLineup}
+          setUserLineup={handleUpdateUserLineup}
           drivers={drivers}
           constructors={constructors}
           riskMode={riskMode}
@@ -302,7 +358,7 @@ export function App() {
                     drivers={drivers}
                     constructors={constructors}
                     userLineup={derivedUserLineup}
-                    setUserLineup={setUserLineup}
+                    setUserLineup={handleUpdateUserLineup}
                     lockedDriverIds={lockedDriverIds}
                     setLockedDriverIds={setLockedDriverIds}
                     excludedDriverIds={excludedDriverIds}
@@ -332,7 +388,7 @@ export function App() {
                     constructors={constructors}
                     chips={INITIAL_CHIPS}
                     userLineup={derivedUserLineup}
-                    setUserLineup={setUserLineup}
+                    setUserLineup={handleUpdateUserLineup}
                     onDataUpdate={handleDataUpdate}
                     lockedDriverIds={lockedDriverIds}
                     excludedDriverIds={excludedDriverIds}
@@ -354,7 +410,7 @@ export function App() {
                   <FinalFixAnalyzer
                     drivers={drivers}
                     userLineup={derivedUserLineup}
-                    setUserLineup={setUserLineup}
+                    setUserLineup={handleUpdateUserLineup}
                   />
                 </motion.div>
               ) : tab === 'roadmap' ? (
@@ -371,11 +427,12 @@ export function App() {
                     calendar={F1_CALENDAR as any}
                     strategyMode={riskMode}
                     onApplySquad={(driverIds, constructorIds, drsId) => {
-                      setUserLineup((prev) => ({
+                      handleUpdateUserLineup((prev) => ({
                         ...prev,
                         driverIds,
                         constructorIds: constructorIds as TeamId[],
                         drsBoostDriverId: drsId,
+                        activeChip: 'wildcard',
                       }));
                       setWildcardMode(false);
                       setTab('paddock');

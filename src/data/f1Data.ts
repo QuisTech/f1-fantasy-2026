@@ -1,5 +1,5 @@
 // THIS FILE IS AUTO-GENERATED FROM HAR DATA
-import type { Driver, Constructor, Circuit, ChipStatus, UserLineup, MiniLeagueRival } from '../types/f1';
+import type { Driver, Constructor, Circuit, ChipStatus, UserLineup, MiniLeagueRival, ManagedTeamId } from '../types/f1';
 
 export const INITIAL_DRIVERS: Driver[] = [
   {
@@ -483,36 +483,6 @@ export const INITIAL_DRIVERS: Driver[] = [
     }
   },
   {
-    "id": "114",
-    "name": "Liam Lawson",
-    "shortName": "LAW",
-    "number": 1,
-    "teamId": "racing_bulls",
-    "teamName": "Racing Bulls",
-    "price": 10.3,
-    "priceChange": 0,
-    "projectedPoints": 0,
-    "xP": 7.5,
-    "form": 7.5,
-    "gridPosition": 7,
-    "expectedFinish": 6,
-    "orp": 0.3,
-    "tdi": 51.3,
-    "xDnf": 5,
-    "ownership": 24,
-    "drsOwnership": 0,
-    "totalPoints": 128,
-    "seasonRank": 0,
-    "activeAeroEfficiency": 85,
-    "manualOverrideBoost": true,
-    "headToHeadVsTeammate": {
-      "qualiDeltaSeconds": -0.138,
-      "racePaceDelta": -0.166,
-      "qualiWins": 10,
-      "qualiLosses": 7
-    }
-  },
-  {
     "id": "130",
     "name": "Yuki Tsunoda",
     "shortName": "TSU",
@@ -810,7 +780,7 @@ export const INITIAL_CONSTRUCTORS: Constructor[] = [
     "name": "Racing Bulls",
     "shortName": "RBS",
     "price": 14.7,
-    "driver1Id": "114",
+    "driver1Id": "11149",
     "driver2Id": "130",
     "projectedPoints": 0,
     "xP": 24.2,
@@ -927,17 +897,49 @@ export const INITIAL_CHIPS: ChipStatus[] = [
   { type: 'drs_3x', name: 'Limitless (3x DRS)', description: 'Triple points for your DRS driver.', isAvailable: true },
 ];
 
-export const MOCK_USER_LINEUP: UserLineup = {
-  driverIds: ["11", "11051", "111", "11161", "13"],
-  constructorIds: ["mercedes", "racing_bulls"],
-  drsBoostDriverId: "11161",
-  activeChip: null,
-  freeTransfers: 2,
-  bankBudget: 4.8,
-  totalCost: 92.6,
-  teamValue: 97.4,
-  totalExpectedPoints: 177.0,
+export const DEFAULT_USER_TEAMS: Record<ManagedTeamId, UserLineup> = {
+  T1: {
+    driverIds: ["11161", "118", "11149", "11031", "121"],
+    constructorIds: ["mercedes", "racing_bulls"],
+    drsBoostDriverId: "11161",
+    activeChip: null,
+    freeTransfers: 2,
+    bankBudget: 1.5,
+    totalCost: 100.7,
+    teamValue: 102.2,
+    totalExpectedPoints: 180.2,
+    teamName: "MichQuis",
+    teamCode: "T1",
+  },
+  T2: {
+    driverIds: ["11161", "118", "11", "11031", "121"],
+    constructorIds: ["mercedes", "racing_bulls"],
+    drsBoostDriverId: "11161",
+    activeChip: null,
+    freeTransfers: 2,
+    bankBudget: 1.1,
+    totalCost: 98.9,
+    teamValue: 100.0,
+    totalExpectedPoints: 176.8,
+    teamName: "QuisMich",
+    teamCode: "T2",
+  },
+  T3: {
+    driverIds: ["11161", "118", "11149", "111", "121"],
+    constructorIds: ["mercedes", "racing_bulls"],
+    drsBoostDriverId: "11161",
+    activeChip: null,
+    freeTransfers: 1,
+    bankBudget: 0.3,
+    totalCost: 99.7,
+    teamValue: 100.0,
+    totalExpectedPoints: 175.9,
+    teamName: "SmichQui",
+    teamCode: "T3",
+  },
 };
+
+export const MOCK_USER_LINEUP: UserLineup = DEFAULT_USER_TEAMS.T1;
 
 export const MOCK_RIVALS: MiniLeagueRival[] = [
   {
