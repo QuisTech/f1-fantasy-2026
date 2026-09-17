@@ -244,7 +244,7 @@ function generateNextStates(
         transfersUsedTotal: currentState.transfersUsedTotal + (isWildcard ? 0 : penalty > 0 ? 3 : 0), // simplifies tracking
         transferPenaltiesTotal: currentState.transferPenaltiesTotal + penalty,
         cumulativeXP: currentState.cumulativeXP + weeklyXP - penalty,
-        pathHistory: [...currentState.pathHistory, `Race ${gwIndex + 1} (${projection.circuit.grandPrixName || projection.circuit.name}): ${actionDesc} (Expected: ${weeklyXP.toFixed(1)} xP)`],
+        pathHistory: [...currentState.pathHistory, `${actionDesc} • Expected: ${weeklyXP.toFixed(1)} xP`],
         pathSteps: [...(currentState.pathSteps || []), stepDetail],
         wildcardUsed: currentState.wildcardUsed || isWildcard,
       });
@@ -257,12 +257,13 @@ function generateNextStates(
   // 2. Explore 1-Transfer paths (Drivers)
   for (let i = 0; i < currentState.driverIds.length; i++) {
     const currentD = currentState.driverIds[i];
-    const currentName = drivers.find(d => d.id === currentD)?.shortName;
+    const currentDriver = drivers.find(d => d.id === currentD);
+    const currentName = currentDriver ? `${currentDriver.name} (${currentDriver.shortName})` : currentD;
     for (const d of drivers) {
       if (!currentState.driverIds.includes(d.id)) {
         const newDrivers = [...currentState.driverIds];
         newDrivers[i] = d.id;
-        pushState(newDrivers, currentState.constructorIds, `OUT ${currentName}, IN ${d.shortName}`, 0);
+        pushState(newDrivers, currentState.constructorIds, `OUT ${currentName}, IN ${d.name} (${d.shortName})`, 0);
       }
     }
   }
@@ -270,12 +271,13 @@ function generateNextStates(
   // 3. Explore 1-Transfer paths (Constructors)
   for (let i = 0; i < currentState.constructorIds.length; i++) {
     const currentC = currentState.constructorIds[i];
-    const currentName = constructors.find(c => c.id === currentC)?.shortName;
+    const currentConstr = constructors.find(c => c.id === currentC);
+    const currentName = currentConstr ? `${currentConstr.name} (${currentConstr.shortName})` : currentC;
     for (const c of constructors) {
       if (!currentState.constructorIds.includes(c.id)) {
         const newConstructors = [...currentState.constructorIds];
         newConstructors[i] = c.id;
-        pushState(currentState.driverIds, newConstructors, `OUT ${currentName}, IN ${c.shortName}`, 0);
+        pushState(currentState.driverIds, newConstructors, `OUT ${currentName}, IN ${c.name} (${c.shortName})`, 0);
       }
     }
   }
@@ -284,8 +286,8 @@ function generateNextStates(
   if (!currentState.wildcardUsed && wcResult && wcResult.totalCost <= maxBudget) {
     const wcDriverIds = wcResult.drivers.map(d => d.id);
     const wcConstructorIds = wcResult.constructors.map(c => c.id);
-    const cNames = wcResult.constructors.map(c => c.shortName).join(' + ');
-    const dNames = wcResult.drivers.map(d => `${d.shortName}${d.id === wcResult.drsBoostDriver?.id ? ' (2X)' : ''}`).join(', ');
+    const cNames = wcResult.constructors.map(c => `${c.name} (${c.shortName})`).join(' + ');
+    const dNames = wcResult.drivers.map(d => `${d.name} (${d.shortName})${d.id === wcResult.drsBoostDriver?.id ? ' (2X DRS)' : ''}`).join(', ');
     pushState(wcDriverIds, wcConstructorIds, `PLAY WILDCARD CHIP [${cNames} | ${dNames}]`, 0, true);
   }
 

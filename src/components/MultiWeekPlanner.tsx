@@ -155,9 +155,72 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                       )}
                     </div>
                     
-                    <p className={`text-sm font-semibold ${isWildcard ? 'text-amber-200' : isHold ? 'text-slate-400' : 'text-slate-200'} mt-1`}>
-                      {step}
-                    </p>
+                    {/* Rich Action Row */}
+                    {(() => {
+                      const transferMatch = step.match(/OUT (.*?), IN (.*?)(?: • Expected: (.*))?$/);
+                      if (transferMatch) {
+                        return (
+                          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <div className="inline-flex items-center gap-1.5 bg-red-500/15 border border-red-500/40 text-red-200 text-xs font-bold px-2.5 py-1 rounded-lg shadow-sm">
+                                <span className="text-[9px] uppercase font-black tracking-wider bg-red-500 text-slate-950 px-1.5 py-0.5 rounded">OUT</span>
+                                <span>{transferMatch[1]}</span>
+                              </div>
+                              <span className="text-slate-500 font-bold">➔</span>
+                              <div className="inline-flex items-center gap-1.5 bg-emerald-500/15 border border-emerald-500/40 text-emerald-200 text-xs font-bold px-2.5 py-1 rounded-lg shadow-sm">
+                                <span className="text-[9px] uppercase font-black tracking-wider bg-emerald-500 text-slate-950 px-1.5 py-0.5 rounded">IN</span>
+                                <span>{transferMatch[2]}</span>
+                              </div>
+                            </div>
+                            {transferMatch[3] && (
+                              <span className="text-xs text-slate-400 font-mono">
+                                Expected: <strong className="text-emerald-400 font-bold">{transferMatch[3]}</strong>
+                              </span>
+                            )}
+                          </div>
+                        );
+                      }
+
+                      if (isHold) {
+                        const exp = step.includes('• Expected:') ? step.split('• Expected:')[1] : '';
+                        return (
+                          <div className="mt-2 flex items-center justify-between">
+                            <span className="text-sm font-semibold text-slate-400 flex items-center gap-2">
+                              <ShieldCheck className="w-4 h-4 text-slate-500" />
+                              Hold Current Lineup (0 transfers)
+                            </span>
+                            {exp && (
+                              <span className="text-xs text-slate-400 font-mono">
+                                Expected: <strong className="text-slate-200 font-bold">{exp}</strong>
+                              </span>
+                            )}
+                          </div>
+                        );
+                      }
+
+                      if (isWildcard) {
+                        const exp = step.includes('• Expected:') ? step.split('• Expected:')[1] : '';
+                        return (
+                          <div className="mt-2 flex items-center justify-between">
+                            <span className="text-sm font-bold text-amber-300 flex items-center gap-2">
+                              <Zap className="w-4 h-4 text-amber-400" />
+                              Play Wildcard Chip (Full Squad Overhaul)
+                            </span>
+                            {exp && (
+                              <span className="text-xs text-amber-300/90 font-mono">
+                                Expected: <strong className="text-amber-200 font-bold">{exp}</strong>
+                              </span>
+                            )}
+                          </div>
+                        );
+                      }
+
+                      return (
+                        <p className={`text-sm font-semibold ${isWildcard ? 'text-amber-200' : isHold ? 'text-slate-400' : 'text-slate-200'} mt-1`}>
+                          {step}
+                        </p>
+                      );
+                    })()}
 
                     {/* If Wildcard, render full roster breakdown & 1-click apply button */}
                     {isWildcard && stepDrivers.length > 0 && (
