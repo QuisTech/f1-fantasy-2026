@@ -1,6 +1,8 @@
 import type { Driver, Constructor, Circuit, UserLineup } from '../types/f1';
 import { optimizeLineup } from './optimizer';
+import type { OptimizationResult } from './optimizer';
 import { getNormalizedEliteConsensus, getDriverEffectiveXP, getConstructorEffectiveXP } from './eliteConsensus';
+import type { EliteConsensusData } from './eliteConsensus';
 
 export interface QuantProjection {
   driverXP: Record<string, number>;
@@ -155,15 +157,15 @@ function calculateLineupXP(
   projection: QuantProjection,
   strategyMode: 'safe' | 'aggressive' | 'value' = 'safe',
   drivers: Driver[] = [],
-  constructors: Constructor[] = []
+  constructors: Constructor[] = [],
+  consensus?: EliteConsensusData
 ): number {
   let xp = 0;
-  const consensus = strategyMode === 'value' ? getNormalizedEliteConsensus(true) : undefined;
 
   driverIds.forEach(id => {
     let base = projection.driverXP[id] || 0;
     const dObj = drivers.find(d => d.id === id);
-    if (dObj && strategyMode === 'value') {
+    if (dObj && strategyMode === 'value' && consensus) {
       base = getDriverEffectiveXP({ ...dObj, xP: base }, strategyMode, consensus);
     }
     xp += (id === drsId) ? base * 2 : base;
@@ -172,7 +174,7 @@ function calculateLineupXP(
   constructorIds.forEach(id => {
     let base = projection.constructorXP[id] || 0;
     const cObj = constructors.find(c => c.id === id);
-    if (cObj && strategyMode === 'value') {
+    if (cObj && strategyMode === 'value' && consensus) {
       base = getConstructorEffectiveXP({ ...cObj, xP: base }, strategyMode, consensus);
     }
     xp += base;
@@ -189,7 +191,9 @@ function generateNextStates(
   gwIndex: number,
   lockedDriverIds: string[],
   excludedDriverIds: string[],
-  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe'
+  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe',
+  consensus?: EliteConsensusData,
+  wcResult?: OptimizationResult | null
 ): GameweekState[] {
   const nextStates: GameweekState[] = [];
   const maxBudget = currentState.bankBudget + getLineupCost(currentState.driverIds, currentState.constructorIds, drivers, constructors);
@@ -205,7 +209,6 @@ function generateNextStates(
     const cost = getLineupCost(newDriverIds, newConstructorIds, drivers, constructors);
     if (cost <= maxBudget) {
       // Auto-assign DRS to highest projected xP driver (or consensus captain in Value Mode)
-      const consensus = strategyMode === 'value' ? getNormalizedEliteConsensus(true) : undefined;
       let bestDrs = newDriverIds[0];
       if (strategyMode === 'value' && consensus?.topCaptainId && newDriverIds.includes(consensus.topCaptainId)) {
         bestDrs = consensus.topCaptainId;
@@ -219,7 +222,7 @@ function generateNextStates(
         });
       }
 
-      const weeklyXP = calculateLineupXP(newDriverIds, newConstructorIds, bestDrs, projection, strategyMode, drivers, constructors);
+      const weeklyXP = calculateLineupXP(newDriverIds, newConstructorIds, bestDrs, projection, strategyMode, drivers, constructors, consensus);
       
       const stepDetail: PathStepDetail = {
         gwIndex,
@@ -275,9 +278,8 @@ function generateNextStates(
     }
   }
 
-  // For Wildcard, inject the mode-aware Optimizer result
-  const wcResult = optimizeLineup(drivers, constructors, maxBudget, lockedDriverIds, excludedDriverIds, strategyMode);
-  if (wcResult) {
+  // For Wildcard (available on GW0 only), inject the mode-aware Optimizer result if within budget
+  if (gwIndex === 0 && wcResult && wcResult.totalCost <= maxBudget) {
     const wcDriverIds = wcResult.drivers.map(d => d.id);
     const wcConstructorIds = wcResult.constructors.map(c => c.id);
     const cNames = wcResult.constructors.map(c => c.shortName).join(' + ');
@@ -296,9 +298,11 @@ export function beamSearchMultiWeek(
   beamWidth: number = 10,
   lockedDriverIds: string[] = [],
   excludedDriverIds: string[] = [],
-  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe',
-  forceWildcard: boolean = false
+  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe'
 ): GameweekState {
+  const consensus = strategyMode === 'value' ? getNormalizedEliteConsensus(true) : undefined;
+  const maxBudget = initialLineup.teamValue > 0 ? initialLineup.teamValue : 100.0;
+  const wcResult = optimizeLineup(drivers, constructors, maxBudget, lockedDriverIds, excludedDriverIds, strategyMode);
   
   // Initialize beam with start state
   let currentBeam: GameweekState[] = [{
@@ -321,16 +325,8 @@ export function beamSearchMultiWeek(
     let nextBeam: GameweekState[] = [];
 
     for (const state of currentBeam) {
-      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds, strategyMode);
+      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds, strategyMode, consensus, wcResult);
       nextBeam = nextBeam.concat(expandedStates);
-    }
-
-    // If forced wildcard on GW1, filter only wildcard paths
-    if (forceWildcard && gw === 0) {
-      const wcStates = nextBeam.filter(s => s.pathSteps?.[0]?.isWildcard);
-      if (wcStates.length > 0) {
-        nextBeam = wcStates;
-      }
     }
 
     // Sort by cumulative XP minus penalties and slice top K (Beam Width)
