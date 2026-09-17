@@ -127,7 +127,20 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                   <div className={`flex-1 p-4 rounded-xl border ${isWildcard ? 'bg-amber-950/20 border-amber-500/40 shadow-lg shadow-amber-500/5' : isHold ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-900 border-fpl-purple/30'}`}>
                     <div className="flex justify-between items-start mb-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-white bg-slate-800 px-2 py-0.5 rounded">GW {idx + 1}</span>
+                        <span className="text-xs font-bold text-white bg-slate-800 px-2.5 py-0.5 rounded flex items-center gap-1.5">
+                          <span className="text-amber-400 font-mono">Race {idx + 1}</span>
+                          {upcomingRaces[idx] && (
+                            <>
+                              <span className="text-slate-500">•</span>
+                              <span className="text-slate-200">{upcomingRaces[idx].grandPrixName || upcomingRaces[idx].name}</span>
+                            </>
+                          )}
+                          {idx === 0 && (
+                            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-500/30 font-semibold ml-1">
+                              CURRENT GP
+                            </span>
+                          )}
+                        </span>
                         {isWildcard && (
                           <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500 text-slate-950 flex items-center gap-1 shadow-sm">
                             🃏 WILDCARD CHIP

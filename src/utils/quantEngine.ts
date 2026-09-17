@@ -244,7 +244,7 @@ function generateNextStates(
         transfersUsedTotal: currentState.transfersUsedTotal + (isWildcard ? 0 : penalty > 0 ? 3 : 0), // simplifies tracking
         transferPenaltiesTotal: currentState.transferPenaltiesTotal + penalty,
         cumulativeXP: currentState.cumulativeXP + weeklyXP - penalty,
-        pathHistory: [...currentState.pathHistory, `GW${gwIndex + 1} (${projection.circuit.id}): ${actionDesc} (Expected: ${weeklyXP.toFixed(1)} xP)`],
+        pathHistory: [...currentState.pathHistory, `Race ${gwIndex + 1} (${projection.circuit.grandPrixName || projection.circuit.name}): ${actionDesc} (Expected: ${weeklyXP.toFixed(1)} xP)`],
         pathSteps: [...(currentState.pathSteps || []), stepDetail],
         wildcardUsed: currentState.wildcardUsed || isWildcard,
       });
