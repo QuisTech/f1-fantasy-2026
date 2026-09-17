@@ -13,6 +13,7 @@ interface TeamBuilderProps {
   onDataUpdate?: (data: any) => void;
   lockedDriverIds?: string[];
   excludedDriverIds?: string[];
+  strategyMode?: 'safe' | 'aggressive' | 'value';
 }
 
 export const TeamBuilder: React.FC<TeamBuilderProps> = ({
@@ -21,6 +22,9 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   userLineup,
   setUserLineup,
   onDataUpdate,
+  lockedDriverIds = [],
+  excludedDriverIds = [],
+  strategyMode = 'safe',
 }) => {
   const selectedDrivers = drivers.filter((d) => userLineup.driverIds.includes(d.id));
   const selectedConstructors = constructors.filter((c) => userLineup.constructorIds.includes(c.id));
@@ -53,7 +57,8 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   };
 
   const handleAutoOptimize = () => {
-    const result = optimizeLineup(drivers, constructors, 100.0);
+    const budget = userLineup.teamValue > 0 ? userLineup.teamValue : 100.0;
+    const result = optimizeLineup(drivers, constructors, budget, lockedDriverIds, excludedDriverIds, strategyMode);
     if (result) {
       setUserLineup((prev) => ({
         ...prev,

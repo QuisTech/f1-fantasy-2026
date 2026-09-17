@@ -42,8 +42,8 @@ export interface Driver {
     qualiWins: number;
     qualiLosses: number;
   };
-  wetWeatherSkill: number; // 0-100 rating in the wet (Monte Carlo use)
-  tireManagement: number; // 0-100 rating for long runs
+  wetWeatherSkill?: number; // 0-100 rating in the wet (Monte Carlo use)
+  tireManagement?: number; // 0-100 rating for long runs
 }
 
 export interface Constructor {
@@ -65,7 +65,7 @@ export interface Constructor {
 
 export interface Circuit {
   id: string;
-  date: string;
+  date?: string;
   name: string;
   grandPrixName: string;
   location: string;
@@ -77,7 +77,7 @@ export interface Circuit {
   pitLaneDeltaSec: number; // Time lost in pit stop e.g. 20.4s
   tireDegradation: 'Low' | 'Medium' | 'High' | 'Extreme';
   activeAeroBenefit: 'X-Mode Straights' | 'Z-Mode Corners' | 'Balanced';
-  rainProbability: number; // Historical percentage e.g. 45%
+  rainProbability?: number; // Historical percentage e.g. 45%
 }
 
 export type ChipType = 

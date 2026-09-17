@@ -30,9 +30,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 1.029,
       "qualiWins": 2,
       "qualiLosses": 15
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "11059",
@@ -62,9 +60,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.494,
       "qualiWins": 10,
       "qualiLosses": 7
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "12",
@@ -94,9 +90,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.604,
       "qualiWins": 5,
       "qualiLosses": 12
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "129",
@@ -126,9 +120,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.604,
       "qualiWins": 0,
       "qualiLosses": 17
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "11051",
@@ -158,9 +150,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.548,
       "qualiWins": 2,
       "qualiLosses": 15
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "111",
@@ -190,9 +180,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.525,
       "qualiWins": 4,
       "qualiLosses": 13
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "121",
@@ -222,9 +210,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -6.426,
       "qualiWins": 1,
       "qualiLosses": 16
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "13",
@@ -254,9 +240,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.134,
       "qualiWins": 3,
       "qualiLosses": 14
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "110",
@@ -286,9 +270,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.058,
       "qualiWins": 1,
       "qualiLosses": 16
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "115",
@@ -318,9 +300,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.208,
       "qualiWins": 3,
       "qualiLosses": 14
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "118",
@@ -350,9 +330,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -1.029,
       "qualiWins": 3,
       "qualiLosses": 14
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "11031",
@@ -382,9 +360,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.156,
       "qualiWins": 10,
       "qualiLosses": 7
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "117",
@@ -414,9 +390,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.08,
       "qualiWins": 4,
       "qualiLosses": 13
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "1982",
@@ -446,9 +420,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.08,
       "qualiWins": 1,
       "qualiLosses": 16
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "124",
@@ -478,9 +450,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.058,
       "qualiWins": 4,
       "qualiLosses": 13
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "11161",
@@ -510,9 +480,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.56,
       "qualiWins": 2,
       "qualiLosses": 15
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "114",
@@ -542,9 +510,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.166,
       "qualiWins": 10,
       "qualiLosses": 7
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "130",
@@ -574,9 +540,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -3.317,
       "qualiWins": 3,
       "qualiLosses": 14
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "11149",
@@ -606,9 +570,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.452,
       "qualiWins": 2,
       "qualiLosses": 15
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "131",
@@ -638,9 +600,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 6.426,
       "qualiWins": 3,
       "qualiLosses": 14
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "116",
@@ -670,9 +630,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -0.166,
       "qualiWins": 10,
       "qualiLosses": 7
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "11032",
@@ -702,9 +660,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.33,
       "qualiWins": 2,
       "qualiLosses": 15
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "125",
@@ -734,9 +690,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": 0.208,
       "qualiWins": 2,
       "qualiLosses": 15
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   },
   {
     "id": "11",
@@ -766,9 +720,7 @@ export const INITIAL_DRIVERS: Driver[] = [
       "racePaceDelta": -9.843,
       "qualiWins": 5,
       "qualiLosses": 12
-    },
-    "wetWeatherSkill": 75,
-    "tireManagement": 75
+    }
   }
 ];
 
@@ -963,9 +915,7 @@ export const CURRENT_CIRCUIT: Circuit = {
   "scProbability": 85,
   "pitLaneDeltaSec": 21,
   "tireDegradation": "Low",
-  "activeAeroBenefit": "X-Mode Straights",
-  "rainProbability": 20,
-  "date": "2026-03-08"
+  "activeAeroBenefit": "X-Mode Straights"
 };
 
 export const INITIAL_CHIPS: ChipStatus[] = [
@@ -984,8 +934,8 @@ export const MOCK_USER_LINEUP: UserLineup = {
   activeChip: null,
   freeTransfers: 2,
   bankBudget: 2.5,
-  totalCost: 106.2,
-  teamValue: 110.0,
+  totalCost: 97.5,
+  teamValue: 100.0,
   totalExpectedPoints: 175.5,
 };
 

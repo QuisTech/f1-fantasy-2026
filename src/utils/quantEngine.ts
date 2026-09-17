@@ -1,5 +1,6 @@
 import type { Driver, Constructor, Circuit, UserLineup } from '../types/f1';
 import { optimizeLineup } from './optimizer';
+import { getNormalizedEliteConsensus, getDriverEffectiveXP, getConstructorEffectiveXP } from './eliteConsensus';
 
 export interface QuantProjection {
   driverXP: Record<string, number>;
@@ -29,7 +30,7 @@ export function runMonteCarloSimulation(
 
   for (let i = 0; i < NUM_SIMULATIONS; i++) {
     // Roll the dice for this specific race scenario
-    const isRain = Math.random() * 100 < circuit.rainProbability;
+    const isRain = Math.random() * 100 < (circuit.rainProbability ?? 15);
     const isSafetyCar = Math.random() * 100 < circuit.scProbability;
     
     let simTotal = 0;
@@ -37,22 +38,24 @@ export function runMonteCarloSimulation(
     // Simulate Drivers
     drivers.forEach(d => {
       let simXP = d.xP;
+      const wetSkill = d.wetWeatherSkill ?? 75;
+      const tireSkill = d.tireManagement ?? 75;
       
       // 1. Weather impact
       if (isRain) {
         // High wet skill drivers excel in chaos, low skill drivers lose points (spin/DNF)
-        const wetModifier = (d.wetWeatherSkill - 70) / 30; // -1.0 to 1.0
+        const wetModifier = (wetSkill - 70) / 30; // -1.0 to 1.0
         simXP += wetModifier * 5.0; // +/- 5 points swing
         
         // Rain increases DNF variance
-        if (Math.random() < 0.15 && d.wetWeatherSkill < 60) {
+        if (Math.random() < 0.15 && wetSkill < 60) {
           simXP -= 15; // Crash in rain
         }
       }
 
       // 2. Tire Degradation impact
       if (circuit.tireDegradation === 'High' || circuit.tireDegradation === 'Extreme') {
-        const tireModifier = (d.tireManagement - 70) / 30;
+        const tireModifier = (tireSkill - 70) / 30;
         simXP += tireModifier * 3.0; // Tire whispers gain late race pace
       }
 
@@ -135,15 +138,36 @@ function getLineupCost(driverIds: string[], constructorIds: string[], drivers: D
   return Number(cost.toFixed(1));
 }
 
-function calculateLineupXP(driverIds: string[], constructorIds: string[], drsId: string, projection: QuantProjection): number {
+function calculateLineupXP(
+  driverIds: string[],
+  constructorIds: string[],
+  drsId: string,
+  projection: QuantProjection,
+  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe',
+  drivers: Driver[] = [],
+  constructors: Constructor[] = []
+): number {
   let xp = 0;
+  const consensus = strategyMode === 'value' ? getNormalizedEliteConsensus(true) : undefined;
+
   driverIds.forEach(id => {
-    const base = projection.driverXP[id] || 0;
+    let base = projection.driverXP[id] || 0;
+    const dObj = drivers.find(d => d.id === id);
+    if (dObj && strategyMode === 'value') {
+      base = getDriverEffectiveXP({ ...dObj, xP: base }, strategyMode, consensus);
+    }
     xp += (id === drsId) ? base * 2 : base;
   });
+
   constructorIds.forEach(id => {
-    xp += projection.constructorXP[id] || 0;
+    let base = projection.constructorXP[id] || 0;
+    const cObj = constructors.find(c => c.id === id);
+    if (cObj && strategyMode === 'value') {
+      base = getConstructorEffectiveXP({ ...cObj, xP: base }, strategyMode, consensus);
+    }
+    xp += base;
   });
+
   return Number(xp.toFixed(1));
 }
 
@@ -154,7 +178,8 @@ function generateNextStates(
   constructors: Constructor[],
   gwIndex: number,
   lockedDriverIds: string[],
-  excludedDriverIds: string[]
+  excludedDriverIds: string[],
+  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe'
 ): GameweekState[] {
   const nextStates: GameweekState[] = [];
   const maxBudget = currentState.bankBudget + getLineupCost(currentState.driverIds, currentState.constructorIds, drivers, constructors);
@@ -169,17 +194,22 @@ function generateNextStates(
     }
     const cost = getLineupCost(newDriverIds, newConstructorIds, drivers, constructors);
     if (cost <= maxBudget) {
-      // Auto-assign DRS to highest projected xP driver
+      // Auto-assign DRS to highest projected xP driver (or consensus captain in Value Mode)
+      const consensus = strategyMode === 'value' ? getNormalizedEliteConsensus(true) : undefined;
       let bestDrs = newDriverIds[0];
-      let maxXP = -999;
-      newDriverIds.forEach(id => {
-        if ((projection.driverXP[id] || 0) > maxXP) {
-          maxXP = projection.driverXP[id] || 0;
-          bestDrs = id;
-        }
-      });
+      if (strategyMode === 'value' && consensus?.topCaptainId && newDriverIds.includes(consensus.topCaptainId)) {
+        bestDrs = consensus.topCaptainId;
+      } else {
+        let maxXP = -999;
+        newDriverIds.forEach(id => {
+          if ((projection.driverXP[id] || 0) > maxXP) {
+            maxXP = projection.driverXP[id] || 0;
+            bestDrs = id;
+          }
+        });
+      }
 
-      const weeklyXP = calculateLineupXP(newDriverIds, newConstructorIds, bestDrs, projection);
+      const weeklyXP = calculateLineupXP(newDriverIds, newConstructorIds, bestDrs, projection, strategyMode, drivers, constructors);
       
       nextStates.push({
         driverIds: newDriverIds,
@@ -223,14 +253,11 @@ function generateNextStates(
     }
   }
 
-  // Note: For a production scale we would generate 2-transfer combinations and Wildcard combinations here.
-  // To keep the UI responsive, we rely on the 1-transfer beam width expansion, which inherently
-  // explores 2-transfers over two gameweeks. For Wildcard, we can inject the "Optimize" result.
-  const wcResult = optimizeLineup(drivers, constructors, maxBudget, lockedDriverIds, excludedDriverIds);
+  // For Wildcard, inject the mode-aware Optimizer result
+  const wcResult = optimizeLineup(drivers, constructors, maxBudget, lockedDriverIds, excludedDriverIds, strategyMode);
   if (wcResult) {
     const wcDriverIds = wcResult.drivers.map(d => d.id);
     const wcConstructorIds = wcResult.constructors.map(c => c.id);
-    // Assume Wildcard costs 0 penalty but we note it was used
     pushState(wcDriverIds, wcConstructorIds, `PLAY WILDCARD CHIP -> Optimized Lineup`, 0, true);
   }
 
@@ -244,7 +271,8 @@ export function beamSearchMultiWeek(
   upcomingCircuits: Circuit[],
   beamWidth: number = 10,
   lockedDriverIds: string[] = [],
-  excludedDriverIds: string[] = []
+  excludedDriverIds: string[] = [],
+  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe'
 ): GameweekState {
   
   // Initialize beam with start state
@@ -267,7 +295,7 @@ export function beamSearchMultiWeek(
     let nextBeam: GameweekState[] = [];
 
     for (const state of currentBeam) {
-      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds);
+      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds, strategyMode);
       nextBeam = nextBeam.concat(expandedStates);
     }
 

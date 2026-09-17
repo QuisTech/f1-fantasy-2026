@@ -2,8 +2,26 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const HAR_PATH = 'C:/Users/Administrator/Downloads/fantasy.formula1com2.har'; // Updated to new HAR file
+function getHarPath() {
+  const candidates = [
+    'C:/Users/USER/Downloads/fantasy.formula1.com.har',
+    'C:/Users/Administrator/Downloads/fantasy.formula1com2.har',
+    'C:/Users/USER/Downloads/fantasy.formula1com2.har'
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  const dlDir = 'C:/Users/USER/Downloads';
+  if (fs.existsSync(dlDir)) {
+    const files = fs.readdirSync(dlDir).filter(f => f.toLowerCase().includes('fantasy') && f.endsWith('.har'));
+    if (files.length > 0) return path.join(dlDir, files[0]);
+  }
+  return candidates[0];
+}
+
+const HAR_PATH = getHarPath();
 const OUTPUT_PATH = path.join(__dirname, '../src/data/f1Data.ts');
+const ELITE_COHORT_PATH = path.join(__dirname, '../src/data/eliteCohort.json');
 
 function mapTeamId(teamName) {
   const name = teamName.toLowerCase();
@@ -392,6 +410,73 @@ export const MOCK_RIVALS: MiniLeagueRival[] = [
 
   fs.writeFileSync(OUTPUT_PATH, outputCode);
   console.log('Successfully wrote f1Data.ts');
+
+  // --- Extract Elite Cohort (Top Managers) ---
+  let lbPayload = null;
+  for (const entry of data.log.entries) {
+    try {
+      if (entry.response && entry.response.content && entry.response.content.text) {
+        const text = entry.response.content.text;
+        if (text.includes('cur_rank') && text.includes('user_team') && text.includes('leaderboard')) {
+          const parsed = JSON.parse(text);
+          if (parsed.Value && parsed.Value.leaderboard) {
+            lbPayload = parsed.Value.leaderboard;
+            break;
+          }
+        }
+      }
+    } catch(e) {}
+  }
+
+  if (lbPayload && Array.isArray(lbPayload)) {
+    let userTeamObj = {
+      managerId: '0.272905018054707',
+      managerName: 'MichQuis',
+      rank: 2169686,
+      points: 177,
+      drivers: [
+        { id: '11', isfinal: 0, iscaptain: 0, ismgcaptain: 0, playerpostion: 3 },
+        { id: '11051', isfinal: 0, iscaptain: 0, ismgcaptain: 0, playerpostion: 5 },
+        { id: '111', isfinal: 0, iscaptain: 0, ismgcaptain: 0, playerpostion: 4 },
+        { id: '11161', isfinal: 0, iscaptain: 1, ismgcaptain: 0, playerpostion: 1 },
+        { id: '13', isfinal: 0, iscaptain: 0, ismgcaptain: 0, playerpostion: 2 },
+        { id: '2636', isfinal: 0, iscaptain: 0, ismgcaptain: 0, playerpostion: 7 },
+        { id: '28', isfinal: 0, iscaptain: 0, ismgcaptain: 0, playerpostion: 6 }
+      ],
+      captainId: '11161',
+      megaCaptainId: null,
+      activeChip: null
+    };
+
+    const cohort = [userTeamObj];
+    lbPayload.forEach(m => {
+      if (m.social_id === '175078838' || m.team_name === 'MichQuis') return;
+      const teamName = decodeURIComponent(m.team_name || 'Team');
+      const userTeam = m.user_team || [];
+      const captainId = userTeam.includes('11161') ? '11161' : (userTeam[0] || null);
+
+      cohort.push({
+        managerId: `${m.social_id}_${m.team_no}`,
+        managerName: teamName,
+        userName: m.user_name,
+        rank: m.cur_rank,
+        points: m.cur_points,
+        drivers: userTeam.map((id, idx) => ({
+          id: String(id),
+          isfinal: 0,
+          iscaptain: id === captainId ? 1 : 0,
+          ismgcaptain: 0,
+          playerpostion: idx + 1
+        })),
+        captainId: captainId,
+        megaCaptainId: null,
+        activeChip: null
+      });
+    });
+
+    fs.writeFileSync(ELITE_COHORT_PATH, JSON.stringify(cohort, null, 2));
+    console.log(`Successfully wrote ${cohort.length} managers to eliteCohort.json`);
+  }
 }
 
 parseHar();

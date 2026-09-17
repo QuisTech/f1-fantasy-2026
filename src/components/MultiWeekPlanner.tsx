@@ -9,9 +9,10 @@ interface Props {
   constructors: Constructor[];
   userLineup: UserLineup;
   calendar: Circuit[];
+  strategyMode?: 'safe' | 'aggressive' | 'value';
 }
 
-export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userLineup, calendar }) => {
+export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userLineup, calendar, strategyMode = 'safe' }) => {
   const [horizon, setHorizon] = useState(3);
   const [isCalculating, setIsCalculating] = useState(false);
   const [bestPath, setBestPath] = useState<GameweekState | null>(null);
@@ -20,7 +21,7 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
   const upcomingRaces = useMemo(() => {
     const now = new Date();
     // In our mock, if all dates are past, we just take the last 'horizon' races
-    let futureRaces = calendar.filter(c => new Date(c.date) > now);
+    let futureRaces = calendar.filter(c => c.date ? new Date(c.date) > now : false);
     if (futureRaces.length === 0) {
       futureRaces = calendar.slice(-horizon);
     } else {
@@ -36,13 +37,13 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
     
     // Use setTimeout to allow UI to render the 'Calculating...' state before blocking the main thread
     const timer = setTimeout(() => {
-      const result = beamSearchMultiWeek(userLineup, drivers, constructors, upcomingRaces, 10);
+      const result = beamSearchMultiWeek(userLineup, drivers, constructors, upcomingRaces, 10, [], [], strategyMode);
       setBestPath(result);
       setIsCalculating(false);
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [userLineup, drivers, constructors, upcomingRaces]);
+  }, [userLineup, drivers, constructors, upcomingRaces, strategyMode]);
 
   return (
     <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-4 sm:p-6 mb-6">

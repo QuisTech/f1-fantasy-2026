@@ -1,4 +1,5 @@
 import type { Driver, Constructor, UserLineup, FinalFixRecommendation } from '../types/f1';
+import { getNormalizedEliteConsensus, getDriverEffectiveXP, getConstructorEffectiveXP } from './eliteConsensus';
 
 export interface OptimizationResult {
   drivers: Driver[];
@@ -10,7 +11,7 @@ export interface OptimizationResult {
 }
 
 /**
- * Knapsack solver to find optimal 5 Drivers + 2 Constructors team under maxBudget
+ * Knapsack / LP solver to find optimal 5 Drivers + 2 Constructors team under maxBudget
  */
 export function optimizeLineup(
   drivers: Driver[],
@@ -21,15 +22,21 @@ export function optimizeLineup(
   strategyMode: 'safe' | 'aggressive' | 'value' = 'safe'
 ): OptimizationResult | null {
   let bestResult: OptimizationResult | null = null;
-  let maxXP = -1;
+  let maxScore = -1;
   const validDrivers = drivers.filter(d => !excludedDriverIds.includes(d.id));
+
+  // Ingest normalized elite cohort intelligence
+  const consensus = getNormalizedEliteConsensus(true);
 
   // Combination generator for 2 constructors out of 10
   for (let c1 = 0; c1 < constructors.length; c1++) {
     for (let c2 = c1 + 1; c2 < constructors.length; c2++) {
       const constrCombo = [constructors[c1], constructors[c2]];
       const constrCost = constrCombo[0].price + constrCombo[1].price;
-      const constrXP = constrCombo[0].xP + constrCombo[1].xP;
+      
+      // Objective score for constructors
+      const constrScore = getConstructorEffectiveXP(constructors[c1], strategyMode, consensus) +
+                          getConstructorEffectiveXP(constructors[c2], strategyMode, consensus);
 
       if (constrCost > maxBudget) continue;
 
@@ -64,30 +71,40 @@ export function optimizeLineup(
                 const driverCost = driverCombo.reduce((acc, d) => acc + d.price, 0);
 
                 if (driverCost <= remainingDriverBudget) {
-                  
-                  const getEffectiveXP = (d: Driver) => {
-                    let eff = d.xP;
-                    if (strategyMode === 'aggressive') eff += (d.orp * 0.15);
-                    else if (strategyMode === 'safe') eff -= (d.orp * 0.05);
-                    else if (strategyMode === 'value') eff += (10 / Math.max(d.price, 1));
-                    return eff;
-                  };
+                  // Calculate objective function score per driver
+                  const sortedByScore = [...driverCombo].sort(
+                    (a, b) => getDriverEffectiveXP(b, strategyMode, consensus) - getDriverEffectiveXP(a, strategyMode, consensus)
+                  );
 
-                  const sortedByXP = [...driverCombo].sort((a, b) => getEffectiveXP(b) - getEffectiveXP(a));
-                  const drsDriver = sortedByXP[0];
-                  
-                  const driverXP = driverCombo.reduce((acc, d) => acc + getEffectiveXP(d), 0) + getEffectiveXP(drsDriver);
-                  const totalLineupXP = driverXP + constrXP;
+                  // Captain selection: In Value Mode, prioritize consensus #1 captain if present
+                  let drsDriver = sortedByScore[0];
+                  if (strategyMode === 'value' && consensus.topCaptainId) {
+                    const topCapInLineup = driverCombo.find(d => d.id === consensus.topCaptainId);
+                    if (topCapInLineup) {
+                      drsDriver = topCapInLineup;
+                    }
+                  }
+
+                  const driverScore = driverCombo.reduce(
+                    (acc, d) => acc + getDriverEffectiveXP(d, strategyMode, consensus), 0
+                  ) + getDriverEffectiveXP(drsDriver, strategyMode, consensus);
+
+                  const totalLineupScore = driverScore + constrScore;
                   const totalCost = constrCost + driverCost;
 
-                  if (totalLineupXP > maxXP) {
-                    maxXP = totalLineupXP;
+                  if (totalLineupScore > maxScore) {
+                    maxScore = totalLineupScore;
+
+                    // Real projected xP (unweighted) for user display
+                    const realDriverXP = driverCombo.reduce((acc, d) => acc + d.xP, 0) + drsDriver.xP;
+                    const realLineupXP = realDriverXP + constrCombo[0].xP + constrCombo[1].xP;
+
                     bestResult = {
                       drivers: driverCombo,
                       constructors: constrCombo,
                       drsBoostDriver: drsDriver,
                       totalCost: Number(totalCost.toFixed(1)),
-                      totalXP: Number(totalLineupXP.toFixed(1)),
+                      totalXP: Number(realLineupXP.toFixed(1)),
                       bankRemaining: Number((maxBudget - totalCost).toFixed(1)),
                     };
                   }

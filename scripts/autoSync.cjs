@@ -5,10 +5,10 @@ try {
   execSync('npm run update-data', { stdio: 'inherit' });
 
   console.log('Staging changes...');
-  execSync('git add src/data/f1Data.ts', { stdio: 'inherit' });
+  execSync('git add src/data/f1Data.ts src/data/eliteCohort.json', { stdio: 'inherit' });
 
   // Check if there's anything to commit
-  const status = execSync('git status --porcelain src/data/f1Data.ts').toString().trim();
+  const status = execSync('git status --porcelain src/data/f1Data.ts src/data/eliteCohort.json').toString().trim();
   
   if (status) {
     console.log('Changes detected. Committing and pushing to GitHub...');

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Camera } from 'lucide-react';
+import { Camera, Zap } from 'lucide-react';
 import { cn } from './lib/utils';
 import {
   CURRENT_CIRCUIT,
@@ -9,7 +9,7 @@ import {
   INITIAL_CHIPS,
   MOCK_USER_LINEUP,
 } from './data/f1Data';
-import type { UserLineup } from './types/f1';
+import type { UserLineup, TeamId } from './types/f1';
 import { Header } from './components/Header';
 import { MetricsColumn } from './components/MetricsColumn';
 import { RightColumn } from './components/RightColumn';
@@ -21,10 +21,11 @@ import { RivalSpy } from './components/RivalSpy';
 import { MultiWeekPlanner } from './components/MultiWeekPlanner';
 import { F1_CALENDAR, parseHarFile } from './utils/harParser';
 import { optimizeLineup } from './utils/optimizer';
+import { F1_RAW_CONSTRUCTOR_ID_MAP } from './utils/eliteConsensus';
 
 export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
-    const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
+  const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
   const [userLineup, setUserLineup] = useState<UserLineup>(MOCK_USER_LINEUP);
   
   const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
@@ -35,6 +36,57 @@ export function App() {
   const [lockedDriverIds, setLockedDriverIds] = useState<string[]>([]);
   const [excludedDriverIds, setExcludedDriverIds] = useState<string[]>([]);
   const [wildcardMode, setWildcardMode] = useState(!isSynced); // Defaults to true if not synced
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const handleSyncSquad = (manager: any) => {
+    if (!manager || !manager.drivers) return;
+
+    const selectedDIds: string[] = [];
+    const selectedCIds: string[] = [];
+
+    manager.drivers.forEach((p: any) => {
+      const idStr = String(p.id);
+      if (p.playerpostion <= 5) {
+        selectedDIds.push(idStr);
+      } else {
+        const teamId = F1_RAW_CONSTRUCTOR_ID_MAP[idStr] || idStr;
+        selectedCIds.push(teamId);
+      }
+    });
+
+    const drsId = manager.captainId ? String(manager.captainId) : selectedDIds[0] || '';
+
+    const sDrivers = drivers.filter((d) => selectedDIds.includes(d.id));
+    const sConstructors = constructors.filter((c) => selectedCIds.includes(c.id));
+    const dCost = sDrivers.reduce((acc, d) => acc + d.price, 0);
+    const cCost = sConstructors.reduce((acc, c) => acc + c.price, 0);
+    const totalC = parseFloat((dCost + cCost).toFixed(1));
+
+    let totalXP = 0;
+    sDrivers.forEach((d) => {
+      totalXP += (d.id === drsId) ? d.xP * 2 : d.xP;
+    });
+    sConstructors.forEach((c) => {
+      totalXP += c.xP;
+    });
+
+    setUserLineup({
+      driverIds: selectedDIds,
+      constructorIds: selectedCIds as TeamId[],
+      drsBoostDriverId: drsId,
+      activeChip: manager.activeChip || null,
+      freeTransfers: 2,
+      bankBudget: parseFloat(Math.max(0, 100.0 - totalC).toFixed(1)),
+      totalCost: totalC,
+      teamValue: 100.0,
+      totalExpectedPoints: totalXP,
+    });
+
+    setIsSynced(true);
+    setWildcardMode(false);
+    setToastMessage(`⚡ Synced squad from #${manager.rank} ${manager.managerName || manager.userName} (${manager.points} pts)`);
+    setTimeout(() => setToastMessage(null), 4000);
+  };
 
   const handleHarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -129,7 +181,9 @@ export function App() {
         <MetricsColumn
           userLineup={derivedUserLineup}
           drivers={drivers}
+          constructors={constructors}
           riskMode={riskMode}
+          onSyncSquad={handleSyncSquad}
         />
 
         {/* Primary Center Content Area matching fpl-admin */}
@@ -218,10 +272,10 @@ export function App() {
                     userLineup={derivedUserLineup}
                     setUserLineup={setUserLineup}
                     onDataUpdate={handleDataUpdate}
-                  
-                        lockedDriverIds={lockedDriverIds}
-                        excludedDriverIds={excludedDriverIds}
-                      />
+                    lockedDriverIds={lockedDriverIds}
+                    excludedDriverIds={excludedDriverIds}
+                    strategyMode={riskMode}
+                  />
                 </motion.div>
               ) : tab === 'finalfix' ? (
                 <motion.div
@@ -248,8 +302,8 @@ export function App() {
                     constructors={constructors}
                     userLineup={derivedUserLineup}
                     calendar={F1_CALENDAR as any}
-                  
-                         />
+                    strategyMode={riskMode}
+                  />
                 </motion.div>
               ) : tab === 'metrics' ? (
                 <motion.div
@@ -288,6 +342,14 @@ export function App() {
         />
 
       </div>
+
+      {/* Floating Interactive Toast for Squad Synchronization */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900/95 text-emerald-400 border border-emerald-500/40 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-mono font-bold backdrop-blur-md transition-all duration-300">
+          <Zap className="w-4 h-4 text-emerald-400 animate-pulse" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </div>
   );
 }
