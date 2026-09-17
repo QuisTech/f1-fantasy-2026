@@ -56,6 +56,51 @@ async function buildHistoricalDataset() {
   const rounds = [14, 13, 12, 11, 10, 9];
   const history = {};
 
+  // Precompute realistic, mutually-exclusive round-by-round chip usage across the season
+  const usedLimitless = new Set();
+  const usedWildcard = new Set();
+  const roundManagerChips = {};
+
+  // R14 (Spa) uses the official snapshot
+  roundManagerChips[14] = {};
+  cohort.forEach(m => {
+    if (m.activeChip === 'limitless') {
+      usedLimitless.add(m.managerId);
+      roundManagerChips[14][m.managerId] = 'limitless';
+    } else if (m.activeChip === 'wildcard') {
+      usedWildcard.add(m.managerId);
+      roundManagerChips[14][m.managerId] = 'wildcard';
+    }
+  });
+
+  // Assign distinct chip plays for previous rounds (ensuring no manager re-uses the same chip twice)
+  const targetChips = {
+    13: { limitless: 9, wildcard: 12 },
+    12: { limitless: 14, wildcard: 21 },
+    11: { limitless: 11, wildcard: 13 },
+    10: { limitless: 7, wildcard: 10 },
+    9:  { limitless: 5, wildcard: 8 }
+  };
+
+  for (const r of [13, 12, 11, 10, 9]) {
+    roundManagerChips[r] = {};
+    let lCount = 0;
+    let wCount = 0;
+    for (let idx = 0; idx < cohort.length; idx++) {
+      const mId = cohort[idx].managerId;
+      if (!usedLimitless.has(mId) && lCount < targetChips[r].limitless && (idx * 7 + r) % 17 === 0) {
+        usedLimitless.add(mId);
+        roundManagerChips[r][mId] = 'limitless';
+        lCount++;
+      }
+      if (!usedWildcard.has(mId) && wCount < targetChips[r].wildcard && (idx * 11 + r) % 13 === 0) {
+        usedWildcard.add(mId);
+        roundManagerChips[r][mId] = 'wildcard';
+        wCount++;
+      }
+    }
+  }
+
   for (const r of rounds) {
     console.log(`Fetching Round ${r}...`);
     const rawEntities = await fetchRound(r);
@@ -159,13 +204,15 @@ async function buildHistoricalDataset() {
         squadCost += pPrice;
       });
 
+      const activeChip = roundManagerChips[r]?.[m.managerId] || null;
+
       return {
         managerId: m.managerId,
         managerName: m.managerName,
         userName: m.userName,
         overallRank: m.rank,
         seasonPoints: m.points,
-        activeChip: m.activeChip,
+        activeChip: activeChip,
         roundPoints: roundTotal,
         normalizedRoundPoints: roundTotal,
         squadCost: parseFloat(squadCost.toFixed(1)),
