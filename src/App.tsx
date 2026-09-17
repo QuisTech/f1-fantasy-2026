@@ -9,7 +9,7 @@ import {
   INITIAL_CHIPS,
   MOCK_USER_LINEUP,
 } from './data/f1Data';
-import type { UserLineup, TeamId } from './types/f1';
+import type { UserLineup, TeamId, RoundKey } from './types/f1';
 import { Header } from './components/Header';
 import { MetricsColumn } from './components/MetricsColumn';
 import { RightColumn } from './components/RightColumn';
@@ -26,6 +26,7 @@ import { F1_RAW_CONSTRUCTOR_ID_MAP } from './utils/eliteConsensus';
 export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
   const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
+  const [activeRound, setActiveRound] = useState<RoundKey>('R14');
   const [userLineup, setUserLineup] = useState<UserLineup>(MOCK_USER_LINEUP);
   
   const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
@@ -184,6 +185,8 @@ export function App() {
           constructors={constructors}
           riskMode={riskMode}
           onSyncSquad={handleSyncSquad}
+          activeRound={activeRound}
+          onRoundChange={setActiveRound}
         />
 
         {/* Primary Center Content Area matching fpl-admin */}
@@ -256,6 +259,8 @@ export function App() {
                     excludedDriverIds={excludedDriverIds}
                     setExcludedDriverIds={setExcludedDriverIds}
                     onHarUpload={handleHarUpload}
+                    activeRound={activeRound}
+                    onRoundChange={setActiveRound}
                   />
                 </motion.div>
               ) : tab === 'optimizer' ? (

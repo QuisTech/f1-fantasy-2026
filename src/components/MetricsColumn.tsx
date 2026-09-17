@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import {
   Star,
-  HelpCircle,
   Sparkles,
   ChevronLeft,
   ChevronRight,
@@ -10,13 +9,21 @@ import {
   Crown,
   CodeXml,
   ShieldCheck,
+  Trophy,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
-import type { Driver, Constructor, UserLineup } from '../types/f1';
-import eliteCohortData from '../data/eliteCohort.json';
+import type { Driver, Constructor, UserLineup, RoundKey } from '../types/f1';
 import { getNormalizedEliteConsensus } from '../utils/eliteConsensus';
 import { F1AssetPhoto } from './F1AssetPhoto';
 import { INITIAL_CONSTRUCTORS } from '../data/f1Data';
+import {
+  AVAILABLE_ROUNDS,
+  getHistoricalRound,
+  getStartingWeaponsForRound,
+  getBudgetEnablersForRound,
+  getTopCaptainsForRound,
+  getCohortForRound,
+} from '../services/historicalData';
 
 interface MetricsColumnProps {
   userLineup: UserLineup;
@@ -24,22 +31,36 @@ interface MetricsColumnProps {
   constructors?: Constructor[];
   riskMode: 'safe' | 'aggressive' | 'value';
   onSyncSquad?: (manager: any) => void;
+  activeRound?: RoundKey;
+  onRoundChange?: (round: RoundKey) => void;
 }
 
 export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   userLineup,
   drivers,
-  constructors = INITIAL_CONSTRUCTORS,
+  constructors: _constructors = INITIAL_CONSTRUCTORS,
   riskMode,
   onSyncSquad,
+  activeRound: propActiveRound,
+  onRoundChange,
 }) => {
   // 1. UI Navigation & Filter States
-  const [activeRound, setActiveRound] = useState<'R14' | 'R13' | 'R12' | 'R11' | 'R10' | 'R9'>('R14');
+  const [internalRound, setInternalRound] = useState<RoundKey>('R14');
+  const activeRound = propActiveRound || internalRound;
+  const setActiveRound = (rnd: RoundKey) => {
+    if (onRoundChange) {
+      onRoundChange(rnd);
+    } else {
+      setInternalRound(rnd);
+    }
+  };
+
   const [cohortFilter, setCohortFilter] = useState<'all' | 'zero_chips' | 'normalized'>('all');
   const [expandedOmittedId, setExpandedOmittedId] = useState<string | null>(null);
+  const [expandedManagerId, setExpandedManagerId] = useState<string | null>(null);
   const [syncedManagerId, setSyncedManagerId] = useState<string | null>(null);
 
-  const availableRounds: Array<'R14' | 'R13' | 'R12' | 'R11' | 'R10' | 'R9'> = ['R14', 'R13', 'R12', 'R11', 'R10', 'R9'];
+  const availableRounds = AVAILABLE_ROUNDS;
 
   const drsDriver = drivers.find((d) => d.id === userLineup.drsBoostDriverId) || drivers[0];
 
@@ -47,10 +68,25 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   const totalRosterPoints = userLineup.totalExpectedPoints;
   const multiWeekProjection = (totalRosterPoints * 3).toFixed(1); // 3-race projection
 
-  // 3. Elite Consensus & EO Math
+  // 3. Historical Round Data & Cohort Intelligence
+  const roundData = useMemo(() => getHistoricalRound(activeRound), [activeRound]);
+  const startingWeapons = useMemo(() => getStartingWeaponsForRound(activeRound), [activeRound]);
+  const budgetEnablers = useMemo(() => getBudgetEnablersForRound(activeRound), [activeRound]);
+  const topCaptains = useMemo(() => getTopCaptainsForRound(activeRound), [activeRound]);
+  const filteredCohort = useMemo(() => getCohortForRound(activeRound, cohortFilter), [activeRound, cohortFilter]);
+  const totalCohortSize = roundData.cohortScores.length;
+
+  const pureZeroChipsCount = useMemo(() => {
+    return roundData.cohortScores.filter((m) => !m.activeChip || m.activeChip === 'none').length;
+  }, [roundData]);
+
+  const normalizedCount = useMemo(() => {
+    return roundData.cohortScores.filter((m) => m.activeChip !== 'limitless').length;
+  }, [roundData]);
+
+  // Elite Consensus & EO Math for current baseline
   const consensus = getNormalizedEliteConsensus(true);
-  const cohortSize = consensus.cohortSize; // 485 organic cost-cap managers
-  const totalCohortSize = consensus.totalCohortSize; // 501 total
+  const cohortSize = consensus.cohortSize;
 
   const driversWithEO = drivers.map((d) => {
     const eo = consensus.driverEO[d.id] || 0;
@@ -67,126 +103,65 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   });
   const avgRosterEO = ((sumRosterEO / 7) || 0).toFixed(1);
 
-  // 4. Omitted Template Stars
+  // Omitted Template Stars
   const userSelectedSet = new Set([...userLineup.driverIds, ...userLineup.constructorIds]);
   const omittedStars = driversWithEO
     .filter((d) => !userSelectedSet.has(d.id) && d.eo >= 15)
     .sort((a, b) => b.eo - a.eo);
 
-  // 5. Elite Consensus Hub Calculations
-  const sortedCaptains = Object.entries(consensus.captainVotes)
-    .sort(([, a], [, b]) => b - a)
-    .map(([id, votes]) => {
-      const d = drivers.find((drv) => drv.id === id);
-      return { driver: d, percent: Math.round(votes), rawVotes: votes };
-    })
-    .filter((c): c is { driver: Driver; percent: number; rawVotes: number } => Boolean(c.driver));
-
-  const topCaptain = sortedCaptains[0] || {
-    driver: drivers.find((d) => d.id === '11161') || drivers[0],
+  // Top Captain for selected round
+  const topCaptain = topCaptains[0] || {
+    driver: roundData.drivers[0],
     percent: 100,
-    rawVotes: 100,
+    roundPoints: roundData.drivers[0]?.roundPoints || 0,
   };
 
-  const runnerUp = sortedCaptains[1] || {
-    driver: drivers.find((d) => d.id === '124') || drivers[1],
-    percent: 49,
-    rawVotes: 49,
+  const runnerUp = topCaptains[1] || {
+    driver: roundData.drivers[1] || roundData.drivers[0],
+    percent: 35,
+    roundPoints: roundData.drivers[1]?.roundPoints || 0,
   };
 
-  const top5Captains = sortedCaptains.slice(0, 5);
+  const top5Captains = topCaptains.slice(0, 5);
 
-  // Starting Weapons: Premium Assets (Drivers >= $15M + Top Constructors)
-  const startingWeaponsDrivers = driversWithEO
-    .filter((d) => d.price >= 15.0)
-    .map((d) => {
-      const starts = d.picks;
-      const startPct = Math.round(d.eo);
-      const caps = Math.round(((consensus.captainVotes[d.id] || 0) / 100) * cohortSize);
-      const capPct = Math.round(consensus.captainVotes[d.id] || 0);
-      const conviction = (starts / cohortSize) + (0.5 * (caps / cohortSize));
+  // Helper for resolving manager lineup assets in selected round
+  const resolvePlayer = (id: string) => {
+    const d = roundData.drivers.find((x) => x.id === id);
+    if (d) {
       return {
         id: d.id,
         name: d.name,
         shortName: d.shortName,
-        teamName: d.teamName,
         role: 'DVR' as const,
         price: d.price,
-        starts,
-        startPct,
-        caps,
-        capPct,
-        conviction,
+        points: d.roundPoints,
+        teamName: d.teamName,
       };
-    });
-
-  const startingWeaponsConstructors = constructors
-    .map((c) => {
-      const eo = consensus.constructorEO[c.id] || consensus.constructorEO[c.shortName.toLowerCase()] || 0;
-      const starts = Math.round((eo / 100) * cohortSize);
-      const startPct = Math.round(eo);
-      const conviction = starts / cohortSize;
+    }
+    const c = roundData.constructors.find(
+      (x) => x.id === id || x.f1PlayerId === id || x.shortName.toLowerCase() === id.toLowerCase()
+    );
+    if (c) {
       return {
         id: c.id,
         name: c.name,
         shortName: c.shortName,
-        teamName: c.name,
         role: 'CON' as const,
         price: c.price,
-        starts,
-        startPct,
-        caps: 0,
-        capPct: 0,
-        conviction,
+        points: c.roundPoints,
+        teamName: c.name,
       };
-    })
-    .filter((c) => c.startPct >= 10);
-
-  const startingWeapons = [...startingWeaponsDrivers, ...startingWeaponsConstructors]
-    .sort((a, b) => b.conviction - a.conviction)
-    .slice(0, 7);
-
-  // Budget Enablers: High Value Assets (< $15.0M)
-  const budgetEnablers = driversWithEO
-    .filter((d) => d.price < 15.0)
-    .map((d) => {
-      const starts = d.picks;
-      const selPct = Math.round(d.eo);
-      const conviction = (starts / cohortSize) * 0.5;
-      return {
-        id: d.id,
-        name: d.name,
-        shortName: d.shortName,
-        teamName: d.teamName,
-        role: 'DVR' as const,
-        price: d.price,
-        selPct,
-        starts,
-        conviction,
-      };
-    })
-    .sort((a, b) => b.selPct - a.selPct)
-    .slice(0, 10);
-
-  // 6. Cohort Filter Slicing
-  const filteredCohort = useMemo(() => {
-    const rawCohort = eliteCohortData as any[];
-    if (cohortFilter === 'zero_chips') {
-      return rawCohort.filter((m) => !m.activeChip || m.activeChip === 'none');
     }
-    if (cohortFilter === 'normalized') {
-      return rawCohort.filter((m) => m.activeChip !== 'limitless');
-    }
-    return rawCohort;
-  }, [cohortFilter]);
-
-  const pureZeroChipsCount = useMemo(() => {
-    return (eliteCohortData as any[]).filter((m) => !m.activeChip || m.activeChip === 'none').length;
-  }, []);
-
-  const normalizedCount = useMemo(() => {
-    return (eliteCohortData as any[]).filter((m) => m.activeChip !== 'limitless').length;
-  }, []);
+    return {
+      id,
+      name: `Asset #${id}`,
+      shortName: id,
+      role: 'DVR' as const,
+      price: 0,
+      points: 0,
+      teamName: '',
+    };
+  };
 
   // Helper for manager chip badge
   const getChipBadge = (chip: string | null | undefined) => {
@@ -280,46 +255,93 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
       </div>
 
       {/* ========================================================= */}
-      {/* 2. TOP RECOMMENDATION CARD (Dual Captaincy Layout)        */}
+      {/* 2. TOP RECOMMENDATION CARD (Dual Dynamic Layout)          */}
       {/* ========================================================= */}
       <div className="bg-card-bg border border-fpl-border rounded-3xl p-5 shadow-sm space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Top Recommendation</h2>
+          <h2 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            {roundData.status === 'live' ? 'Top Recommendation' : `${activeRound} Official Top Scorers`}
+          </h2>
           <span className="text-[9px] font-mono font-bold bg-amber-400/10 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full flex items-center gap-1">
             👑 {topCaptain.percent}% Herd Pick
           </span>
         </div>
 
-        {/* Row 1: Engine Optimal DRS Pick */}
-        <div className="flex items-center gap-3 bg-slate-950/60 p-3 rounded-2xl border border-fpl-border">
-          <div className="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
-            <Star className="w-5 h-5 text-slate-950 font-black" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between">
-              <p className="text-[10px] text-slate-400 uppercase font-black truncate">{drsDriver.teamName}</p>
-              <span className="text-[9px] font-mono font-black text-cyan-400 shrink-0">{drsDriver.xP.toFixed(1)} xP</span>
+        {roundData.status === 'live' ? (
+          <>
+            {/* Live Round: Engine Optimal DRS Pick */}
+            <div className="flex items-center gap-3 bg-slate-950/60 p-3 rounded-2xl border border-fpl-border">
+              <div className="w-10 h-10 bg-gradient-to-tr from-amber-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
+                <Star className="w-5 h-5 text-slate-950 font-black" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] text-slate-400 uppercase font-black truncate">{drsDriver.teamName}</p>
+                  <span className="text-[9px] font-mono font-black text-cyan-400 shrink-0">
+                    {(drsDriver.xP * 2).toFixed(1)} xP
+                  </span>
+                </div>
+                <p className="text-sm font-black text-white truncate">{drsDriver.name}</p>
+                <p className="text-[9.5px] text-emerald-400 font-bold">Optimal Engine Captain (2× DRS)</p>
+              </div>
             </div>
-            <p className="text-sm font-black text-white truncate">{drsDriver.name}</p>
-            <p className="text-[9.5px] text-emerald-400 font-bold">Optimal Engine Captain (2× DRS)</p>
-          </div>
-        </div>
 
-        {/* Row 2: Elite Consensus Herd Choice */}
-        <div className="flex items-center gap-3 bg-purple-950/30 p-2.5 rounded-2xl border border-purple-500/30 text-xs">
-          <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-amber-300 shrink-0 text-sm">
-            👑
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase text-purple-300">Elite Consensus</span>
-              <span className="text-[9px] font-mono font-black text-amber-300">{topCaptain.percent}% Armband</span>
+            {/* Live Round: Elite Consensus Herd Choice */}
+            <div className="flex items-center gap-3 bg-purple-950/30 p-2.5 rounded-2xl border border-purple-500/30 text-xs">
+              <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-amber-300 shrink-0 text-sm">
+                👑
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-bold uppercase text-purple-300">Elite Consensus</span>
+                  <span className="text-[9px] font-mono font-black text-amber-300">{topCaptain.percent}% Armband</span>
+                </div>
+                <p className="text-xs font-black text-white truncate">
+                  {topCaptain.driver?.name} (${topCaptain.driver?.price.toFixed(1)}M)
+                </p>
+              </div>
             </div>
-            <p className="text-xs font-black text-white truncate">
-              {topCaptain.driver?.name} (${topCaptain.driver?.price.toFixed(1)}M)
-            </p>
-          </div>
-        </div>
+          </>
+        ) : (
+          <>
+            {/* Historical Round: Actual Top Scorer Driver */}
+            <div className="flex items-center gap-3 bg-slate-950/60 p-3 rounded-2xl border border-amber-500/40 shadow-sm">
+              <div className="w-10 h-10 bg-gradient-to-tr from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
+                <Trophy className="w-5 h-5 text-slate-950 font-black" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] text-slate-400 uppercase font-black truncate">{topCaptain.driver?.teamName}</p>
+                  <span className="text-[9px] font-mono font-black text-amber-300 shrink-0">
+                    +{topCaptain.roundPoints} pts (2X={topCaptain.roundPoints * 2})
+                  </span>
+                </div>
+                <p className="text-sm font-black text-white truncate">{topCaptain.driver?.name}</p>
+                <p className="text-[9.5px] text-amber-300/90 font-bold">
+                  Top Scorer • {topCaptain.percent}% Captaincy Armband
+                </p>
+              </div>
+            </div>
+
+            {/* Historical Round: Actual Top Scorer Constructor */}
+            <div className="flex items-center gap-3 bg-sky-950/30 p-2.5 rounded-2xl border border-sky-500/30 text-xs">
+              <div className="w-8 h-8 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-300 shrink-0 font-black text-xs font-mono">
+                CON
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-bold uppercase text-sky-300">Top Constructor</span>
+                  <span className="text-[9px] font-mono font-black text-emerald-400">
+                    +{roundData.topScorer.constructor.roundPoints} pts
+                  </span>
+                </div>
+                <p className="text-xs font-black text-white truncate">
+                  {roundData.topScorer.constructor.name} (${roundData.topScorer.constructor.price.toFixed(1)}M)
+                </p>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* ========================================================= */}
@@ -359,33 +381,42 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             </div>
           </div>
           <div className="bg-slate-900/50 p-2 rounded-xl border border-slate-800">
-            <p className="text-[9px] text-slate-500 uppercase font-bold mb-1 truncate">Objective Math</p>
-            <p className="text-[11px] font-black text-white capitalize truncate">
-              {riskMode === 'value' ? 'PPM Value + Elite Consensus' : 'Max Total xP + Cap 2×'}
-            </p>
+            <p className="text-[9px] text-slate-500 uppercase font-bold mb-1 truncate">Multi-Week Proj.</p>
+            <div className="flex items-end gap-1">
+              <p className="text-xs font-mono font-black text-white">+{multiWeekProjection}</p>
+              <p className="text-[9px] text-slate-500 font-mono hidden sm:block">pts</p>
+            </div>
           </div>
           <div className="bg-slate-900/50 p-2 rounded-xl border border-slate-800">
-            <p className="text-[9px] text-slate-500 uppercase font-bold mb-1 truncate">3-Race Projected xP</p>
-            <p className="text-[11px] font-black font-mono text-emerald-400 truncate">{multiWeekProjection} pts</p>
+            <p className="text-[9px] text-slate-500 uppercase font-bold mb-1 truncate">Avg Squad EO</p>
+            <div className="flex items-end gap-1">
+              <p className="text-xs font-mono font-black text-white">{avgRosterEO}%</p>
+              <p className="text-[9px] text-slate-500 font-mono hidden sm:block">template</p>
+            </div>
           </div>
           <div className="bg-slate-900/50 p-2 rounded-xl border border-slate-800">
-            <p className="text-[9px] text-slate-500 uppercase font-bold mb-1 truncate">Average Lineup EO</p>
-            <p className="text-[11px] font-black font-mono text-cyan-400 truncate">{avgRosterEO}%</p>
+            <p className="text-[9px] text-slate-500 uppercase font-bold mb-1 truncate">Cohort Depth</p>
+            <div className="flex items-end gap-1">
+              <p className="text-xs font-mono font-black text-white">{totalCohortSize}</p>
+              <p className="text-[9px] text-slate-500 font-mono hidden sm:block">leaders</p>
+            </div>
           </div>
         </div>
 
-        {/* 3.2: Omitted Template Stars with Click-to-Expand Net xP Rationale */}
+        {/* 3.2: Omitted Template Stars Drawer */}
         <div className="relative z-10 mt-3 pt-3 border-t border-slate-800/80">
-          <div className="flex items-center gap-1.5 mb-2 text-amber-400">
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span className="text-[10px] font-black uppercase tracking-wider text-slate-300">
-              Why were these template stars omitted?
-            </span>
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-300">
+              Omitted Template Stars ({omittedStars.length})
+            </h4>
+            <span className="text-[8px] font-mono text-slate-500">Why LP Excluded Them</span>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {omittedStars.length === 0 ? (
-              <div className="text-xs text-slate-400 italic">No template stars omitted from optimal lineup.</div>
+              <div className="text-[10px] text-slate-500 italic p-2 bg-slate-900/50 rounded-lg text-center">
+                All high-EO consensus assets are included in squad.
+              </div>
             ) : (
               omittedStars.slice(0, 4).map((d) => {
                 const isExpanded = expandedOmittedId === d.id;
@@ -452,53 +483,73 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
           </div>
 
           <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 space-y-2">
-            {/* Gameweek / Round Ribbon */}
-            <div className="flex items-center justify-between gap-1.5 p-1.5 bg-slate-950/90 rounded-lg border border-slate-800/80">
-              <div className="flex items-center gap-0.5 bg-slate-900 border border-slate-800 px-1 py-0.5 rounded-md shadow-inner shrink-0">
-                <button
-                  type="button"
-                  onClick={handlePrevRound}
-                  disabled={availableRounds.indexOf(activeRound) === availableRounds.length - 1}
-                  className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                  title="Previous Round"
-                >
-                  <ChevronLeft className="w-3.5 h-3.5" />
-                </button>
-                <div className="flex items-center gap-1 px-1 select-none">
-                  <span className="text-[9.5px] font-mono text-emerald-400 font-bold whitespace-nowrap">
-                    {activeRound}
-                  </span>
-                  <span className="text-[7px] font-mono font-bold uppercase px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    Live
-                  </span>
+            {/* Gameweek / Round Ribbon matching fpl-admin */}
+            <div className="flex flex-col gap-1.5 p-1.5 bg-slate-950/90 rounded-lg border border-slate-800/80">
+              <div className="flex items-center justify-between gap-1.5">
+                <div className="flex items-center gap-0.5 bg-slate-900 border border-slate-800 px-1 py-0.5 rounded-md shadow-inner shrink-0">
+                  <button
+                    type="button"
+                    onClick={handlePrevRound}
+                    disabled={availableRounds.indexOf(activeRound) === availableRounds.length - 1}
+                    className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                    title="Previous Round"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                  </button>
+                  <div className="flex items-center gap-1 px-1 select-none">
+                    <span className="text-[9.5px] font-mono text-emerald-400 font-bold whitespace-nowrap">
+                      {activeRound}
+                    </span>
+                    <span
+                      className={cn(
+                        "text-[7px] font-mono font-bold uppercase px-1.5 py-0.2 rounded border",
+                        roundData.status === 'live'
+                          ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30 animate-pulse"
+                          : "bg-slate-800 text-slate-300 border-slate-700"
+                      )}
+                    >
+                      {roundData.status === 'live' ? 'Live' : 'Official'}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleNextRound}
+                    disabled={availableRounds.indexOf(activeRound) === 0}
+                    className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                    title="Next Round"
+                  >
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={handleNextRound}
-                  disabled={availableRounds.indexOf(activeRound) === 0}
-                  className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                  title="Next Round"
-                >
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </button>
+
+                <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
+                  {availableRounds.map((rnd) => (
+                    <button
+                      key={rnd}
+                      type="button"
+                      onClick={() => setActiveRound(rnd)}
+                      className={cn(
+                        "px-2 py-0.5 rounded text-[8.5px] font-mono transition-all cursor-pointer whitespace-nowrap",
+                        activeRound === rnd
+                          ? "bg-fpl-green text-slate-950 font-black shadow-sm"
+                          : "font-bold text-slate-400 hover:text-white hover:bg-slate-900"
+                      )}
+                    >
+                      {rnd}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
-                {availableRounds.map((rnd) => (
-                  <button
-                    key={rnd}
-                    type="button"
-                    onClick={() => setActiveRound(rnd)}
-                    className={cn(
-                      "px-2 py-0.5 rounded text-[8.5px] font-mono transition-all cursor-pointer whitespace-nowrap",
-                      activeRound === rnd
-                        ? "bg-fpl-green text-slate-950 font-black shadow-sm"
-                        : "font-bold text-slate-400 hover:text-white hover:bg-slate-900"
-                    )}
-                  >
-                    {rnd}
-                  </button>
-                ))}
+              {/* Round Metadata Badge (Grand Prix & Circuit) */}
+              <div className="flex items-center justify-between text-[8.5px] font-mono px-1 text-slate-400 pt-1 border-t border-slate-900">
+                <span className="flex items-center gap-1 text-cyan-300 font-bold truncate">
+                  <span>🏁</span>
+                  <span className="truncate">{roundData.grandPrix}</span>
+                </span>
+                <span className="text-slate-400 truncate shrink-0 ml-1">
+                  {roundData.circuit.replace('Circuit de ', '').replace('Circuit ', '')}
+                </span>
               </div>
             </div>
 
@@ -549,9 +600,9 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
               <div className="flex items-center justify-between px-1 text-[8.5px] font-mono">
                 <span className="text-cyan-400/90 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                  {cohortFilter === 'all' && "Displaying All Leaders (Combined 0-Chip + Normalized)"}
-                  {cohortFilter === 'zero_chips' && "Displaying Pure 0-Chip Leaders (Organic Cap - No Chips Used)"}
-                  {cohortFilter === 'normalized' && `Displaying Normalized Leaders (Filtered ${totalCohortSize - normalizedCount} Limitless)`}
+                  {cohortFilter === 'all' && `Displaying ${activeRound} Leaders (0-Chip + Normalized)`}
+                  {cohortFilter === 'zero_chips' && `Displaying ${activeRound} Pure 0-Chip Leaders (Organic Cap)`}
+                  {cohortFilter === 'normalized' && `Displaying ${activeRound} Normalized Leaders`}
                 </span>
               </div>
             </div>
@@ -559,10 +610,11 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             {/* Scrollable Manager Leaderboard */}
             <div className="space-y-2 max-h-80 overflow-y-auto pr-1 text-[11px] border border-slate-800/40 rounded-xl p-1 bg-slate-950/40 custom-scrollbar">
               {filteredCohort.map((manager, idx) => {
-                const chipBadge = getChipBadge(manager.activeChip);
+                const isExpanded = expandedManagerId === manager.managerId;
                 const isChipUsed = manager.activeChip && manager.activeChip !== 'none';
-                const rawPoints = manager.points;
-                const normalizedPoints = manager.activeChip === 'limitless' ? rawPoints - 35 : rawPoints;
+                const chipBadge = getChipBadge(manager.activeChip);
+                const rawPoints = manager.roundPoints;
+                const normalizedPoints = manager.normalizedRoundPoints;
 
                 return (
                   <div
@@ -576,15 +628,18 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-1.5 min-w-0">
-                        <span className="text-[9.5px] font-black font-mono text-amber-400 bg-amber-400/10 border border-amber-400/20 px-1.5 py-0.5 rounded shrink-0">
-                          #{manager.rank}
+                        <span
+                          className="text-[9.5px] font-black font-mono text-amber-400 bg-amber-400/10 border border-amber-400/20 px-1.5 py-0.5 rounded shrink-0 cursor-help"
+                          title={`Rank in ${activeRound}: #${manager.roundRank} | Overall Season Rank: #${manager.overallRank}`}
+                        >
+                          #{manager.roundRank}
                         </span>
                         <div className="min-w-0">
                           <span
                             className="text-[11px] font-bold text-slate-100 block truncate"
-                            title={`${manager.managerName || manager.userName} (${manager.userName || manager.managerName})`}
+                            title={`${manager.managerName} (${manager.userName || manager.managerName})`}
                           >
-                            {manager.managerName || manager.userName}
+                            {manager.managerName}
                           </span>
                           <span className="text-[9px] text-slate-400 block truncate font-normal">
                             {manager.userName || manager.managerName}
@@ -599,11 +654,12 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                           </span>
                         )}
                         <span className="text-fpl-green font-black bg-fpl-green/10 border border-fpl-green/20 px-2 py-0.5 rounded">
-                          {normalizedPoints} pts
+                          +{normalizedPoints} pts
                         </span>
                       </div>
                     </div>
 
+                    {/* Manager Action & Lineup Toggle Row */}
                     <div className="flex items-center justify-between pt-1 border-t border-slate-900/90 text-[9px]">
                       <span className={cn("font-mono text-[8.5px] px-1.5 py-0.5 rounded border", chipBadge.style)}>
                         {chipBadge.label}
@@ -611,26 +667,87 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                       <div className="flex items-center gap-1.5 shrink-0">
                         <button
                           type="button"
+                          onClick={() => setExpandedManagerId(isExpanded ? null : manager.managerId)}
+                          className="text-[8.5px] font-mono font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 px-1.5 py-0.5 rounded flex items-center gap-1 transition-all cursor-pointer"
+                          title="Inspect 7-player squad and points breakdown for this round"
+                        >
+                          <span>{isExpanded ? 'Hide' : 'Lineup'}</span>
+                          {isExpanded ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
+                        </button>
+                        <button
+                          type="button"
                           onClick={() => {
                             setSyncedManagerId(manager.managerId);
-                            onSyncSquad?.(manager);
+                            onSyncSquad?.({
+                              managerId: manager.managerId,
+                              managerName: manager.managerName,
+                              userName: manager.userName,
+                              rank: manager.roundRank,
+                              points: manager.roundPoints,
+                              drivers: manager.driverIds.map((id, pIdx) => ({
+                                id,
+                                playerpostion: pIdx + 1,
+                                iscaptain: id === manager.captainId ? 1 : 0,
+                              })),
+                              captainId: manager.captainId,
+                              activeChip: manager.activeChip,
+                            });
                           }}
                           className="text-[8.5px] font-black uppercase tracking-wider text-slate-950 bg-fpl-green hover:bg-fpl-green/90 px-2 py-0.5 rounded-md transition-all shadow-[0_0_8px_rgba(0,255,133,0.25)] flex items-center gap-1 cursor-pointer active:scale-95"
-                          title={`Sync Team ${manager.managerId} directly into Horizon and analyze squad as of ${activeRound}`}
+                          title={`Sync #${manager.roundRank} ${manager.managerName}'s team directly into Horizon as of ${activeRound}`}
                         >
-                          ⚡ Sync Squad
+                          ⚡ Sync
                         </button>
-                        <a
-                          href="https://fantasy.formula1.com/en/leagues"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[8.5px] font-mono text-cyan-300 bg-slate-900 border border-slate-700/80 hover:border-cyan-500/40 px-2 py-0.5 rounded-md hover:bg-slate-800 transition-all flex items-center gap-1"
-                          title="Open Manager Account on Official Formula 1 Fantasy Website"
-                        >
-                          ID: {String(manager.managerId).slice(0, 7)} ↗
-                        </a>
                       </div>
                     </div>
+
+                    {/* Expanded Lineup Inspector */}
+                    {isExpanded && (
+                      <div className="pt-2 border-t border-slate-800/80 space-y-1.5 animate-in fade-in duration-200">
+                        <div className="text-[8.5px] font-mono text-slate-400 flex items-center justify-between uppercase tracking-wider font-bold">
+                          <span>{activeRound} Squad Points Breakdown</span>
+                          <span className="text-emerald-400">Total: +{rawPoints} pts</span>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
+                          {manager.driverIds.map((id, pIdx) => {
+                            const isCap = id === manager.captainId;
+                            const player = resolvePlayer(id);
+                            const score = isCap ? player.points * 2 : player.points;
+                            return (
+                              <div
+                                key={`${id}_${pIdx}`}
+                                className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 flex flex-col justify-between text-[8px]"
+                              >
+                                <div className="flex items-center justify-between font-mono">
+                                  <span
+                                    className={cn(
+                                      "font-bold px-1 rounded text-[7px]",
+                                      player.role === 'DVR' ? "bg-amber-400/15 text-amber-300" : "bg-sky-400/15 text-sky-300"
+                                    )}
+                                  >
+                                    {player.role}
+                                  </span>
+                                  {isCap && (
+                                    <span className="bg-amber-500 text-slate-950 font-black px-1 rounded text-[7px]">
+                                      2X CAP
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="font-bold text-slate-200 truncate mt-0.5" title={player.name}>
+                                  {player.shortName}
+                                </div>
+                                <div className="flex items-center justify-between font-mono mt-0.5 text-slate-400">
+                                  <span>${player.price.toFixed(1)}M</span>
+                                  <span className={cn("font-black", score >= 0 ? "text-emerald-400" : "text-rose-400")}>
+                                    {score >= 0 ? `+${score}` : score}
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -641,12 +758,14 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
         {/* 3.4: Elite Consensus Hub */}
         <div className="pt-2.5 space-y-3 border-t border-slate-800/80 mt-3">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black uppercase tracking-wider text-slate-200">Elite Consensus</span>
+            <span className="text-[10px] font-black uppercase tracking-wider text-slate-200">
+              Elite Consensus Hub ({activeRound})
+            </span>
             <span
               className="text-[8.5px] font-mono font-bold text-cyan-400 bg-cyan-400/10 border border-cyan-400/20 px-2 py-0.5 rounded cursor-help"
-              title={`Calculated across ${cohortSize} active 0-chip/normalized elite managers`}
+              title={`Calculated across ${totalCohortSize} top manager lineups for ${activeRound}`}
             >
-              Elite cohort: {cohortSize} managers
+              Cohort: {totalCohortSize} managers
             </span>
           </div>
 
@@ -655,7 +774,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-amber-300">
                 <Crown className="w-4 h-4 text-amber-400" />
-                <span>Elite Consensus Captaincy Hub</span>
+                <span>#1 Captain Choice ({activeRound})</span>
               </div>
               <span className="text-[8.5px] font-mono font-bold bg-amber-400/15 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full">
                 {topCaptain.percent}% Herd Armband
@@ -695,14 +814,15 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="font-extrabold text-white text-[13.5px] truncate drop-shadow-sm leading-tight">
                       {topCaptain.driver?.name}
                     </div>
-                    <div className="text-[9px] text-slate-400 font-mono mt-0.5 flex items-center gap-1.5 whitespace-nowrap">
-                      <span className="text-slate-200 font-bold">${topCaptain.driver?.price.toFixed(1)}M</span>
-                      <span>•</span>
-                      <span>{cohortSize} of {cohortSize} managers</span>
+                    <div className="text-[9px] text-slate-400 font-mono mt-0.5 flex items-center justify-between">
+                      <span>${topCaptain.driver?.price.toFixed(1)}M</span>
+                      <span className="text-amber-300 font-bold">
+                        +{topCaptain.roundPoints} pts in {activeRound}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -740,14 +860,15 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="font-extrabold text-white text-[13.5px] truncate drop-shadow-sm leading-tight">
                       {runnerUp.driver?.name}
                     </div>
-                    <div className="text-[9px] text-slate-400 font-mono mt-0.5 flex items-center gap-1.5 whitespace-nowrap">
-                      <span className="text-slate-200 font-bold">${runnerUp.driver?.price.toFixed(1)}M</span>
-                      <span>•</span>
-                      <span>{Math.round((runnerUp.percent / 100) * cohortSize)} of {cohortSize} managers</span>
+                    <div className="text-[9px] text-slate-400 font-mono mt-0.5 flex items-center justify-between">
+                      <span>${runnerUp.driver?.price.toFixed(1)}M</span>
+                      <span className="text-cyan-300 font-bold">
+                        +{runnerUp.roundPoints} pts in {activeRound}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -757,7 +878,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             {/* Top 5 Captaincy Vote Share Bars */}
             <div className="space-y-1.5 pt-1 border-t border-slate-800/80">
               <div className="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
-                <span>Top 5 Captaincy Vote Share</span>
+                <span>Top Captaincy Vote Share ({activeRound})</span>
                 <span>Sum: 100%</span>
               </div>
               <div className="space-y-1.5">
@@ -786,7 +907,10 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                       </span>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
-                      <div className="w-16 h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800 shrink-0">
+                      <span className="text-[8.5px] font-mono font-bold text-emerald-400">
+                        +{c.roundPoints} pts
+                      </span>
+                      <div className="w-14 h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800 shrink-0">
                         <div
                           className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all duration-500"
                           style={{ width: `${Math.min(100, Math.max(5, c.percent))}%` }}
@@ -809,7 +933,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                 <span>🔥</span>
                 <span>Starting Weapons ({startingWeapons.length})</span>
               </span>
-              <span className="text-[8px] text-slate-500 font-mono">Ranked by Conviction</span>
+              <span className="text-[8px] text-slate-500 font-mono">Ranked by Conviction • {activeRound}</span>
             </div>
 
             <div className="space-y-1 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
@@ -817,7 +941,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                 <div
                   key={w.id}
                   className="flex items-center justify-between px-2.5 py-1.5 bg-slate-950/80 hover:bg-slate-900 rounded-xl border border-slate-800/80 hover:border-amber-500/30 transition-all text-[10px]"
-                  title={`${w.name}: ${w.starts}/${cohortSize} starts (${w.startPct}%), ${w.caps}/${cohortSize} captains (${w.capPct}%), Conviction: ${w.conviction.toFixed(3)}`}
+                  title={`${w.name}: ${w.starts}/${totalCohortSize} starts (${w.startPct}%), ${w.caps}/${totalCohortSize} captains (${w.capPct}%), ${activeRound} Scored: +${w.roundPoints} pts`}
                 >
                   <div className="flex items-center gap-2 min-w-0 pr-2">
                     <span
@@ -841,6 +965,9 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                         {w.capPct}% Cap
                       </span>
                     )}
+                    <span className="text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">
+                      +{w.roundPoints} pts
+                    </span>
                   </div>
                 </div>
               ))}
@@ -854,7 +981,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                 <span>🪑</span>
                 <span>Budget Enablers ({budgetEnablers.length})</span>
               </span>
-              <span className="text-[8px] text-slate-400 font-mono">Ranked by Selection & Value</span>
+              <span className="text-[8px] text-slate-400 font-mono">Ranked by Selection • {activeRound}</span>
             </div>
 
             <div className="space-y-1 max-h-44 overflow-y-auto pr-1 custom-scrollbar">
@@ -862,7 +989,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                 <div
                   key={b.id}
                   className="flex items-center justify-between px-2.5 py-1.5 bg-slate-950/80 hover:bg-slate-900 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all text-[10px]"
-                  title={`${b.name}: $${b.price.toFixed(1)}M, ${b.starts}/${cohortSize} selected (${b.selPct}%), Conviction: ${b.conviction.toFixed(3)}`}
+                  title={`${b.name}: $${b.price.toFixed(1)}M, ${b.starts}/${totalCohortSize} selected (${b.selPct}%), ${activeRound} Scored: +${b.roundPoints} pts`}
                 >
                   <div className="flex items-center gap-2 min-w-0 pr-2">
                     <span className="text-[8px] font-mono font-black px-1.5 py-0.5 rounded border shrink-0 text-emerald-300 bg-emerald-500/15 border-emerald-500/30">
@@ -876,6 +1003,9 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                   <div className="flex items-center gap-1 font-mono text-[8.5px] shrink-0 whitespace-nowrap">
                     <span className="font-bold px-1.5 py-0.5 rounded border text-cyan-300 bg-cyan-500/10 border-cyan-500/25">
                       {b.selPct}% Sel
+                    </span>
+                    <span className="text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">
+                      +{b.roundPoints} pts
                     </span>
                   </div>
                 </div>

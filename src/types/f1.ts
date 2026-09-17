@@ -128,3 +128,85 @@ export interface MiniLeagueRival {
   activeChip: string | null;
   diffCount: number;
 }
+
+export type RoundKey = 'R14' | 'R13' | 'R12' | 'R11' | 'R10' | 'R9';
+
+export interface HistoricalDriver {
+  id: string;
+  name: string;
+  shortName: string;
+  teamId: string;
+  teamName: string;
+  price: number;
+  oldPrice: number;
+  priceChange: number;
+  roundPoints: number;
+  overallPoints: number;
+  selectedPercentage: number;
+  captainSelectedPercentage: number;
+  sessionWisePoints?: {
+    qualifying: number;
+    race: number;
+    sprint: number;
+  };
+  additionalStats?: Record<string, any>;
+}
+
+export interface HistoricalConstructor {
+  id: string;
+  f1PlayerId: string;
+  name: string;
+  shortName: string;
+  price: number;
+  oldPrice: number;
+  priceChange: number;
+  roundPoints: number;
+  overallPoints: number;
+  selectedPercentage: number;
+  captainSelectedPercentage: number;
+  sessionWisePoints?: {
+    qualifying: number;
+    race: number;
+    sprint: number;
+  };
+  additionalStats?: Record<string, any>;
+}
+
+export interface HistoricalManagerScore {
+  managerId: string;
+  managerName: string;
+  userName?: string;
+  overallRank: number;
+  roundRank: number;
+  seasonPoints: number;
+  activeChip?: string | null;
+  roundPoints: number;
+  normalizedRoundPoints: number;
+  captainId?: string | null;
+  driverIds: string[];
+}
+
+export interface HistoricalRoundData {
+  round: number;
+  key: RoundKey;
+  grandPrix: string;
+  circuit: string;
+  location: string;
+  status: 'live' | 'completed';
+  topCaptain: {
+    id: string;
+    name: string;
+    shortName: string;
+    teamName: string;
+    votePct: number;
+    roundPoints: number;
+  };
+  topScorer: {
+    driver: HistoricalDriver;
+    constructor: HistoricalConstructor;
+  };
+  drivers: HistoricalDriver[];
+  constructors: HistoricalConstructor[];
+  cohortScores: HistoricalManagerScore[];
+}
+

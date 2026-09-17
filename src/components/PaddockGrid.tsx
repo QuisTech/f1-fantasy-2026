@@ -1,8 +1,14 @@
 import React from 'react';
-import type { Driver, Constructor, UserLineup } from '../types/f1';
+import type { Driver, Constructor, UserLineup, RoundKey } from '../types/f1';
 import { F1AssetPhoto } from './F1AssetPhoto';
 import { Star, ArrowUpRight, Lock, Unlock, Ban } from 'lucide-react';
 import { cn } from '../lib/utils';
+import {
+  getDriverRoundPoints,
+  getConstructorRoundPoints,
+  getDriverPointsHistory,
+  getConstructorPointsHistory,
+} from '../services/historicalData';
 
 interface PaddockGridProps {
   drivers: Driver[];
@@ -14,6 +20,8 @@ interface PaddockGridProps {
   excludedDriverIds: string[];
   setExcludedDriverIds: React.Dispatch<React.SetStateAction<string[]>>;
   onHarUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  activeRound?: RoundKey;
+  onRoundChange?: (round: RoundKey) => void;
 }
 
 export const PaddockGrid: React.FC<PaddockGridProps> = ({
@@ -26,25 +34,26 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
   excludedDriverIds,
   setExcludedDriverIds,
   onHarUpload,
+  activeRound = 'R14',
+  onRoundChange,
 }) => {
-
   const toggleLock = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     if (lockedDriverIds.includes(id)) {
-      setLockedDriverIds(prev => prev.filter(x => x !== id));
+      setLockedDriverIds((prev) => prev.filter((x) => x !== id));
     } else {
-      setLockedDriverIds(prev => [...prev, id]);
-      setExcludedDriverIds(prev => prev.filter(x => x !== id)); // Cannot be both
+      setLockedDriverIds((prev) => [...prev, id]);
+      setExcludedDriverIds((prev) => prev.filter((x) => x !== id));
     }
   };
 
   const toggleExclude = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     if (excludedDriverIds.includes(id)) {
-      setExcludedDriverIds(prev => prev.filter(x => x !== id));
+      setExcludedDriverIds((prev) => prev.filter((x) => x !== id));
     } else {
-      setExcludedDriverIds(prev => [...prev, id]);
-      setLockedDriverIds(prev => prev.filter(x => x !== id)); // Cannot be both
+      setExcludedDriverIds((prev) => [...prev, id]);
+      setLockedDriverIds((prev) => prev.filter((x) => x !== id));
     }
   };
 
@@ -62,7 +71,7 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
             <span>OFFICIAL F1 FANTASY PADDOCK</span>
           </span>
           <span className="text-xs font-bold text-white">
-            5 Drivers + 2 Constructors Active
+            5 Drivers + 2 Constructors Active • {activeRound} View
           </span>
         </div>
 
@@ -76,7 +85,9 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
           </span>
           <span className="text-slate-600 ml-1 mr-1">•</span>
           <label className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 text-[10px] font-bold rounded cursor-pointer border border-slate-600 transition-colors whitespace-nowrap uppercase tracking-widest">
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            </svg>
             SYNC HAR
             <input type="file" accept=".har" className="hidden" onChange={onHarUpload} />
           </label>
@@ -94,40 +105,69 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
         />
 
         <div className="relative z-10 flex flex-col justify-between h-full space-y-6">
-
           {/* ─── Row 1: 2 Active Constructors ─── */}
           <div>
             <div className="text-[10px] font-mono uppercase tracking-widest text-cyan-400 font-bold mb-2 text-center">
               Active Constructors (2)
             </div>
             <div className="grid grid-cols-2 gap-3 sm:gap-6 max-w-2xl mx-auto">
-              {selectedConstructors.map((c) => (
-                <div
-                  key={c.id}
-                  className="bg-slate-900/95 border border-fpl-border rounded-xl p-2 sm:p-3 shadow-xl backdrop-blur-md relative flex flex-col items-center text-center w-full"
-                  style={{ borderLeft: `4px solid ${c.color}` }}
-                >
-                  <div className="text-[9px] font-mono text-slate-400 uppercase font-bold self-start mb-1">
-                    Constructor
-                  </div>
+              {selectedConstructors.map((c) => {
+                const roundPoints = getConstructorRoundPoints(c.id, activeRound);
+                const history = getConstructorPointsHistory(c.id);
 
-                  <F1AssetPhoto
-                    type="constructor"
-                    teamId={c.id}
-                    name={c.name}
-                    className="w-full h-16 sm:h-20 my-1 rounded-lg shadow-inner"
-                  />
+                return (
+                  <div
+                    key={c.id}
+                    className="bg-slate-900/95 border border-fpl-border rounded-xl p-2 sm:p-3 shadow-xl backdrop-blur-md relative flex flex-col items-center text-center w-full"
+                    style={{ borderLeft: `4px solid ${c.color}` }}
+                  >
+                    <div className="text-[9px] font-mono text-slate-400 uppercase font-bold self-start mb-1 flex items-center justify-between w-full">
+                      <span>Constructor</span>
+                      {activeRound !== 'R14' && (
+                        <span className="text-emerald-400 font-black">+{roundPoints} pts in {activeRound}</span>
+                      )}
+                    </div>
 
-                  <div className="text-xs sm:text-sm font-black text-white w-full mt-1 leading-tight">
-                    {c.name}
-                  </div>
+                    <F1AssetPhoto
+                      type="constructor"
+                      teamId={c.id}
+                      name={c.name}
+                      className="w-full h-16 sm:h-20 my-1 rounded-lg shadow-inner"
+                    />
 
-                  <div className="flex justify-between items-center w-full mt-1.5 text-[9px] sm:text-[10px] font-mono border-t border-slate-800/80 pt-1.5">
-                    <span className="text-slate-400 font-semibold">${c.price.toFixed(1)}M</span>
-                    <span className="text-fpl-green font-bold">+{c.xP.toFixed(1)} xP</span>
+                    <div className="text-xs sm:text-sm font-black text-white w-full mt-1 leading-tight">
+                      {c.name}
+                    </div>
+
+                    <div className="flex justify-between items-center w-full mt-1.5 text-[9px] sm:text-[10px] font-mono border-t border-slate-800/80 pt-1.5">
+                      <span className="text-slate-400 font-semibold">${c.price.toFixed(1)}M</span>
+                      <span className="text-fpl-green font-bold">
+                        {activeRound !== 'R14' ? `+${roundPoints} pts` : `+${c.xP.toFixed(1)} xP`}
+                      </span>
+                    </div>
+
+                    {/* 6-Round History Ribbon */}
+                    <div className="flex items-center justify-center gap-1 mt-1.5 pt-1.5 border-t border-slate-800/60 w-full overflow-x-auto no-scrollbar">
+                      {history.map((h) => (
+                        <button
+                          key={h.roundKey}
+                          type="button"
+                          onClick={() => onRoundChange?.(h.roundKey)}
+                          className={cn(
+                            "px-1 py-0.5 rounded text-[7.5px] font-mono font-bold cursor-pointer transition-all",
+                            activeRound === h.roundKey
+                              ? "bg-fpl-green text-slate-950 font-black shadow-sm"
+                              : "bg-slate-800 text-slate-300 hover:text-white"
+                          )}
+                          title={`${h.roundKey} (${h.grandPrix}): ${h.points} pts`}
+                        >
+                          {h.roundKey}:{h.points}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -140,6 +180,9 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
               {selectedDrivers.map((driver) => {
                 const isDRS = userLineup.drsBoostDriverId === driver.id;
+                const roundPoints = getDriverRoundPoints(driver.id, activeRound);
+                const score = isDRS ? roundPoints * 2 : roundPoints;
+                const history = getDriverPointsHistory(driver.id);
 
                 return (
                   <div
@@ -176,10 +219,26 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
                         className="w-full h-16 sm:h-20 shadow-inner rounded-lg"
                       />
                       <div className="absolute top-1 right-1 flex flex-col gap-1">
-                        <button onClick={(e) => toggleLock(e, driver.id)} className={cn("p-1 rounded-md backdrop-blur shadow", lockedDriverIds.includes(driver.id) ? "bg-amber-500 text-slate-900" : "bg-slate-900/50 text-slate-400 hover:text-white")}>
+                        <button
+                          onClick={(e) => toggleLock(e, driver.id)}
+                          className={cn(
+                            "p-1 rounded-md backdrop-blur shadow",
+                            lockedDriverIds.includes(driver.id)
+                              ? "bg-amber-500 text-slate-900"
+                              : "bg-slate-900/50 text-slate-400 hover:text-white"
+                          )}
+                        >
                           {lockedDriverIds.includes(driver.id) ? <Lock size={10} /> : <Unlock size={10} />}
                         </button>
-                        <button onClick={(e) => toggleExclude(e, driver.id)} className={cn("p-1 rounded-md backdrop-blur shadow", excludedDriverIds.includes(driver.id) ? "bg-f1-red text-white" : "bg-slate-900/50 text-slate-400 hover:text-red-400")}>
+                        <button
+                          onClick={(e) => toggleExclude(e, driver.id)}
+                          className={cn(
+                            "p-1 rounded-md backdrop-blur shadow",
+                            excludedDriverIds.includes(driver.id)
+                              ? "bg-f1-red text-white"
+                              : "bg-slate-900/50 text-slate-400 hover:text-red-400"
+                          )}
+                        >
                           <Ban size={10} />
                         </button>
                       </div>
@@ -195,12 +254,43 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
                       </div>
                     </div>
 
-                    {/* Price + xP footer */}
+                    {/* Price + Points footer */}
                     <div className="w-full pt-1.5 border-t border-slate-800/80 flex justify-between items-center text-[9px] sm:text-[10px] font-mono mt-1.5">
                       <span className="text-slate-400 font-semibold">${driver.price.toFixed(1)}M</span>
                       <span className="text-fpl-green font-bold">
-                        +{isDRS ? (driver.xP * 2).toFixed(1) : driver.xP.toFixed(1)}
+                        {activeRound !== 'R14' ? (
+                          <span title={`${activeRound} Scored Points`}>
+                            {score >= 0 ? `+${score}` : score} pts
+                          </span>
+                        ) : (
+                          <span>+{isDRS ? (driver.xP * 2).toFixed(1) : driver.xP.toFixed(1)}</span>
+                        )}
                       </span>
+                    </div>
+
+                    {/* 6-Round History Ribbon */}
+                    <div className="flex items-center justify-center gap-0.5 mt-1 pt-1 border-t border-slate-800/50 w-full overflow-x-auto no-scrollbar">
+                      {history.map((h) => (
+                        <button
+                          key={h.roundKey}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onRoundChange?.(h.roundKey);
+                          }}
+                          className={cn(
+                            "px-1 py-0.2 rounded text-[7px] font-mono font-bold cursor-pointer transition-all",
+                            activeRound === h.roundKey
+                              ? "bg-fpl-green text-slate-950 font-black shadow-sm"
+                              : h.points > 0
+                              ? "bg-slate-800 text-slate-300 hover:text-white"
+                              : "bg-slate-900 text-rose-400 hover:text-rose-300"
+                          )}
+                          title={`${h.roundKey} (${h.grandPrix}): ${h.points} pts | $${h.price}M`}
+                        >
+                          {h.roundKey.replace('R', '')}:{h.points}
+                        </button>
+                      ))}
                     </div>
 
                     {/* ORP Bonus Badge */}
@@ -215,54 +305,108 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
               })}
             </div>
           </div>
-
         </div>
       </div>
 
       {/* ─── Bench Reserve Drivers ─── */}
       <div className="bg-slate-950/85 border border-fpl-border rounded-2xl p-3 sm:p-4 shadow-md">
         <div className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold mb-2 flex items-center justify-between">
-          <span>Bench Reserve Drivers</span>
-          <span className="text-[8px] sm:text-[9px] text-slate-500 font-normal hidden sm:inline">Substitutes & Targets</span>
+          <span>Bench Reserve Drivers ({activeRound})</span>
+          <span className="text-[8px] sm:text-[9px] text-slate-500 font-normal hidden sm:inline">
+            Substitutes & Targets
+          </span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-          {benchDrivers.map((d) => (
-            <div
-              key={d.id}
-              className="bg-slate-900/70 border border-slate-800 rounded-xl p-2 sm:p-2.5 flex flex-col items-center text-center w-full transition-all hover:bg-slate-800/80 relative"
-            >
-              <div className="w-full flex justify-between items-center text-[9px] font-mono text-slate-500 mb-1">
-                <span>P{d.gridPosition}</span>
-              </div>
-              
-              <div className="relative my-1">
-                <F1AssetPhoto type="driver" driverId={d.id} driverShortName={d.shortName} teamId={d.teamId} name={d.name} className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg shrink-0" />
-                <div className="absolute top-0 right-[-24px] flex flex-col gap-1">
-                  <button onClick={(e) => toggleLock(e, d.id)} className={cn("p-1 rounded-md backdrop-blur shadow", lockedDriverIds.includes(d.id) ? "bg-amber-500 text-slate-900" : "bg-slate-900/50 text-slate-400 hover:text-white")}>
-                    {lockedDriverIds.includes(d.id) ? <Lock size={8} /> : <Unlock size={8} />}
-                  </button>
-                  <button onClick={(e) => toggleExclude(e, d.id)} className={cn("p-1 rounded-md backdrop-blur shadow", excludedDriverIds.includes(d.id) ? "bg-f1-red text-white" : "bg-slate-900/50 text-slate-400 hover:text-red-400")}>
-                    <Ban size={8} />
-                  </button>
-                </div>
-              </div>
+          {benchDrivers.map((d) => {
+            const bPts = getDriverRoundPoints(d.id, activeRound);
+            const history = getDriverPointsHistory(d.id);
 
-              <div className="w-full mt-1">
-                <div className="text-[11px] sm:text-xs font-black text-white leading-none">
-                  {d.shortName}
+            return (
+              <div
+                key={d.id}
+                className="bg-slate-900/70 border border-slate-800 rounded-xl p-2 sm:p-2.5 flex flex-col items-center text-center w-full transition-all hover:bg-slate-800/80 relative"
+              >
+                <div className="w-full flex justify-between items-center text-[9px] font-mono text-slate-500 mb-1">
+                  <span>P{d.gridPosition}</span>
+                  {activeRound !== 'R14' && (
+                    <span className="text-emerald-400 font-bold">+{bPts} pts</span>
+                  )}
                 </div>
-                <div className="text-[9px] text-slate-400 leading-tight mt-0.5">
-                  {d.name.split(' ').pop()}
-                </div>
-              </div>
 
-              <div className="w-full pt-1.5 mt-1.5 border-t border-slate-800/60 flex justify-between items-center text-[9px] sm:text-[10px] font-mono">
-                <span className="text-cyan-400 font-bold">${d.price.toFixed(1)}M</span>
-                <span className="text-fpl-green font-bold">+{d.xP.toFixed(1)}</span>
+                <div className="relative my-1">
+                  <F1AssetPhoto
+                    type="driver"
+                    driverId={d.id}
+                    driverShortName={d.shortName}
+                    teamId={d.teamId}
+                    name={d.name}
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg shrink-0"
+                  />
+                  <div className="absolute top-0 right-[-24px] flex flex-col gap-1">
+                    <button
+                      onClick={(e) => toggleLock(e, d.id)}
+                      className={cn(
+                        "p-1 rounded-md backdrop-blur shadow",
+                        lockedDriverIds.includes(d.id)
+                          ? "bg-amber-500 text-slate-900"
+                          : "bg-slate-900/50 text-slate-400 hover:text-white"
+                      )}
+                    >
+                      {lockedDriverIds.includes(d.id) ? <Lock size={8} /> : <Unlock size={8} />}
+                    </button>
+                    <button
+                      onClick={(e) => toggleExclude(e, d.id)}
+                      className={cn(
+                        "p-1 rounded-md backdrop-blur shadow",
+                        excludedDriverIds.includes(d.id)
+                          ? "bg-f1-red text-white"
+                          : "bg-slate-900/50 text-slate-400 hover:text-red-400"
+                      )}
+                    >
+                      <Ban size={8} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="w-full mt-1">
+                  <div className="text-[11px] sm:text-xs font-black text-white leading-none">
+                    {d.shortName}
+                  </div>
+                  <div className="text-[9px] text-slate-400 leading-tight mt-0.5">
+                    {d.name.split(' ').pop()}
+                  </div>
+                </div>
+
+                <div className="w-full pt-1.5 mt-1.5 border-t border-slate-800/60 flex justify-between items-center text-[9px] sm:text-[10px] font-mono">
+                  <span className="text-slate-500">${d.price.toFixed(1)}M</span>
+                  <span className="text-fpl-green font-bold">
+                    {activeRound !== 'R14' ? `+${bPts} pts` : `+${d.xP.toFixed(1)}`}
+                  </span>
+                </div>
+
+                {/* 6-Round History Ribbon */}
+                <div className="flex items-center justify-center gap-0.5 mt-1 pt-1 border-t border-slate-800/40 w-full overflow-x-auto no-scrollbar">
+                  {history.map((h) => (
+                    <button
+                      key={h.roundKey}
+                      type="button"
+                      onClick={() => onRoundChange?.(h.roundKey)}
+                      className={cn(
+                        "px-1 py-0.2 rounded text-[6.5px] font-mono font-bold cursor-pointer transition-all",
+                        activeRound === h.roundKey
+                          ? "bg-fpl-green text-slate-950 font-black"
+                          : "bg-slate-800 text-slate-400 hover:text-white"
+                      )}
+                      title={`${h.roundKey} (${h.grandPrix}): ${h.points} pts`}
+                    >
+                      {h.roundKey.replace('R', '')}:{h.points}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
