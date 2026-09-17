@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Zap } from 'lucide-react';
 import { cn } from './lib/utils';
@@ -27,17 +27,37 @@ export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
   const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
   const [activeRound, setActiveRound] = useState<RoundKey>('R14');
-  const [userLineup, setUserLineup] = useState<UserLineup>(MOCK_USER_LINEUP);
+  const [userLineup, setUserLineup] = useState<UserLineup>(() => {
+    try {
+      const saved = localStorage.getItem('f1_user_lineup');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return MOCK_USER_LINEUP;
+  });
   
   const [drivers, setDrivers] = useState(INITIAL_DRIVERS);
   const [constructors, setConstructors] = useState(INITIAL_CONSTRUCTORS);
   const [circuit, setCircuit] = useState(CURRENT_CIRCUIT);
   
-  const [isSynced, setIsSynced] = useState(false);
+  const [isSynced, setIsSynced] = useState(() => {
+    const saved = localStorage.getItem('f1_is_synced');
+    return saved !== null ? saved === 'true' : true;
+  });
   const [lockedDriverIds, setLockedDriverIds] = useState<string[]>([]);
   const [excludedDriverIds, setExcludedDriverIds] = useState<string[]>([]);
-  const [wildcardMode, setWildcardMode] = useState(!isSynced); // Defaults to true if not synced
+  const [wildcardMode, setWildcardMode] = useState(() => {
+    const saved = localStorage.getItem('f1_wildcard_mode');
+    return saved !== null ? saved === 'true' : false;
+  });
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('f1_user_lineup', JSON.stringify(userLineup));
+      localStorage.setItem('f1_is_synced', String(isSynced));
+      localStorage.setItem('f1_wildcard_mode', String(wildcardMode));
+    } catch (e) {}
+  }, [userLineup, isSynced, wildcardMode]);
 
   const handleSyncSquad = (manager: any) => {
     if (!manager || !manager.drivers) return;

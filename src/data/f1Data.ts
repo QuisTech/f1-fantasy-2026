@@ -922,21 +922,21 @@ export const INITIAL_CHIPS: ChipStatus[] = [
   { type: 'autopilot', name: 'Autopilot', description: 'Automatically gives DRS Boost to your highest scoring driver.', isAvailable: true },
   { type: 'extra_drs', name: 'Extra DRS', description: 'Apply a second 2x DRS Boost to another driver.', isAvailable: true },
   { type: 'no_negative', name: 'No Negative', description: 'Prevents negative points from DNFs or penalties.', isAvailable: true },
-  { type: 'wildcard', name: 'Wildcard', description: 'Make unlimited free transfers this race week.', isAvailable: false },
+  { type: 'wildcard', name: 'Wildcard', description: 'Make unlimited free transfers this race week.', isAvailable: true },
   { type: 'final_fix', name: 'Final Fix', description: 'Make one single change to your lineup between Qualifying and the Race.', isAvailable: true },
   { type: 'drs_3x', name: 'Limitless (3x DRS)', description: 'Triple points for your DRS driver.', isAvailable: true },
 ];
 
 export const MOCK_USER_LINEUP: UserLineup = {
-  driverIds: ["18","11059","12","129","11051"],
-  constructorIds: ["mercedes","mclaren"],
-  drsBoostDriverId: "18",
+  driverIds: ["11", "11051", "111", "11161", "13"],
+  constructorIds: ["mercedes", "racing_bulls"],
+  drsBoostDriverId: "11161",
   activeChip: null,
   freeTransfers: 2,
-  bankBudget: 2.5,
-  totalCost: 97.5,
-  teamValue: 100.0,
-  totalExpectedPoints: 175.5,
+  bankBudget: 4.8,
+  totalCost: 92.6,
+  teamValue: 97.4,
+  totalExpectedPoints: 177.0,
 };
 
 export const MOCK_RIVALS: MiniLeagueRival[] = [
