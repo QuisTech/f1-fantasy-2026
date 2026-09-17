@@ -141,6 +141,7 @@ export interface GameweekState {
   cumulativeXP: number;
   pathHistory: string[]; // Record of actions taken
   pathSteps?: PathStepDetail[];
+  wildcardUsed?: boolean;
 }
 
 function getLineupCost(driverIds: string[], constructorIds: string[], drivers: Driver[], constructors: Constructor[]): number {
@@ -245,6 +246,7 @@ function generateNextStates(
         cumulativeXP: currentState.cumulativeXP + weeklyXP - penalty,
         pathHistory: [...currentState.pathHistory, `GW${gwIndex + 1} (${projection.circuit.id}): ${actionDesc} (Expected: ${weeklyXP.toFixed(1)} xP)`],
         pathSteps: [...(currentState.pathSteps || []), stepDetail],
+        wildcardUsed: currentState.wildcardUsed || isWildcard,
       });
     }
   };
@@ -278,8 +280,8 @@ function generateNextStates(
     }
   }
 
-  // For Wildcard (available on GW0 only), inject the mode-aware Optimizer result if within budget
-  if (gwIndex === 0 && wcResult && wcResult.totalCost <= maxBudget) {
+  // 4. Wildcard: evaluate playing it on ANY gameweek where chip hasn't yet been consumed in this branch!
+  if (!currentState.wildcardUsed && wcResult && wcResult.totalCost <= maxBudget) {
     const wcDriverIds = wcResult.drivers.map(d => d.id);
     const wcConstructorIds = wcResult.constructors.map(c => c.id);
     const cNames = wcResult.constructors.map(c => c.shortName).join(' + ');
@@ -302,7 +304,6 @@ export function beamSearchMultiWeek(
 ): GameweekState {
   const consensus = strategyMode === 'value' ? getNormalizedEliteConsensus(true) : undefined;
   const maxBudget = initialLineup.teamValue > 0 ? initialLineup.teamValue : 100.0;
-  const wcResult = optimizeLineup(drivers, constructors, maxBudget, lockedDriverIds, excludedDriverIds, strategyMode);
   
   // Initialize beam with start state
   let currentBeam: GameweekState[] = [{
@@ -314,7 +315,8 @@ export function beamSearchMultiWeek(
     transferPenaltiesTotal: 0,
     cumulativeXP: 0,
     pathHistory: [],
-    pathSteps: []
+    pathSteps: [],
+    wildcardUsed: initialLineup.activeChip === 'wildcard',
   }];
 
   // Iterate over each upcoming gameweek
@@ -322,10 +324,15 @@ export function beamSearchMultiWeek(
     const circuit = upcomingCircuits[gw];
     const projection = runMonteCarloSimulation(circuit, drivers, constructors);
     
+    // Dynamically optimize lineup for this upcoming circuit's conditions
+    const gwDrivers = drivers.map(d => ({ ...d, xP: projection.driverXP[d.id] ?? d.xP }));
+    const gwConstructors = constructors.map(con => ({ ...con, xP: projection.constructorXP[con.id] ?? con.xP }));
+    const gwWcResult = optimizeLineup(gwDrivers, gwConstructors, maxBudget, lockedDriverIds, excludedDriverIds, strategyMode);
+
     let nextBeam: GameweekState[] = [];
 
     for (const state of currentBeam) {
-      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds, strategyMode, consensus, wcResult);
+      const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds, strategyMode, consensus, gwWcResult);
       nextBeam = nextBeam.concat(expandedStates);
     }
 
@@ -333,12 +340,12 @@ export function beamSearchMultiWeek(
     // To ensure diversity, we should technically group by state hash, but simple sort works for MVP
     nextBeam.sort((a, b) => b.cumulativeXP - a.cumulativeXP);
     
-    // Deduplicate identical rosters in the beam
+    // Deduplicate identical rosters in the beam (incorporating chip state so preserving WC is valued)
     const uniqueBeam: GameweekState[] = [];
     const seenHashes = new Set<string>();
     
     for (const state of nextBeam) {
-      const hash = [...state.driverIds].sort().join(',') + '|' + [...state.constructorIds].sort().join(',');
+      const hash = [...state.driverIds].sort().join(',') + '|' + [...state.constructorIds].sort().join(',') + '|' + (state.wildcardUsed ? '1' : '0');
       if (!seenHashes.has(hash)) {
         seenHashes.add(hash);
         uniqueBeam.push(state);
