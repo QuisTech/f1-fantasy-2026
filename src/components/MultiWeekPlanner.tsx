@@ -10,9 +10,10 @@ interface Props {
   userLineup: UserLineup;
   calendar: Circuit[];
   strategyMode?: 'safe' | 'aggressive' | 'value';
+  onApplySquad?: (driverIds: string[], constructorIds: string[], drsId: string) => void;
 }
 
-export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userLineup, calendar, strategyMode = 'safe' }) => {
+export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userLineup, calendar, strategyMode = 'safe', onApplySquad }) => {
   const [horizon, setHorizon] = useState(3);
   const [isCalculating, setIsCalculating] = useState(false);
   const [bestPath, setBestPath] = useState<GameweekState | null>(null);
@@ -87,9 +88,14 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
             <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">Transfer Timeline</h3>
             
             {bestPath.pathHistory.map((step, idx) => {
+              const stepDetail = bestPath.pathSteps?.[idx];
               const isHold = step.includes('Hold Lineup');
-              const isPenalty = step.includes('Expected') && bestPath.transferPenaltiesTotal > 0 && !isHold && idx > 0; // naive flag for visual
+              const isWildcard = stepDetail?.isWildcard || step.includes('WILDCARD');
+              const isPenalty = step.includes('Expected') && bestPath.transferPenaltiesTotal > 0 && !isHold && idx > 0;
               
+              const stepDrivers = stepDetail ? drivers.filter(d => stepDetail.driverIds.includes(d.id)) : [];
+              const stepConstructors = stepDetail ? constructors.filter(c => stepDetail.constructorIds.includes(c.id)) : [];
+
               return (
                 <div key={idx} className="relative flex items-start gap-4">
                   {/* Timeline Line */}
@@ -99,15 +105,22 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                   
                   {/* Node */}
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border-2 z-10 
-                    ${isHold ? 'bg-slate-900 border-slate-700' : isPenalty ? 'bg-red-500/20 border-red-500 text-red-500' : 'bg-fpl-purple/20 border-fpl-purple text-fpl-purple'}`}
+                    ${isWildcard ? 'bg-amber-500/20 border-amber-500 text-amber-400' : isHold ? 'bg-slate-900 border-slate-700' : isPenalty ? 'bg-red-500/20 border-red-500 text-red-500' : 'bg-fpl-purple/20 border-fpl-purple text-fpl-purple'}`}
                   >
-                    {isHold ? <ShieldCheck className="w-4 h-4 text-slate-400" /> : <ArrowRightLeft className="w-4 h-4" />}
+                    {isWildcard ? <Zap className="w-4 h-4 text-amber-400" /> : isHold ? <ShieldCheck className="w-4 h-4 text-slate-400" /> : <ArrowRightLeft className="w-4 h-4" />}
                   </div>
                   
                   {/* Content */}
-                  <div className={`flex-1 p-4 rounded-xl border ${isHold ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-900 border-fpl-purple/30'}`}>
+                  <div className={`flex-1 p-4 rounded-xl border ${isWildcard ? 'bg-amber-950/20 border-amber-500/40 shadow-lg shadow-amber-500/5' : isHold ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-900 border-fpl-purple/30'}`}>
                     <div className="flex justify-between items-start mb-1">
-                      <span className="text-xs font-bold text-white bg-slate-800 px-2 py-0.5 rounded">GW {idx + 1}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-white bg-slate-800 px-2 py-0.5 rounded">GW {idx + 1}</span>
+                        {isWildcard && (
+                          <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500 text-slate-950 flex items-center gap-1 shadow-sm">
+                            🃏 WILDCARD CHIP
+                          </span>
+                        )}
+                      </div>
                       {upcomingRaces[idx] && (
                         <span className="text-[10px] uppercase text-slate-400 font-mono flex items-center gap-1">
                           <Zap className="w-3 h-3 text-amber-400" />
@@ -116,9 +129,72 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
                       )}
                     </div>
                     
-                    <p className={`text-sm font-medium ${isHold ? 'text-slate-400' : 'text-slate-200'} mt-2`}>
+                    <p className={`text-sm font-semibold ${isWildcard ? 'text-amber-200' : isHold ? 'text-slate-400' : 'text-slate-200'} mt-1`}>
                       {step}
                     </p>
+
+                    {/* If Wildcard, render full roster breakdown & 1-click apply button */}
+                    {isWildcard && stepDetail && stepDrivers.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-amber-500/20 space-y-2.5">
+                        <div className="text-[11px] font-bold text-amber-300 uppercase tracking-wider flex items-center justify-between">
+                          <span>Wildcard Suggested Squad</span>
+                          <span className="font-mono text-[10px] text-amber-400/80">
+                            Cost: ${(stepDrivers.reduce((s,d)=>s+d.price,0) + stepConstructors.reduce((s,c)=>s+c.price,0)).toFixed(1)}M
+                          </span>
+                        </div>
+
+                        {/* Constructors */}
+                        <div className="flex flex-wrap gap-1.5 items-center">
+                          <span className="text-[10px] font-semibold text-slate-400 uppercase w-14 shrink-0">Teams:</span>
+                          {stepConstructors.map(c => (
+                            <span key={c.id} className="text-xs font-bold px-2 py-0.5 rounded bg-slate-800/90 text-white border border-slate-700 flex items-center gap-1">
+                              <span>{c.name}</span>
+                              <span className="text-[10px] text-slate-400 font-mono">${c.price}M</span>
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Drivers */}
+                        <div className="flex flex-wrap gap-1.5 items-center">
+                          <span className="text-[10px] font-semibold text-slate-400 uppercase w-14 shrink-0">Drivers:</span>
+                          {stepDrivers.map(d => {
+                            const isDrs = d.id === stepDetail.drsBoostDriverId;
+                            return (
+                              <span
+                                key={d.id}
+                                className={`text-xs font-bold px-2 py-0.5 rounded border flex items-center gap-1.5 ${
+                                  isDrs
+                                    ? 'bg-amber-500/20 text-amber-200 border-amber-500/50'
+                                    : 'bg-slate-800/90 text-slate-200 border-slate-700'
+                                }`}
+                              >
+                                <span>{d.name} ({d.shortName})</span>
+                                <span className="text-[10px] text-slate-400 font-mono">${d.price}M</span>
+                                {isDrs && (
+                                  <span className="text-[9px] font-black px-1 py-0.2 rounded bg-amber-400 text-slate-950">
+                                    2X DRS
+                                  </span>
+                                )}
+                              </span>
+                            );
+                          })}
+                        </div>
+
+                        {/* 1-Click Load into Paddock Grid */}
+                        {onApplySquad && (
+                          <div className="pt-2 flex justify-end">
+                            <button
+                              type="button"
+                              onClick={() => onApplySquad(stepDetail.driverIds, stepDetail.constructorIds, stepDetail.drsBoostDriverId)}
+                              className="px-3 py-1.5 rounded-lg bg-fpl-green hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,255,133,0.3)] transition-all cursor-pointer active:scale-95"
+                            >
+                              <Zap className="w-3.5 h-3.5 fill-slate-950" />
+                              <span>Load Wildcard to Paddock Grid</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               );

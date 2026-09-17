@@ -350,6 +350,18 @@ export function App() {
                     userLineup={derivedUserLineup}
                     calendar={F1_CALENDAR as any}
                     strategyMode={riskMode}
+                    onApplySquad={(driverIds, constructorIds, drsId) => {
+                      setUserLineup((prev) => ({
+                        ...prev,
+                        driverIds,
+                        constructorIds: constructorIds as TeamId[],
+                        drsBoostDriverId: drsId,
+                      }));
+                      setWildcardMode(false);
+                      setTab('paddock');
+                      setToastMessage("⚡ Wildcard Squad loaded into your Paddock Grid!");
+                      setTimeout(() => setToastMessage(null), 4000);
+                    }}
                   />
                 </motion.div>
               ) : tab === 'metrics' ? (

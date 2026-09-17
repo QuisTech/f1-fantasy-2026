@@ -118,7 +118,16 @@ export function runMonteCarloSimulation(
 }
 
 
-// --- BEAM SEARCH ALGORITHM ---
+export interface PathStepDetail {
+  gwIndex: number;
+  circuitId: string;
+  actionDesc: string;
+  weeklyXP: number;
+  isWildcard: boolean;
+  driverIds: string[];
+  constructorIds: string[];
+  drsBoostDriverId: string;
+}
 
 export interface GameweekState {
   driverIds: string[];
@@ -129,6 +138,7 @@ export interface GameweekState {
   transferPenaltiesTotal: number;
   cumulativeXP: number;
   pathHistory: string[]; // Record of actions taken
+  pathSteps?: PathStepDetail[];
 }
 
 function getLineupCost(driverIds: string[], constructorIds: string[], drivers: Driver[], constructors: Constructor[]): number {
@@ -211,6 +221,17 @@ function generateNextStates(
 
       const weeklyXP = calculateLineupXP(newDriverIds, newConstructorIds, bestDrs, projection, strategyMode, drivers, constructors);
       
+      const stepDetail: PathStepDetail = {
+        gwIndex,
+        circuitId: projection.circuit.id,
+        actionDesc,
+        weeklyXP: Number(weeklyXP.toFixed(1)),
+        isWildcard,
+        driverIds: [...newDriverIds],
+        constructorIds: [...newConstructorIds],
+        drsBoostDriverId: bestDrs,
+      };
+
       nextStates.push({
         driverIds: newDriverIds,
         constructorIds: newConstructorIds,
@@ -219,7 +240,8 @@ function generateNextStates(
         transfersUsedTotal: currentState.transfersUsedTotal + (isWildcard ? 0 : penalty > 0 ? 3 : 0), // simplifies tracking
         transferPenaltiesTotal: currentState.transferPenaltiesTotal + penalty,
         cumulativeXP: currentState.cumulativeXP + weeklyXP - penalty,
-        pathHistory: [...currentState.pathHistory, `GW${gwIndex + 1} (${projection.circuit.id}): ${actionDesc} (Expected: ${weeklyXP.toFixed(1)} xP)`]
+        pathHistory: [...currentState.pathHistory, `GW${gwIndex + 1} (${projection.circuit.id}): ${actionDesc} (Expected: ${weeklyXP.toFixed(1)} xP)`],
+        pathSteps: [...(currentState.pathSteps || []), stepDetail],
       });
     }
   };
@@ -258,7 +280,9 @@ function generateNextStates(
   if (wcResult) {
     const wcDriverIds = wcResult.drivers.map(d => d.id);
     const wcConstructorIds = wcResult.constructors.map(c => c.id);
-    pushState(wcDriverIds, wcConstructorIds, `PLAY WILDCARD CHIP -> Optimized Lineup`, 0, true);
+    const cNames = wcResult.constructors.map(c => c.shortName).join(' + ');
+    const dNames = wcResult.drivers.map(d => `${d.shortName}${d.id === wcResult.drsBoostDriver?.id ? ' (2X)' : ''}`).join(', ');
+    pushState(wcDriverIds, wcConstructorIds, `PLAY WILDCARD CHIP [${cNames} | ${dNames}]`, 0, true);
   }
 
   return nextStates;
@@ -284,7 +308,8 @@ export function beamSearchMultiWeek(
     transfersUsedTotal: 0,
     transferPenaltiesTotal: 0,
     cumulativeXP: 0,
-    pathHistory: []
+    pathHistory: [],
+    pathSteps: []
   }];
 
   // Iterate over each upcoming gameweek
