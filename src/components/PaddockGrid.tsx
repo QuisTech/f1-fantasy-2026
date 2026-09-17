@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Driver, Constructor, UserLineup, RoundKey } from '../types/f1';
 import { F1AssetPhoto } from './F1AssetPhoto';
-import { Star, ArrowUpRight, Lock, Unlock, Ban, X, RefreshCw, Zap } from 'lucide-react';
+import { Star, ArrowUpRight, Lock, Unlock, Ban, X, Zap } from 'lucide-react';
 import { cn } from '../lib/utils';
 import {
   getDriverRoundPoints,
@@ -34,8 +34,6 @@ interface PaddockGridProps {
   onHarUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   activeRound?: RoundKey;
   onRoundChange?: (round: RoundKey) => void;
-  onRefreshRaceData?: () => void;
-  isRefreshingRaceData?: boolean;
   strategyMode?: 'safe' | 'aggressive' | 'value';
   setWildcardMode?: (mode: boolean) => void;
   onToast?: (msg: string) => void;
@@ -53,8 +51,6 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
   onHarUpload,
   activeRound = 'R14',
   onRoundChange,
-  onRefreshRaceData,
-  isRefreshingRaceData,
   strategyMode = 'safe',
   setWildcardMode,
   onToast,
@@ -333,22 +329,6 @@ export const PaddockGrid: React.FC<PaddockGridProps> = ({
             <Zap className={cn("w-3.5 h-3.5 fill-white shrink-0", isOptimizing && "animate-spin text-amber-300")} />
             <span>{isOptimizing ? 'SOLVING...' : 'AUTO-OPTIMIZE'}</span>
           </button>
-
-          {onRefreshRaceData && (
-            <button
-              type="button"
-              onClick={onRefreshRaceData}
-              disabled={isRefreshingRaceData}
-              className={cn(
-                "flex items-center gap-1.5 bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 px-3 py-1.5 text-[10px] font-bold rounded-lg cursor-pointer border border-cyan-500/40 transition-all whitespace-nowrap uppercase tracking-wider shadow-sm active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed",
-                isRefreshingRaceData && "animate-pulse"
-              )}
-              title="Pull latest official F1 Grand Prix points & prices directly from F1 servers (runs node scripts/buildHistoricalRounds.cjs without terminal)"
-            >
-              <RefreshCw className={cn("w-3.5 h-3.5", isRefreshingRaceData && "animate-spin text-cyan-400")} />
-              <span>{isRefreshingRaceData ? 'UPDATING...' : 'REFRESH FEEDS'}</span>
-            </button>
-          )}
 
           <label className="flex items-center gap-1.5 bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 hover:text-white px-3 py-1.5 text-[10px] font-bold rounded-lg cursor-pointer border border-emerald-500/40 transition-all whitespace-nowrap uppercase tracking-wider shadow-sm active:scale-95">
             <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

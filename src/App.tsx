@@ -366,8 +366,6 @@ export function App() {
                     onHarUpload={handleHarUpload}
                     activeRound={activeRound}
                     onRoundChange={setActiveRound}
-                    onRefreshRaceData={handleRefreshRaceData}
-                    isRefreshingRaceData={isRefreshingRaceData}
                     strategyMode={riskMode}
                     setWildcardMode={setWildcardMode}
                     onToast={(msg) => {
