@@ -1,6 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 import type { Driver, Circuit } from '../types/f1';
 import { Flag, Trophy } from 'lucide-react';
+import { F1_CALENDAR } from '../utils/harParser';
+import { cn } from '../lib/utils';
 
 interface RightColumnProps {
   drivers: Driver[];
@@ -15,6 +17,13 @@ export const RightColumn: React.FC<RightColumnProps> = ({ drivers, circuit }) =>
       ppm: Number((d.xP / d.price).toFixed(2)),
     }))
     .sort((a, b) => b.ppm - a.ppm);
+
+  // Dynamically resolve upcoming circuits from F1_CALENDAR starting from current circuit
+  const currIdx = F1_CALENDAR.findIndex(
+    (c) => c.id === circuit.id || c.grandPrixName.toLowerCase() === circuit.grandPrixName.toLowerCase()
+  );
+  const startIdx = currIdx >= 0 ? currIdx : 0;
+  const upcomingGps = F1_CALENDAR.slice(startIdx, startIdx + 3);
 
   return (
     <div className="col-span-12 lg:col-span-3 grid grid-cols-1 gap-4">
@@ -33,10 +42,10 @@ export const RightColumn: React.FC<RightColumnProps> = ({ drivers, circuit }) =>
                 i >= 4 ? 'border-0' : ''
               }`}
             >
-              <div className="flex flex-col">
-                <span className="text-xs font-bold text-slate-200">{d.name}</span>
-                <span className="text-[10px] text-slate-500 uppercase font-mono">
-                  Grid P{d.gridPosition} | ${d.price.toFixed(1)}M
+              <div>
+                <div className="text-xs font-bold text-white">{d.name}</div>
+                <span className="text-[9px] text-slate-400 font-mono">
+                  ${d.price.toFixed(1)}M • {d.teamName}
                 </span>
               </div>
               <div className="text-right">
@@ -56,38 +65,47 @@ export const RightColumn: React.FC<RightColumnProps> = ({ drivers, circuit }) =>
         </h2>
 
         <div className="space-y-3">
-          <div className="p-3 bg-slate-950/80 rounded-2xl border border-cyan-500/30">
-            <div className="flex justify-between items-center text-xs font-bold text-white mb-1">
-              <span>{circuit.grandPrixName}</span>
-              <span className="text-cyan-400 font-mono text-[10px]">CURRENT GP</span>
-            </div>
-            <div className="text-[10px] text-slate-400 font-mono flex justify-between">
-              <span>{circuit.name}</span>
-              <span>SC Risk: {circuit.scProbability}%</span>
-            </div>
-          </div>
+          {upcomingGps.map((gp, idx) => {
+            const isCurrent = idx === 0;
+            const label = isCurrent ? 'CURRENT GP' : idx === 1 ? 'NEXT GP' : `GP +${idx}`;
 
-          <div className="p-3 bg-slate-950/40 rounded-2xl border border-fpl-border text-slate-400">
-            <div className="flex justify-between items-center text-xs font-bold text-slate-300 mb-1">
-              <span>Hungarian Grand Prix</span>
-              <span className="text-slate-500 font-mono text-[10px]">NEXT GP</span>
-            </div>
-            <div className="text-[10px] text-slate-500 font-mono flex justify-between">
-              <span>Hungaroring</span>
-              <span>SC Risk: 15%</span>
-            </div>
-          </div>
-
-          <div className="p-3 bg-slate-950/40 rounded-2xl border border-fpl-border text-slate-400">
-            <div className="flex justify-between items-center text-xs font-bold text-slate-300 mb-1">
-              <span>Belgian Grand Prix</span>
-              <span className="text-slate-500 font-mono text-[10px]">GP +2</span>
-            </div>
-            <div className="text-[10px] text-slate-500 font-mono flex justify-between">
-              <span>Circuit de Spa-Francorchamps</span>
-              <span>SC Risk: 80%</span>
-            </div>
-          </div>
+            return (
+              <div
+                key={gp.id}
+                className={cn(
+                  "p-3 rounded-2xl border transition-all",
+                  isCurrent
+                    ? "bg-slate-950/80 border-cyan-500/40 shadow-sm"
+                    : "bg-slate-950/40 border-fpl-border text-slate-400"
+                )}
+              >
+                <div className="flex justify-between items-center text-xs font-bold mb-1">
+                  <span className={isCurrent ? "text-white font-extrabold" : "text-slate-300"}>
+                    {gp.grandPrixName}
+                  </span>
+                  <span
+                    className={cn(
+                      "font-mono text-[9px] font-bold px-1.5 py-0.2 rounded uppercase",
+                      isCurrent
+                        ? "text-cyan-300 bg-cyan-500/15 border border-cyan-500/30"
+                        : "text-slate-500"
+                    )}
+                  >
+                    {label}
+                  </span>
+                </div>
+                <div className="text-[10px] text-slate-400 font-mono flex justify-between items-center">
+                  <span>{gp.name}</span>
+                  <span className="flex items-center gap-1.5">
+                    <span>SC Risk: {gp.scProbability}%</span>
+                    {gp.rainProbability && gp.rainProbability >= 30 ? (
+                      <span className="text-sky-400 font-bold">🌧️ {gp.rainProbability}%</span>
+                    ) : null}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
