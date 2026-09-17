@@ -296,7 +296,8 @@ export function beamSearchMultiWeek(
   beamWidth: number = 10,
   lockedDriverIds: string[] = [],
   excludedDriverIds: string[] = [],
-  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe'
+  strategyMode: 'safe' | 'aggressive' | 'value' = 'safe',
+  forceWildcard: boolean = false
 ): GameweekState {
   
   // Initialize beam with start state
@@ -322,6 +323,14 @@ export function beamSearchMultiWeek(
     for (const state of currentBeam) {
       const expandedStates = generateNextStates(state, projection, drivers, constructors, gw, lockedDriverIds, excludedDriverIds, strategyMode);
       nextBeam = nextBeam.concat(expandedStates);
+    }
+
+    // If forced wildcard on GW1, filter only wildcard paths
+    if (forceWildcard && gw === 0) {
+      const wcStates = nextBeam.filter(s => s.pathSteps?.[0]?.isWildcard);
+      if (wcStates.length > 0) {
+        nextBeam = wcStates;
+      }
     }
 
     // Sort by cumulative XP minus penalties and slice top K (Beam Width)

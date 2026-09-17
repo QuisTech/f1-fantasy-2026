@@ -16,8 +16,15 @@ interface Props {
 
 export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userLineup, calendar, strategyMode = 'safe', onApplySquad }) => {
   const [horizon, setHorizon] = useState(3);
+  const [forceWildcard, setForceWildcard] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
   const [bestPath, setBestPath] = useState<GameweekState | null>(null);
+
+  // Compute optimal Wildcard squad independently so it is ALWAYS visible
+  const wildcardSquad = useMemo(() => {
+    const budget = userLineup?.teamValue > 0 ? userLineup.teamValue : 100.0;
+    return optimizeLineup(drivers, constructors, budget, [], [], strategyMode);
+  }, [drivers, constructors, userLineup?.teamValue, strategyMode]);
 
   // We only look at the next 'horizon' races
   const upcomingRaces = useMemo(() => {
@@ -39,13 +46,13 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
     
     // Use setTimeout to allow UI to render the 'Calculating...' state before blocking the main thread
     const timer = setTimeout(() => {
-      const result = beamSearchMultiWeek(userLineup, drivers, constructors, upcomingRaces, 10, [], [], strategyMode);
+      const result = beamSearchMultiWeek(userLineup, drivers, constructors, upcomingRaces, 10, [], [], strategyMode, forceWildcard);
       setBestPath(result);
       setIsCalculating(false);
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [userLineup, drivers, constructors, upcomingRaces, strategyMode]);
+  }, [userLineup, drivers, constructors, upcomingRaces, strategyMode, forceWildcard]);
 
   return (
     <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-4 sm:p-6 mb-6">
@@ -62,8 +69,23 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
           </p>
         </div>
         
-        <div className="flex items-center gap-2 bg-slate-900 p-1.5 rounded-lg border border-slate-800">
-          <span className="text-xs font-medium text-slate-400 px-2">Horizon:</span>
+        <div className="flex items-center gap-2 bg-slate-900 p-1.5 rounded-lg border border-slate-800 flex-wrap">
+          <button
+            type="button"
+            onClick={() => setForceWildcard(prev => !prev)}
+            className={`px-3 py-1 rounded text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              forceWildcard
+                ? 'bg-amber-500 text-slate-950 shadow-sm'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+            title="Toggle to force GW1 to execute the Wildcard chip in the timeline simulation"
+          >
+            <span>🃏</span>
+            <span>{forceWildcard ? 'Wildcard Forced on GW1' : 'Force Wildcard in Timeline'}</span>
+          </button>
+
+          <span className="text-xs font-medium text-slate-500 px-1 hidden sm:inline">|</span>
+          <span className="text-xs font-medium text-slate-400 px-1">Horizon:</span>
           {[2, 3, 5].map(h => (
             <button
               key={h}
@@ -74,6 +96,86 @@ export const MultiWeekPlanner: React.FC<Props> = ({ drivers, constructors, userL
             </button>
           ))}
         </div>
+      </div>
+
+      {/* Prominent Always-Visible Wildcard Rebuild Card */}
+      <div className="bg-gradient-to-r from-amber-950/35 via-slate-900/90 to-purple-950/25 border border-amber-500/40 rounded-2xl p-4 sm:p-5 mb-6 shadow-xl relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+              <span className="text-xs font-black uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500 text-slate-950 flex items-center gap-1 shadow-sm">
+                🃏 WILDCARD SQUAD
+              </span>
+              <span className="text-xs text-amber-300 font-semibold">
+                Azerbaijan GP (Baku) • {strategyMode.toUpperCase()} Mode
+              </span>
+              <span className="text-[11px] font-mono text-slate-400">
+                Budget: ${wildcardSquad?.totalCost.toFixed(1)}M / ${(userLineup.teamValue || 100).toFixed(1)}M
+              </span>
+            </div>
+            <p className="text-xs text-slate-300">
+              Optimal 7-pick Wildcard lineup for this round. Click below to load these exact players directly onto your Paddock Grid.
+            </p>
+          </div>
+
+          {/* Load Wildcard to Paddock Grid Button */}
+          {wildcardSquad && onApplySquad && (
+            <button
+              type="button"
+              onClick={() => onApplySquad(
+                wildcardSquad.drivers.map(d => String(d.id)),
+                wildcardSquad.constructors.map(c => String(c.id)),
+                String(wildcardSquad.drsBoostDriver?.id || wildcardSquad.drivers[0]?.id || '')
+              )}
+              className="px-4 py-2.5 rounded-xl bg-fpl-green hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(0,255,133,0.35)] transition-all cursor-pointer active:scale-95 shrink-0"
+            >
+              <Zap className="w-4 h-4 fill-slate-950" />
+              <span>⚡ Load Wildcard to Paddock Grid</span>
+            </button>
+          )}
+        </div>
+
+        {/* Players Roster */}
+        {wildcardSquad && (
+          <div className="mt-3.5 pt-3.5 border-t border-slate-800/80 grid grid-cols-1 md:grid-cols-2 gap-3">
+            {/* Constructors */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[10px] font-bold uppercase text-slate-400 w-16 shrink-0">Teams (2):</span>
+              {wildcardSquad.constructors.map(c => (
+                <span key={c.id} className="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-white border border-slate-700 flex items-center gap-1.5">
+                  <span>{c.name}</span>
+                  <span className="text-[10px] text-slate-400 font-mono">${c.price}M</span>
+                </span>
+              ))}
+            </div>
+
+            {/* Drivers */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[10px] font-bold uppercase text-slate-400 w-16 shrink-0">Drivers (5):</span>
+              {wildcardSquad.drivers.map(d => {
+                const isDrs = d.id === wildcardSquad.drsBoostDriver?.id;
+                return (
+                  <span
+                    key={d.id}
+                    className={`text-xs font-bold px-2.5 py-1 rounded-lg border flex items-center gap-1.5 ${
+                      isDrs
+                        ? 'bg-amber-500/20 text-amber-200 border-amber-500/60 shadow-sm'
+                        : 'bg-slate-800 text-slate-200 border-slate-700'
+                    }`}
+                  >
+                    <span>{d.name} ({d.shortName})</span>
+                    <span className="text-[10px] text-slate-400 font-mono">${d.price}M</span>
+                    {isDrs && (
+                      <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-amber-400 text-slate-950 uppercase">
+                        2X DRS
+                      </span>
+                    )}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {isCalculating ? (
