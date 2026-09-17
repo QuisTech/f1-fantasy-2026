@@ -182,6 +182,7 @@ export interface HistoricalManagerScore {
   activeChip?: string | null;
   roundPoints: number;
   normalizedRoundPoints: number;
+  squadCost?: number;
   captainId?: string | null;
   driverIds: string[];
 }

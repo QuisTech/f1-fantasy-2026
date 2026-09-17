@@ -164,7 +164,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   };
 
   // Helper for manager chip badge
-  const getChipBadge = (chip: string | null | undefined) => {
+  const getChipBadge = (chip: string | null | undefined, squadCost?: number) => {
     if (!chip || chip === 'none') {
       return {
         label: 'Pure 0-Chip',
@@ -173,24 +173,24 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
     }
     if (chip === 'wildcard') {
       return {
-        label: 'Wildcard (0 pts deducted)',
+        label: 'Wildcard (Free Transfers)',
         style: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20',
       };
     }
     if (chip === 'limitless') {
       return {
-        label: 'Limitless (Normalized -35 pts)',
+        label: squadCost ? `Limitless ($${squadCost.toFixed(1)}M Squad)` : 'Limitless (Uncapped Budget)',
         style: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
       };
     }
     if (chip === '3xdrs' || chip === 'extra_drs') {
       return {
-        label: `${chip.toUpperCase()} (Normalized -15 pts)`,
+        label: `${chip.toUpperCase()} Active`,
         style: 'bg-amber-500/10 text-amber-300 border-amber-500/20',
       };
     }
     return {
-      label: `${chip} (Normalized)`,
+      label: `${chip}`,
       style: 'bg-purple-500/10 text-purple-300 border-purple-500/20',
     };
   };
@@ -611,10 +611,8 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             <div className="space-y-2 max-h-80 overflow-y-auto pr-1 text-[11px] border border-slate-800/40 rounded-xl p-1 bg-slate-950/40 custom-scrollbar">
               {filteredCohort.map((manager, idx) => {
                 const isExpanded = expandedManagerId === manager.managerId;
-                const isChipUsed = manager.activeChip && manager.activeChip !== 'none';
-                const chipBadge = getChipBadge(manager.activeChip);
+                const chipBadge = getChipBadge(manager.activeChip, manager.squadCost);
                 const rawPoints = manager.roundPoints;
-                const normalizedPoints = manager.normalizedRoundPoints;
 
                 return (
                   <div
@@ -648,13 +646,8 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                       </div>
 
                       <div className="flex items-center gap-1.5 shrink-0 font-mono text-[10.5px]">
-                        {isChipUsed && manager.activeChip === 'limitless' && (
-                          <span className="text-slate-400 line-through text-[9.5px]" title="Raw Points before chip deduction">
-                            {rawPoints}
-                          </span>
-                        )}
                         <span className="text-fpl-green font-black bg-fpl-green/10 border border-fpl-green/20 px-2 py-0.5 rounded">
-                          +{normalizedPoints} pts
+                          +{rawPoints} pts
                         </span>
                       </div>
                     </div>

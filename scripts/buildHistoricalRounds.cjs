@@ -64,6 +64,7 @@ async function buildHistoricalDataset() {
     const drivers = [];
     const constructors = [];
     const pointsMap = {};
+    const priceMap = {};
 
     rawEntities.forEach(p => {
       const id = String(p.PlayerId);
@@ -72,6 +73,7 @@ async function buildHistoricalDataset() {
       pointsMap[id] = roundPts;
 
       const price = parseFloat(p.Value) || 0;
+      priceMap[id] = price;
       const oldPrice = parseFloat(p.OldPlayerValue) || price;
       const priceChange = parseFloat((price - oldPrice).toFixed(1));
       const overallPts = parseFloat(p.OverallPpints) || 0;
@@ -142,6 +144,7 @@ async function buildHistoricalDataset() {
     // Compute Elite Cohort points for this round
     const cohortScores = cohort.map(m => {
       let roundTotal = 0;
+      let squadCost = 0;
       const driverIds = [];
 
       (m.drivers || []).forEach(d => {
@@ -151,12 +154,10 @@ async function buildHistoricalDataset() {
         const isCap = (dId === String(m.captainId));
         const ptsWithMult = isCap ? pPts * 2 : pPts;
         roundTotal += ptsWithMult;
-      });
 
-      // Normalize chip deductions if applicable
-      let normalizedTotal = roundTotal;
-      if (m.activeChip === 'limitless') normalizedTotal = roundTotal - 35;
-      if (m.activeChip === '3xdrs' || m.activeChip === 'extra_drs') normalizedTotal = roundTotal - 15;
+        const pPrice = priceMap[dId] || 0;
+        squadCost += pPrice;
+      });
 
       return {
         managerId: m.managerId,
@@ -166,7 +167,8 @@ async function buildHistoricalDataset() {
         seasonPoints: m.points,
         activeChip: m.activeChip,
         roundPoints: roundTotal,
-        normalizedRoundPoints: normalizedTotal,
+        normalizedRoundPoints: roundTotal,
+        squadCost: parseFloat(squadCost.toFixed(1)),
         captainId: m.captainId,
         driverIds
       };
