@@ -10,10 +10,16 @@ import {
   CodeXml,
   ShieldCheck,
   Trophy,
+  RefreshCw,
+  Zap,
+  Lock,
+  ArrowUpRight,
+  Check,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
-import type { Driver, Constructor, UserLineup, RoundKey } from '../types/f1';
+import type { Driver, Constructor, UserLineup, RoundKey, TeamId } from '../types/f1';
 import { getNormalizedEliteConsensus } from '../utils/eliteConsensus';
+import { optimizeLineup } from '../utils/optimizer';
 import { F1AssetPhoto } from './F1AssetPhoto';
 import { INITIAL_CONSTRUCTORS } from '../data/f1Data';
 import {
@@ -27,22 +33,42 @@ import {
 
 interface MetricsColumnProps {
   userLineup: UserLineup;
+  setUserLineup?: React.Dispatch<React.SetStateAction<UserLineup>>;
   drivers: Driver[];
   constructors?: Constructor[];
   riskMode: 'safe' | 'aggressive' | 'value';
+  setRiskMode?: (mode: 'safe' | 'aggressive' | 'value') => void;
+  lockedDriverIds?: string[];
+  setLockedDriverIds?: React.Dispatch<React.SetStateAction<string[]>>;
+  excludedDriverIds?: string[];
+  setExcludedDriverIds?: React.Dispatch<React.SetStateAction<string[]>>;
   onSyncSquad?: (manager: any) => void;
   activeRound?: RoundKey;
   onRoundChange?: (round: RoundKey) => void;
+  onRefreshRaceData?: () => void;
+  isRefreshingRaceData?: boolean;
+  setWildcardMode?: (mode: boolean) => void;
+  onToast?: (msg: string) => void;
 }
 
 export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   userLineup,
+  setUserLineup,
   drivers,
-  constructors: _constructors = INITIAL_CONSTRUCTORS,
+  constructors = INITIAL_CONSTRUCTORS,
   riskMode,
+  setRiskMode,
+  lockedDriverIds = [],
+  setLockedDriverIds,
+  excludedDriverIds = [],
+  setExcludedDriverIds,
   onSyncSquad,
   activeRound: propActiveRound,
   onRoundChange,
+  onRefreshRaceData,
+  isRefreshingRaceData,
+  setWildcardMode,
+  onToast,
 }) => {
   // 1. UI Navigation & Filter States
   const [internalRound, setInternalRound] = useState<RoundKey>('R14');
@@ -123,6 +149,190 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   };
 
   const top5Captains = topCaptains.slice(0, 5);
+
+  const [isApplyingValue, setIsApplyingValue] = useState(false);
+
+  // 1-Click: Apply Value Consensus Lineup
+  const handleApplyValueConsensus = () => {
+    if (!setUserLineup) return;
+    setIsApplyingValue(true);
+    if (setRiskMode) setRiskMode('value');
+    if (setWildcardMode) setWildcardMode(false);
+
+    setTimeout(() => {
+      const budget = userLineup.teamValue > 0 ? userLineup.teamValue : 100.0;
+      const result = optimizeLineup(
+        drivers,
+        constructors,
+        budget,
+        lockedDriverIds,
+        excludedDriverIds,
+        'value'
+      );
+
+      if (result) {
+        setUserLineup((prev) => ({
+          ...prev,
+          driverIds: result.drivers.map((d) => d.id),
+          constructorIds: result.constructors.map((c) => c.id),
+          drsBoostDriverId: result.drsBoostDriver.id,
+          bankBudget: result.bankRemaining,
+          totalCost: result.totalCost,
+          totalExpectedPoints: result.totalXP,
+        }));
+        onToast?.(
+          `⚡ Value Consensus applied: ${result.constructors.map((c) => c.shortName).join(' + ')} + ${result.drivers.map((d) => d.shortName).join(', ')} ($${result.totalCost}M | +${result.totalXP} xP)`
+        );
+      } else {
+        onToast?.('⚠️ Could not solve value lineup under current locks and budget.');
+      }
+      setIsApplyingValue(false);
+    }, 150);
+  };
+
+  // Interactive: Click Starting Weapon (Draft & Lock or Toggle Lock)
+  const handleSelectStartingWeapon = (w: typeof startingWeapons[0]) => {
+    if (!setUserLineup) return;
+
+    if (w.role === 'CON') {
+      const isOwned = (userLineup.constructorIds as string[]).includes(w.id);
+      if (isOwned) {
+        onToast?.(`🏎️ ${w.name} is already starting in your team!`);
+        return;
+      }
+      if (setWildcardMode) setWildcardMode(false);
+      const currentConstructors = constructors.filter((c) => (userLineup.constructorIds as string[]).includes(c.id));
+      const toReplace =
+        (currentConstructors[1]?.xP ?? 0) < (currentConstructors[0]?.xP ?? 0)
+          ? currentConstructors[1] || currentConstructors[0]
+          : currentConstructors[0] || currentConstructors[1];
+
+      const newConstructors = userLineup.constructorIds.map((cId) => (cId === toReplace?.id ? w.id : cId)) as TeamId[];
+      setUserLineup((prev) => ({
+        ...prev,
+        constructorIds: newConstructors,
+      }));
+      onToast?.(`🏎️ Drafted ${w.name} into Constructors (+${w.roundPoints} pts in ${activeRound})`);
+    } else {
+      const isOwned = userLineup.driverIds.includes(w.id);
+      const isLocked = lockedDriverIds.includes(w.id);
+
+      if (isOwned) {
+        if (setLockedDriverIds) {
+          if (isLocked) {
+            setLockedDriverIds((prev) => prev.filter((x) => x !== w.id));
+            onToast?.(`🔓 Unlocked ${w.name}`);
+          } else {
+            setLockedDriverIds((prev) => [...prev, w.id]);
+            if (setExcludedDriverIds) {
+              setExcludedDriverIds((prev) => prev.filter((x) => x !== w.id));
+            }
+            onToast?.(`🔒 Locked ${w.name} as Starting Weapon!`);
+          }
+        }
+      } else {
+        const unpinnedDrivers = drivers.filter(
+          (d) => userLineup.driverIds.includes(d.id) && !lockedDriverIds.includes(d.id)
+        );
+        if (unpinnedDrivers.length === 0) {
+          onToast?.(`⚠️ All 5 drivers are locked! Unlock one to draft ${w.name}.`);
+          return;
+        }
+        unpinnedDrivers.sort((a, b) => a.xP - b.xP);
+        const toReplace = unpinnedDrivers[0];
+
+        const newDriverIds = userLineup.driverIds.map((id) => (id === toReplace.id ? w.id : id));
+        if (setLockedDriverIds) {
+          setLockedDriverIds((prev) => [...prev.filter((x) => x !== w.id), w.id]);
+        }
+        if (setExcludedDriverIds) {
+          setExcludedDriverIds((prev) => prev.filter((x) => x !== w.id));
+        }
+        if (setWildcardMode) setWildcardMode(false);
+
+        setUserLineup((prev) => ({
+          ...prev,
+          driverIds: newDriverIds,
+        }));
+        onToast?.(`🔥 Drafted & Locked ${w.name} (replaced ${toReplace.shortName})`);
+      }
+    }
+  };
+
+  // Interactive: Click Budget Enabler (Sub In to free up bank cash)
+  const handleSelectBudgetEnabler = (b: typeof budgetEnablers[0]) => {
+    if (!setUserLineup) return;
+
+    const isOwned = userLineup.driverIds.includes(b.id);
+    if (isOwned) {
+      onToast?.(`🪑 ${b.name} ($${b.price.toFixed(1)}M) is already on your pitch!`);
+      return;
+    }
+
+    const unpinnedDrivers = drivers.filter(
+      (d) => userLineup.driverIds.includes(d.id) && !lockedDriverIds.includes(d.id)
+    );
+    if (unpinnedDrivers.length === 0) {
+      onToast?.(`⚠️ All 5 drivers are locked! Unlock one to sub in ${b.name}.`);
+      return;
+    }
+
+    unpinnedDrivers.sort((a, b) => b.price - a.price);
+    const outgoing = unpinnedDrivers[0];
+
+    const freedCash = (outgoing.price - b.price).toFixed(1);
+    const newDriverIds = userLineup.driverIds.map((id) => (id === outgoing.id ? b.id : id));
+
+    if (setExcludedDriverIds) {
+      setExcludedDriverIds((prev) => prev.filter((x) => x !== b.id));
+    }
+    if (setWildcardMode) setWildcardMode(false);
+
+    setUserLineup((prev) => ({
+      ...prev,
+      driverIds: newDriverIds,
+    }));
+
+    if (Number(freedCash) > 0) {
+      onToast?.(
+        `🪑 Subbed in ${b.name} ($${b.price.toFixed(1)}M) for ${outgoing.shortName} — freed up +$${freedCash}M bank cash!`
+      );
+    } else {
+      onToast?.(`🪑 Subbed in ${b.name} ($${b.price.toFixed(1)}M) for ${outgoing.shortName}`);
+    }
+  };
+
+  // Interactive: Click #1 Captain Choice (Assign 2X DRS)
+  const handleSelectTopCaptain = () => {
+    if (!setUserLineup || !topCaptain.driver) return;
+    const cDriver = topCaptain.driver;
+
+    let newDriverIds = [...userLineup.driverIds];
+    if (!newDriverIds.includes(cDriver.id)) {
+      const unpinned = drivers.filter(
+        (d) => newDriverIds.includes(d.id) && !lockedDriverIds.includes(d.id)
+      );
+      if (unpinned.length > 0) {
+        unpinned.sort((a, b) => a.xP - b.xP);
+        newDriverIds = newDriverIds.map((id) => (id === unpinned[0].id ? cDriver.id : id));
+      }
+    }
+
+    if (setLockedDriverIds) {
+      setLockedDriverIds((prev) => [...prev.filter((x) => x !== cDriver.id), cDriver.id]);
+    }
+    if (setExcludedDriverIds) {
+      setExcludedDriverIds((prev) => prev.filter((x) => x !== cDriver.id));
+    }
+    if (setWildcardMode) setWildcardMode(false);
+
+    setUserLineup((prev) => ({
+      ...prev,
+      driverIds: newDriverIds,
+      drsBoostDriverId: cDriver.id,
+    }));
+    onToast?.(`👑 Assigned 2X DRS Captaincy to ${cDriver.name} (+${topCaptain.roundPoints * 2} pts in ${activeRound})`);
+  };
 
   // Helper for resolving manager lineup assets in selected round
   const resolvePlayer = (id: string) => {
@@ -476,6 +686,23 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
               </span>
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
+              {onRefreshRaceData && (
+                <button
+                  type="button"
+                  onClick={onRefreshRaceData}
+                  disabled={isRefreshingRaceData}
+                  title="Pull latest official F1 Grand Prix points & prices directly from F1 servers (runs node scripts/buildHistoricalRounds.cjs without terminal)"
+                  className={cn(
+                    "flex items-center gap-1 px-2 py-0.5 rounded text-[8px] font-mono font-bold uppercase transition-all border cursor-pointer shadow-sm active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed",
+                    isRefreshingRaceData
+                      ? "bg-cyan-500/20 text-cyan-300 border-cyan-500/40 cursor-wait animate-pulse"
+                      : "bg-slate-900/90 text-slate-300 border-slate-700 hover:text-cyan-300 hover:border-cyan-500/50"
+                  )}
+                >
+                  <RefreshCw className={cn("w-2.5 h-2.5", isRefreshingRaceData && "animate-spin text-cyan-400")} />
+                  <span>{isRefreshingRaceData ? "Updating..." : "Update Feeds"}</span>
+                </button>
+              )}
               <span className="text-[8.5px] font-mono font-bold text-cyan-400 bg-cyan-400/10 border border-cyan-400/20 px-2 py-0.5 rounded shrink-0 whitespace-nowrap shadow-sm">
                 Edge: 30%
               </span>
@@ -762,6 +989,18 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             </span>
           </div>
 
+          {/* 1-Click Apply Value Consensus Button */}
+          <button
+            type="button"
+            onClick={handleApplyValueConsensus}
+            disabled={isApplyingValue}
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-black text-[10.5px] uppercase tracking-wider transition-all shadow-md active:scale-98 cursor-pointer disabled:opacity-50"
+            title="1-Click solve: Fills Paddock Grid with the optimal combination of Starting Weapons & Budget Enablers under $100.0M cap"
+          >
+            <Zap className={cn("w-3.5 h-3.5 fill-slate-950", isApplyingValue && "animate-spin text-slate-950")} />
+            <span>{isApplyingValue ? 'SOLVING VALUE SQUAD...' : '⚡ Apply Value Consensus Squad'}</span>
+          </button>
+
           {/* Grand Podium Captaincy Hub Card */}
           <div className="p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-slate-900/90 border border-amber-500/30 shadow-lg space-y-2.5">
             <div className="flex items-center justify-between">
@@ -775,8 +1014,12 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             </div>
 
             <div className="grid grid-cols-1 gap-2 text-xs">
-              {/* #1 Captain Card */}
-              <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-400/40 shadow-sm space-y-2">
+              {/* #1 Captain Card (Clickable to Set 2X DRS) */}
+              <div
+                onClick={handleSelectTopCaptain}
+                className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-400/40 hover:border-amber-400 hover:ring-1 hover:ring-amber-400/40 transition-all shadow-sm space-y-2 cursor-pointer group active:scale-[0.99]"
+                title={`Click to draft & assign 2X DRS Captaincy to ${topCaptain.driver?.name}`}
+              >
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5 min-w-0">
                     <span className="text-[10px] font-black text-amber-400 bg-amber-400/10 border border-amber-400/30 px-1.5 py-0.5 rounded uppercase whitespace-nowrap">
@@ -808,13 +1051,17 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="font-extrabold text-white text-[13.5px] truncate drop-shadow-sm leading-tight">
+                    <div className="font-extrabold text-white text-[13.5px] truncate drop-shadow-sm leading-tight group-hover:text-amber-300 transition-colors">
                       {topCaptain.driver?.name}
                     </div>
                     <div className="text-[9px] text-slate-400 font-mono mt-0.5 flex items-center justify-between">
                       <span>${topCaptain.driver?.price.toFixed(1)}M</span>
-                      <span className="text-amber-300 font-bold">
-                        +{topCaptain.roundPoints} pts in {activeRound}
+                      <span className="text-amber-300 font-bold group-hover:underline flex items-center gap-1">
+                        {userLineup.drsBoostDriverId === topCaptain.driver?.id ? (
+                          <span className="text-emerald-400 font-black">2X DRS ACTIVE ✓</span>
+                        ) : (
+                          <span>+{topCaptain.roundPoints} pts • Set 2X DRS ⚡</span>
+                        )}
                       </span>
                     </div>
                   </div>
@@ -919,7 +1166,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
             </div>
           </div>
 
-          {/* Starting Weapons */}
+          {/* Starting Weapons (Interactive: Click to Draft & Lock or Toggle Lock) */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-[9px]">
               <span className="flex items-center gap-1 font-black uppercase text-amber-400 tracking-wider">
@@ -929,45 +1176,95 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
               <span className="text-[8px] text-slate-500 font-mono">Ranked by Conviction • {activeRound}</span>
             </div>
 
-            <div className="space-y-1 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
-              {startingWeapons.map((w) => (
-                <div
-                  key={w.id}
-                  className="flex items-center justify-between px-2.5 py-1.5 bg-slate-950/80 hover:bg-slate-900 rounded-xl border border-slate-800/80 hover:border-amber-500/30 transition-all text-[10px]"
-                  title={`${w.name}: ${w.starts}/${totalCohortSize} starts (${w.startPct}%), ${w.caps}/${totalCohortSize} captains (${w.capPct}%), ${activeRound} Scored: +${w.roundPoints} pts`}
-                >
-                  <div className="flex items-center gap-2 min-w-0 pr-2">
-                    <span
-                      className={cn(
-                        "text-[8px] font-mono font-black px-1.5 py-0.5 rounded border shrink-0",
-                        w.role === 'DVR'
-                          ? "text-amber-300 bg-amber-500/15 border-amber-500/30"
-                          : "text-sky-300 bg-sky-500/15 border-sky-500/30"
-                      )}
-                    >
-                      {w.role}
-                    </span>
-                    <span className="text-slate-200 font-bold truncate">{w.name}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 font-mono text-[8.5px] shrink-0 whitespace-nowrap">
-                    <span className="font-bold px-1.5 py-0.5 rounded border text-slate-300 bg-slate-800/80 border-slate-700/60">
-                      {w.startPct}% Start
-                    </span>
-                    {w.capPct > 0 && (
-                      <span className="text-amber-300 font-bold bg-amber-400/10 border border-amber-400/25 px-1.5 py-0.5 rounded">
-                        {w.capPct}% Cap
-                      </span>
+            <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1 custom-scrollbar">
+              {startingWeapons.map((w) => {
+                const isOwned =
+                  w.role === 'CON'
+                    ? (userLineup.constructorIds as string[]).includes(w.id)
+                    : userLineup.driverIds.includes(w.id);
+                const isLocked = lockedDriverIds.includes(w.id);
+
+                return (
+                  <div
+                    key={w.id}
+                    onClick={() => handleSelectStartingWeapon(w)}
+                    className={cn(
+                      "p-2 rounded-xl border transition-all text-[10px] cursor-pointer group active:scale-[0.99] flex flex-col gap-1.5 shadow-sm",
+                      isLocked
+                        ? "bg-amber-950/40 border-amber-500/60 ring-1 ring-amber-500/20"
+                        : isOwned
+                        ? "bg-slate-900/95 border-emerald-500/40 hover:border-amber-500/40"
+                        : "bg-slate-950/90 hover:bg-slate-900/95 border-slate-800/90 hover:border-amber-500/40"
                     )}
-                    <span className="text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">
-                      +{w.roundPoints} pts
-                    </span>
+                    title={
+                      isLocked
+                        ? `${w.name}: Locked on Pitch. Click to unlock.`
+                        : isOwned
+                        ? `${w.name}: Starting on Pitch. Click to Lock 🔒.`
+                        : `${w.name}: Click to Draft & Lock 🔒 onto Pitch.`
+                    }
+                  >
+                    {/* Top Row: Role, Full Name, Cost, and Points */}
+                    <div className="flex items-center justify-between gap-1 min-w-0">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span
+                          className={cn(
+                            "text-[8px] font-mono font-black px-1.5 py-0.5 rounded border shrink-0",
+                            w.role === 'DVR'
+                              ? "text-amber-300 bg-amber-500/15 border-amber-500/30"
+                              : "text-sky-300 bg-sky-500/15 border-sky-500/30"
+                          )}
+                        >
+                          {w.role}
+                        </span>
+                        <span className="text-slate-100 font-extrabold text-[11px] truncate group-hover:text-amber-300 transition-colors">
+                          {w.name}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0 font-mono">
+                        <span className="text-[8.5px] text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">
+                          ${w.price.toFixed(1)}m
+                        </span>
+                        <span className="text-[8.5px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded whitespace-nowrap">
+                          +{w.roundPoints} pts
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Row: Conviction Stats and Interactive Action Tag */}
+                    <div className="flex items-center justify-between gap-1 text-[8.5px] font-mono border-t border-slate-800/80 pt-1">
+                      <div className="flex items-center gap-1.5 text-slate-400">
+                        <span className="text-slate-300 font-semibold">{w.startPct}% Start</span>
+                        {w.capPct > 0 && (
+                          <>
+                            <span className="text-slate-600">•</span>
+                            <span className="text-amber-300 font-bold">{w.capPct}% Cap</span>
+                          </>
+                        )}
+                      </div>
+                      <div>
+                        {isLocked ? (
+                          <span className="flex items-center gap-1 text-[8px] font-black text-amber-300 bg-amber-400/20 border border-amber-400/40 px-1.5 py-0.5 rounded shadow-sm">
+                            <Lock className="w-2.5 h-2.5" /> LOCKED
+                          </span>
+                        ) : isOwned ? (
+                          <span className="flex items-center gap-1 text-[8px] font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-500/40 px-1.5 py-0.5 rounded">
+                            <Check className="w-2.5 h-2.5" /> ON PITCH
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-1 text-[8px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-1.5 py-0.5 rounded group-hover:bg-amber-500/25 transition-all">
+                            <Lock className="w-2.5 h-2.5" /> + Pin
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
-          {/* Budget Enablers */}
+          {/* Budget Enablers (Interactive: Click to Sub In & Free Up Cash) */}
           <div className="space-y-1.5 pt-1">
             <div className="flex items-center justify-between text-[9px]">
               <span className="flex items-center gap-1 font-black uppercase text-cyan-400 tracking-wider">
@@ -977,32 +1274,68 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
               <span className="text-[8px] text-slate-400 font-mono">Ranked by Selection • {activeRound}</span>
             </div>
 
-            <div className="space-y-1 max-h-44 overflow-y-auto pr-1 custom-scrollbar">
-              {budgetEnablers.map((b) => (
-                <div
-                  key={b.id}
-                  className="flex items-center justify-between px-2.5 py-1.5 bg-slate-950/80 hover:bg-slate-900 rounded-xl border border-slate-800/80 hover:border-cyan-500/30 transition-all text-[10px]"
-                  title={`${b.name}: $${b.price.toFixed(1)}M, ${b.starts}/${totalCohortSize} selected (${b.selPct}%), ${activeRound} Scored: +${b.roundPoints} pts`}
-                >
-                  <div className="flex items-center gap-2 min-w-0 pr-2">
-                    <span className="text-[8px] font-mono font-black px-1.5 py-0.5 rounded border shrink-0 text-emerald-300 bg-emerald-500/15 border-emerald-500/30">
-                      {b.role}
-                    </span>
-                    <span className="text-slate-300 font-semibold truncate">{b.name}</span>
-                    <span className="text-[8.5px] text-slate-400 font-mono bg-slate-900/90 px-1.5 py-0.5 rounded border border-slate-800 shrink-0">
-                      ${b.price.toFixed(1)}m
-                    </span>
+            <div className="space-y-1.5 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
+              {budgetEnablers.map((b) => {
+                const isOwned = userLineup.driverIds.includes(b.id);
+
+                return (
+                  <div
+                    key={b.id}
+                    onClick={() => handleSelectBudgetEnabler(b)}
+                    className={cn(
+                      "p-2 rounded-xl border transition-all text-[10px] cursor-pointer group active:scale-[0.99] flex flex-col gap-1.5 shadow-sm",
+                      isOwned
+                        ? "bg-slate-900/95 border-emerald-500/40 shadow-sm"
+                        : "bg-slate-950/90 hover:bg-slate-900/95 border-slate-800/90 hover:border-cyan-500/40"
+                    )}
+                    title={
+                      isOwned
+                        ? `${b.name}: Already starting on your pitch.`
+                        : `${b.name} ($${b.price.toFixed(1)}M): Click to Sub In ⬆ & Free Up Bank Budget!`
+                    }
+                  >
+                    {/* Top Row: Role, Full Name, Cost, and Points */}
+                    <div className="flex items-center justify-between gap-1 min-w-0">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span className="text-[8px] font-mono font-black px-1.5 py-0.5 rounded border shrink-0 text-emerald-300 bg-emerald-500/15 border-emerald-500/30">
+                          {b.role}
+                        </span>
+                        <span className="text-slate-100 font-extrabold text-[11px] truncate group-hover:text-cyan-300 transition-colors">
+                          {b.name}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0 font-mono">
+                        <span className="text-[8.5px] font-bold text-slate-300 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">
+                          ${b.price.toFixed(1)}m
+                        </span>
+                        <span className="text-[8.5px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded whitespace-nowrap">
+                          +{b.roundPoints} pts
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Row: Selection % and Interactive Sub In Tag */}
+                    <div className="flex items-center justify-between gap-1 text-[8.5px] font-mono border-t border-slate-800/80 pt-1">
+                      <div className="flex items-center gap-1.5 text-slate-400">
+                        <span className="text-cyan-300 font-bold">{b.selPct}% Selected</span>
+                        <span className="text-slate-600">•</span>
+                        <span className="text-slate-400">Value Enabler</span>
+                      </div>
+                      <div>
+                        {isOwned ? (
+                          <span className="flex items-center gap-1 text-[8px] font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-500/40 px-1.5 py-0.5 rounded">
+                            <Check className="w-2.5 h-2.5" /> ON PITCH
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-1 text-[8px] font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-500/35 px-1.5 py-0.5 rounded group-hover:bg-cyan-500/25 transition-all">
+                            <ArrowUpRight className="w-2.5 h-2.5" /> Sub In ⬆
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[8.5px] shrink-0 whitespace-nowrap">
-                    <span className="font-bold px-1.5 py-0.5 rounded border text-cyan-300 bg-cyan-500/10 border-cyan-500/25">
-                      {b.selPct}% Sel
-                    </span>
-                    <span className="text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">
-                      +{b.roundPoints} pts
-                    </span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

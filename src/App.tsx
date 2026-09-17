@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Camera, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import { cn } from './lib/utils';
 import {
   CURRENT_CIRCUIT,
@@ -113,6 +113,32 @@ export function App() {
     reader.readAsText(file);
   };
 
+  const [isRefreshingRaceData, setIsRefreshingRaceData] = useState(false);
+
+  const handleRefreshRaceData = async () => {
+    setIsRefreshingRaceData(true);
+    setToastMessage("🔄 Pulling latest race results & prices directly from official F1 servers...");
+    try {
+      const res = await fetch('/api/build-history', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setToastMessage("✅ Official F1 race feeds refreshed successfully! Updating views...");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1200);
+      } else {
+        setToastMessage(`❌ Failed to update race data: ${data.error || 'Server error'}`);
+        setTimeout(() => setToastMessage(null), 5000);
+      }
+    } catch (err: any) {
+      console.error('Refresh race data error:', err);
+      setToastMessage("❌ Failed to reach update server. Make sure Vite dev server is running.");
+      setTimeout(() => setToastMessage(null), 5000);
+    } finally {
+      setIsRefreshingRaceData(false);
+    }
+  };
+
   const handleDataUpdate = (data: any) => {
     setDrivers(data.drivers);
     setConstructors(data.constructors);
@@ -129,7 +155,7 @@ export function App() {
       effectiveUserLineup = {
         driverIds: opt.drivers.map(d => d.id),
         constructorIds: opt.constructors.map(c => c.id),
-        drsBoostDriverId: opt.drivers[0]?.id || "", // simplest fallback
+        drsBoostDriverId: opt.drsBoostDriver?.id || opt.drivers[0]?.id || "",
         activeChip: 'wildcard',
         freeTransfers: 0,
         bankBudget: parseFloat((budget - opt.totalCost).toFixed(1)),
@@ -181,12 +207,25 @@ export function App() {
         {/* Left Column: Metrics & Squad Values */}
         <MetricsColumn
           userLineup={derivedUserLineup}
+          setUserLineup={setUserLineup}
           drivers={drivers}
           constructors={constructors}
           riskMode={riskMode}
+          setRiskMode={setRiskMode}
+          lockedDriverIds={lockedDriverIds}
+          setLockedDriverIds={setLockedDriverIds}
+          excludedDriverIds={excludedDriverIds}
+          setExcludedDriverIds={setExcludedDriverIds}
           onSyncSquad={handleSyncSquad}
           activeRound={activeRound}
           onRoundChange={setActiveRound}
+          onRefreshRaceData={handleRefreshRaceData}
+          isRefreshingRaceData={isRefreshingRaceData}
+          setWildcardMode={setWildcardMode}
+          onToast={(msg) => {
+            setToastMessage(msg);
+            setTimeout(() => setToastMessage(null), 4000);
+          }}
         />
 
         {/* Primary Center Content Area matching fpl-admin */}
@@ -201,9 +240,9 @@ export function App() {
 
           <div className="relative z-10 p-4 sm:p-6 h-full flex flex-col">
             
-            {/* Tab Pill Navigation & Actions Bar */}
-            <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between mb-6">
-              <div className="flex flex-wrap gap-1 bg-slate-950 p-1 rounded-xl border border-fpl-border w-full md:w-auto justify-center">
+            {/* Tab Pill Navigation */}
+            <div className="flex items-center justify-center sm:justify-start mb-6">
+              <div className="flex flex-wrap gap-1 bg-slate-950 p-1 rounded-xl border border-fpl-border w-full sm:w-auto justify-center">
                 {(
                   [
                     { id: 'paddock', label: 'Paddock Grid' },
@@ -228,16 +267,6 @@ export function App() {
                   </button>
                 ))}
               </div>
-
-              <div className="flex flex-wrap items-center justify-between sm:justify-end gap-2 w-full md:w-auto">
-                <button
-                  onClick={() => alert("Lineup snapshot saved for post-race verification!")}
-                  className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-1.5 bg-slate-900 border border-fpl-border rounded-xl text-xs font-black uppercase text-slate-300 hover:text-white hover:bg-slate-800 transition-colors shadow-sm cursor-pointer"
-                >
-                  <Camera className="w-3.5 h-3.5 text-fpl-green" />
-                  <span>Snapshot</span>
-                </button>
-              </div>
             </div>
 
             {/* Main Tab Content with AnimatePresence */}
@@ -261,6 +290,14 @@ export function App() {
                     onHarUpload={handleHarUpload}
                     activeRound={activeRound}
                     onRoundChange={setActiveRound}
+                    onRefreshRaceData={handleRefreshRaceData}
+                    isRefreshingRaceData={isRefreshingRaceData}
+                    strategyMode={riskMode}
+                    setWildcardMode={setWildcardMode}
+                    onToast={(msg) => {
+                      setToastMessage(msg);
+                      setTimeout(() => setToastMessage(null), 4000);
+                    }}
                   />
                 </motion.div>
               ) : tab === 'optimizer' ? (
@@ -280,6 +317,11 @@ export function App() {
                     lockedDriverIds={lockedDriverIds}
                     excludedDriverIds={excludedDriverIds}
                     strategyMode={riskMode}
+                    setWildcardMode={setWildcardMode}
+                    onToast={(msg) => {
+                      setToastMessage(msg);
+                      setTimeout(() => setToastMessage(null), 4000);
+                    }}
                   />
                 </motion.div>
               ) : tab === 'finalfix' ? (

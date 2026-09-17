@@ -14,6 +14,8 @@ interface TeamBuilderProps {
   lockedDriverIds?: string[];
   excludedDriverIds?: string[];
   strategyMode?: 'safe' | 'aggressive' | 'value';
+  setWildcardMode?: (mode: boolean) => void;
+  onToast?: (msg: string) => void;
 }
 
 export const TeamBuilder: React.FC<TeamBuilderProps> = ({
@@ -25,7 +27,11 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   lockedDriverIds = [],
   excludedDriverIds = [],
   strategyMode = 'safe',
+  setWildcardMode,
+  onToast,
 }) => {
+  const [isOptimizing, setIsOptimizing] = React.useState(false);
+
   const selectedDrivers = drivers.filter((d) => userLineup.driverIds.includes(d.id));
   const selectedConstructors = constructors.filter((c) => userLineup.constructorIds.includes(c.id));
 
@@ -35,6 +41,7 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   const bankRemaining = Number((100.0 - totalCost).toFixed(1));
 
   const handleRemoveDriver = (driverId: string) => {
+    if (setWildcardMode) setWildcardMode(false);
     setUserLineup((prev) => ({
       ...prev,
       driverIds: prev.driverIds.filter((id) => id !== driverId),
@@ -43,6 +50,7 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
 
   const handleAddDriver = (driverId: string) => {
     if (userLineup.driverIds.length >= 5) return;
+    if (setWildcardMode) setWildcardMode(false);
     setUserLineup((prev) => ({
       ...prev,
       driverIds: [...prev.driverIds, driverId],
@@ -50,6 +58,7 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   };
 
   const handleRemoveConstructor = (teamId: any) => {
+    if (setWildcardMode) setWildcardMode(false);
     setUserLineup((prev) => ({
       ...prev,
       constructorIds: prev.constructorIds.filter((id) => id !== teamId),
@@ -57,19 +66,34 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   };
 
   const handleAutoOptimize = () => {
+    setIsOptimizing(true);
     const budget = userLineup.teamValue > 0 ? userLineup.teamValue : 100.0;
-    const result = optimizeLineup(drivers, constructors, budget, lockedDriverIds, excludedDriverIds, strategyMode);
-    if (result) {
-      setUserLineup((prev) => ({
-        ...prev,
-        driverIds: result.drivers.map((d) => d.id),
-        constructorIds: result.constructors.map((c) => c.id),
-        drsBoostDriverId: result.drsBoostDriver.id,
-        bankBudget: result.bankRemaining,
-        totalCost: result.totalCost,
-        totalExpectedPoints: result.totalXP,
-      }));
-    }
+    
+    setTimeout(() => {
+      const result = optimizeLineup(drivers, constructors, budget, lockedDriverIds, excludedDriverIds, strategyMode);
+      if (result) {
+        if (setWildcardMode) setWildcardMode(false);
+        setUserLineup((prev) => ({
+          ...prev,
+          driverIds: result.drivers.map((d) => d.id),
+          constructorIds: result.constructors.map((c) => c.id),
+          drsBoostDriverId: result.drsBoostDriver.id,
+          bankBudget: result.bankRemaining,
+          totalCost: result.totalCost,
+          totalExpectedPoints: result.totalXP,
+        }));
+        if (onToast) {
+          onToast(`⚡ 1-Click Auto-Optimize: Loaded best ${strategyMode.toUpperCase()} lineup (+${result.totalXP} xP | $${result.totalCost}M)!`);
+        }
+      } else {
+        if (onToast) {
+          onToast(`⚠️ No valid lineup found under $${budget.toFixed(1)}M with current locks/exclusions.`);
+        } else {
+          alert(`No valid lineup found under $${budget.toFixed(1)}M. Try unlocking some drivers.`);
+        }
+      }
+      setIsOptimizing(false);
+    }, 150);
   };
 
   const [isSyncing, setIsSyncing] = React.useState(false);
@@ -137,9 +161,13 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
             >
               <span>{isSyncing ? 'SYNCING...' : 'SYNC HAR DATA'}</span>
             </button>
-            <button onClick={handleAutoOptimize} className="bg-gradient-to-r from-f1-red to-red-700 text-white font-black text-xs px-4 py-2.5 rounded-xl shadow-[0_0_15px_rgba(225,6,0,0.3)] flex items-center justify-center gap-1.5 uppercase tracking-wider hover:scale-105 transition-all w-full shrink-0">
-              <Zap className="w-4 h-4 fill-white shrink-0" />
-              <span>1-Click Auto-Optimize</span>
+            <button 
+              onClick={handleAutoOptimize} 
+              disabled={isOptimizing}
+              className="bg-gradient-to-r from-f1-red to-red-700 text-white font-black text-xs px-4 py-2.5 rounded-xl shadow-[0_0_15px_rgba(225,6,0,0.3)] flex items-center justify-center gap-1.5 uppercase tracking-wider hover:scale-105 active:scale-95 transition-all w-full shrink-0 cursor-pointer disabled:opacity-50"
+            >
+              <Zap className={cn("w-4 h-4 fill-white shrink-0", isOptimizing && "animate-spin text-amber-300")} />
+              <span>{isOptimizing ? 'Optimizing Squad...' : '1-Click Auto-Optimize'}</span>
             </button>
           </div>
         </div>

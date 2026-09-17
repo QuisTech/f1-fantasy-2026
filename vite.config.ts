@@ -21,6 +21,19 @@ const harImporterPlugin = () => ({
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({ success: true, output: stdout }));
         });
+      } else if (req.url === '/api/build-history' && req.method === 'POST') {
+        exec('node scripts/buildHistoricalRounds.cjs', (error, stdout, stderr) => {
+          if (error) {
+            console.error('Error running buildHistoricalRounds:', stderr);
+            res.statusCode = 500;
+            res.end(JSON.stringify({ error: stderr }));
+            return;
+          }
+          console.log('Build Historical Rounds Output:', stdout);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ success: true, output: stdout }));
+        });
       } else {
         next();
       }

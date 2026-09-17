@@ -94,14 +94,12 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded mt-1 w-full sm:w-auto">
               <button
                 onClick={() => setWildcardMode(false)}
-                disabled={!isSynced}
                 className={cn(
-                  "flex-1 sm:flex-none px-3 py-1 text-[10px] rounded font-bold transition-all text-center whitespace-nowrap",
-                  !wildcardMode ? "bg-f1-red text-white" : "text-slate-500 hover:text-slate-300",
-                  !isSynced && "opacity-30 cursor-not-allowed"
+                  "flex-1 sm:flex-none px-3 py-1 text-[10px] rounded font-bold transition-all text-center whitespace-nowrap cursor-pointer",
+                  !wildcardMode ? "bg-f1-red text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
                 )}
               >
-                {isSynced ? "MY TEAM" : "UNSYNCED"}
+                {isSynced ? "MY TEAM" : "CUSTOM SQUAD"}
               </button>
               <button
                 onClick={() => setWildcardMode(true)}
