@@ -241,7 +241,7 @@ function generateNextStates(
         constructorIds: newConstructorIds,
         bankBudget: Number((maxBudget - cost).toFixed(1)),
         drsBoostDriverId: bestDrs,
-        transfersUsedTotal: currentState.transfersUsedTotal + (isWildcard ? 0 : penalty > 0 ? 3 : 0), // simplifies tracking
+        transfersUsedTotal: currentState.transfersUsedTotal + (isWildcard || actionDesc.includes('Hold') ? 0 : 1),
         transferPenaltiesTotal: currentState.transferPenaltiesTotal + penalty,
         cumulativeXP: currentState.cumulativeXP + weeklyXP - penalty,
         pathHistory: [...currentState.pathHistory, `${actionDesc} • Expected: ${weeklyXP.toFixed(1)} xP`],
