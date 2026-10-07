@@ -38,7 +38,8 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
   const driverCost = selectedDrivers.reduce((acc, d) => acc + d.price, 0);
   const constructorCost = selectedConstructors.reduce((acc, constr) => acc + constr.price, 0);
   const totalCost = Number((driverCost + constructorCost).toFixed(1));
-  const bankRemaining = Number((100.0 - totalCost).toFixed(1));
+  const teamBudget = userLineup.teamValue > 0 ? userLineup.teamValue : 100.0;
+  const bankRemaining = Number((teamBudget - totalCost).toFixed(1));
 
   const handleRemoveDriver = (driverId: string) => {
     if (setWildcardMode) setWildcardMode(false);
@@ -320,11 +321,23 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
           <div className="space-y-3 text-[11px] sm:text-xs font-mono">
             <div className="flex justify-between items-center text-slate-400 bg-slate-900/50 p-2 rounded-lg">
               <span>Total Cap:</span>
-              <span className="text-white font-bold text-sm">$100.0M</span>
+              <div className="flex items-center gap-1">
+                <span className="text-white font-bold text-sm">$</span>
+                <input
+                  type="number"
+                  step="0.1"
+                  min="100.0"
+                  max="150.0"
+                  value={userLineup.teamValue || 100.0}
+                  onChange={(e) => setUserLineup(prev => ({ ...prev, teamValue: parseFloat(e.target.value) || 100.0 }))}
+                  className="bg-slate-950 border border-slate-700 text-white font-bold text-sm rounded w-16 px-1 text-right focus:outline-none focus:border-cyan-500"
+                />
+                <span className="text-white font-bold text-sm">M</span>
+              </div>
             </div>
             <div className="flex justify-between items-center text-slate-400 bg-slate-900/50 p-2 rounded-lg">
               <span>Lineup Cost:</span>
-              <span className={cn("font-bold text-sm", totalCost > 100 ? "text-red-400" : "text-white")}>
+              <span className={cn("font-bold text-sm", totalCost > teamBudget ? "text-red-400" : "text-white")}>
                 ${totalCost.toFixed(1)}M
               </span>
             </div>
