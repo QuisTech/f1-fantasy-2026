@@ -3,20 +3,20 @@ const path = require('path');
 const https = require('https');
 
 function getHarPath() {
-  const candidates = [
-    'C:/Users/USER/Downloads/fantasy.formula1.com.har',
-    'C:/Users/Administrator/Downloads/fantasy.formula1com2.har',
-    'C:/Users/USER/Downloads/fantasy.formula1com2.har'
-  ];
-  for (const c of candidates) {
-    if (fs.existsSync(c)) return c;
-  }
-  const dlDir = 'C:/Users/USER/Downloads';
+  const os = require('os');
+  const dlDir = path.join(os.homedir(), 'Downloads');
+  
   if (fs.existsSync(dlDir)) {
     const files = fs.readdirSync(dlDir).filter(f => f.toLowerCase().includes('fantasy') && f.endsWith('.har'));
-    if (files.length > 0) return path.join(dlDir, files[0]);
+    
+    // Sort by modified time descending to always grab the absolute newest HAR file
+    if (files.length > 0) {
+      files.sort((a, b) => fs.statSync(path.join(dlDir, b)).mtime.getTime() - fs.statSync(path.join(dlDir, a)).mtime.getTime());
+      return path.join(dlDir, files[0]);
+    }
   }
-  return candidates[0];
+  
+  return path.join(dlDir, 'fantasy.formula1.com.har');
 }
 
 const HAR_PATH = getHarPath();
@@ -394,6 +394,12 @@ export const MOCK_USER_LINEUP: UserLineup = {
   totalCost: 97.5,
   teamValue: 100.0,
   totalExpectedPoints: 175.5,
+};
+
+export const DEFAULT_USER_TEAMS: Record<string, UserLineup> = {
+  T1: { ...MOCK_USER_LINEUP, teamName: 'MichQuis' },
+  T2: { ...MOCK_USER_LINEUP, teamName: 'QuisMich' },
+  T3: { ...MOCK_USER_LINEUP, teamName: 'SmichQui' }
 };
 
 export const MOCK_RIVALS: MiniLeagueRival[] = [

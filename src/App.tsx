@@ -22,11 +22,12 @@ import { MultiWeekPlanner } from './components/MultiWeekPlanner';
 import { F1_CALENDAR, parseHarFile } from './utils/harParser';
 import { optimizeLineup } from './utils/optimizer';
 import { F1_RAW_CONSTRUCTOR_ID_MAP } from './utils/eliteConsensus';
+import { AVAILABLE_ROUNDS } from './services/historicalData';
 
 export function App() {
   const [riskMode, setRiskMode] = useState<'safe' | 'aggressive' | 'value'>('safe');
   const [tab, setTab] = useState<'paddock' | 'optimizer' | 'finalfix' | 'roadmap' | 'metrics' | 'rivals'>('paddock');
-  const [activeRound, setActiveRound] = useState<RoundKey>('R14');
+  const [activeRound, setActiveRound] = useState<RoundKey>(AVAILABLE_ROUNDS[0] || 'R17');
   const [activeTeamId, setActiveTeamId] = useState<ManagedTeamId>(() => {
     try {
       const saved = localStorage.getItem('f1_active_team_id');

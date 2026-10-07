@@ -133,7 +133,7 @@ export interface MiniLeagueRival {
   diffCount: number;
 }
 
-export type RoundKey = 'R14' | 'R13' | 'R12' | 'R11' | 'R10' | 'R9';
+export type RoundKey = string;
 
 export interface HistoricalDriver {
   id: string;

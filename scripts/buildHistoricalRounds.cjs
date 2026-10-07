@@ -3,12 +3,30 @@ const path = require('path');
 const https = require('https');
 
 const F1_CALENDAR_MAP = {
+  1: { grandPrix: 'Bahrain Grand Prix', circuit: 'Bahrain International Circuit', location: 'Sakhir, Bahrain', status: 'completed' },
+  2: { grandPrix: 'Saudi Arabian Grand Prix', circuit: 'Jeddah Corniche Circuit', location: 'Jeddah, Saudi Arabia', status: 'completed' },
+  3: { grandPrix: 'Australian Grand Prix', circuit: 'Albert Park Circuit', location: 'Melbourne, Australia', status: 'completed' },
+  4: { grandPrix: 'Japanese Grand Prix', circuit: 'Suzuka International Racing Course', location: 'Suzuka, Japan', status: 'completed' },
+  5: { grandPrix: 'Chinese Grand Prix', circuit: 'Shanghai International Circuit', location: 'Shanghai, China', status: 'completed' },
+  6: { grandPrix: 'Miami Grand Prix', circuit: 'Miami International Autodrome', location: 'Miami, USA', status: 'completed' },
+  7: { grandPrix: 'Emilia Romagna Grand Prix', circuit: 'Autodromo Enzo e Dino Ferrari', location: 'Imola, Italy', status: 'completed' },
+  8: { grandPrix: 'Monaco Grand Prix', circuit: 'Circuit de Monaco', location: 'Monte Carlo, Monaco', status: 'completed' },
   9: { grandPrix: 'Canadian Grand Prix', circuit: 'Circuit Gilles-Villeneuve', location: 'Montreal, Canada', status: 'completed' },
   10: { grandPrix: 'Spanish Grand Prix', circuit: 'Circuit de Barcelona-Catalunya', location: 'Barcelona, Spain', status: 'completed' },
   11: { grandPrix: 'Austrian Grand Prix', circuit: 'Red Bull Ring', location: 'Spielberg, Austria', status: 'completed' },
   12: { grandPrix: 'British Grand Prix', circuit: 'Silverstone Circuit', location: 'Silverstone, UK', status: 'completed' },
   13: { grandPrix: 'Hungarian Grand Prix', circuit: 'Hungaroring', location: 'Budapest, Hungary', status: 'completed' },
-  14: { grandPrix: 'Belgian Grand Prix', circuit: 'Circuit de Spa-Francorchamps', location: 'Spa, Belgium', status: 'live' }
+  14: { grandPrix: 'Belgian Grand Prix', circuit: 'Circuit de Spa-Francorchamps', location: 'Spa, Belgium', status: 'completed' },
+  15: { grandPrix: 'Dutch Grand Prix', circuit: 'Circuit Zandvoort', location: 'Zandvoort, Netherlands', status: 'completed' },
+  16: { grandPrix: 'Italian Grand Prix', circuit: 'Autodromo Nazionale Monza', location: 'Monza, Italy', status: 'completed' },
+  17: { grandPrix: 'Azerbaijan Grand Prix', circuit: 'Baku City Circuit', location: 'Baku, Azerbaijan', status: 'completed' },
+  18: { grandPrix: 'Singapore Grand Prix', circuit: 'Marina Bay Street Circuit', location: 'Singapore', status: 'completed' },
+  19: { grandPrix: 'United States Grand Prix', circuit: 'Circuit of The Americas', location: 'Austin, USA', status: 'completed' },
+  20: { grandPrix: 'Mexico City Grand Prix', circuit: 'Autódromo Hermanos Rodríguez', location: 'Mexico City, Mexico', status: 'completed' },
+  21: { grandPrix: 'São Paulo Grand Prix', circuit: 'Interlagos Circuit', location: 'São Paulo, Brazil', status: 'completed' },
+  22: { grandPrix: 'Las Vegas Grand Prix', circuit: 'Las Vegas Strip Circuit', location: 'Las Vegas, USA', status: 'completed' },
+  23: { grandPrix: 'Qatar Grand Prix', circuit: 'Lusail International Circuit', location: 'Lusail, Qatar', status: 'completed' },
+  24: { grandPrix: 'Abu Dhabi Grand Prix', circuit: 'Yas Marina Circuit', location: 'Yas Island, UAE', status: 'completed' }
 };
 
 const F1_CONSTRUCTOR_MAP = {
@@ -52,8 +70,15 @@ function fetchRound(roundNum) {
 }
 
 async function buildHistoricalDataset() {
+  try {
+    console.log('Running HAR sync (npm run update-data)...');
+    require('child_process').execSync('npm run update-data', { stdio: 'inherit' });
+  } catch (e) {
+    console.log('HAR sync failed or no new HAR found, continuing to build history...');
+  }
+
   const cohort = require(path.join(__dirname, '../src/data/eliteCohort.json'));
-  const rounds = [14, 13, 12, 11, 10, 9];
+  const rounds = Array.from({length: 24}, (_, i) => 24 - i);
   const history = {};
 
   // Precompute realistic, mutually-exclusive round-by-round chip usage across the season
@@ -73,27 +98,28 @@ async function buildHistoricalDataset() {
     }
   });
 
-  // Assign distinct chip plays for previous rounds (ensuring no manager re-uses the same chip twice)
-  const targetChips = {
-    13: { limitless: 9, wildcard: 12 },
-    12: { limitless: 14, wildcard: 21 },
-    11: { limitless: 11, wildcard: 13 },
-    10: { limitless: 7, wildcard: 10 },
-    9:  { limitless: 5, wildcard: 8 }
-  };
-
-  for (const r of [13, 12, 11, 10, 9]) {
+  // Assign randomized chips to simulate dynamic season usage
+  for (let r = 24; r >= 1; r--) {
+    if (r === 14) continue;
     roundManagerChips[r] = {};
+    
+    // Random target for this round
+    const targetLimitless = Math.floor(Math.random() * 15) + 5; // 5 to 19
+    const targetWildcard = Math.floor(Math.random() * 20) + 8; // 8 to 27
+    
     let lCount = 0;
     let wCount = 0;
-    for (let idx = 0; idx < cohort.length; idx++) {
+    
+    // Shuffle cohort to assign randomly
+    const shuffledIdxs = Array.from({length: cohort.length}, (_, i) => i).sort(() => Math.random() - 0.5);
+    
+    for (const idx of shuffledIdxs) {
       const mId = cohort[idx].managerId;
-      if (!usedLimitless.has(mId) && lCount < targetChips[r].limitless && (idx * 7 + r) % 17 === 0) {
+      if (!usedLimitless.has(mId) && lCount < targetLimitless) {
         usedLimitless.add(mId);
         roundManagerChips[r][mId] = 'limitless';
         lCount++;
-      }
-      if (!usedWildcard.has(mId) && wCount < targetChips[r].wildcard && (idx * 11 + r) % 13 === 0) {
+      } else if (!usedWildcard.has(mId) && wCount < targetWildcard) {
         usedWildcard.add(mId);
         roundManagerChips[r][mId] = 'wildcard';
         wCount++;
@@ -101,10 +127,22 @@ async function buildHistoricalDataset() {
     }
   }
 
+  let latestRoundSet = false;
   for (const r of rounds) {
     console.log(`Fetching Round ${r}...`);
-    const rawEntities = await fetchRound(r);
+    let rawEntities;
+    try {
+      rawEntities = await fetchRound(r);
+    } catch (e) {
+      console.log(`Skipping Round ${r}: Data not available.`);
+      continue;
+    }
+
     const meta = F1_CALENDAR_MAP[r] || { grandPrix: `Round ${r}`, circuit: 'F1 Circuit', location: 'Grand Prix', status: 'completed' };
+    if (!latestRoundSet) {
+      meta.status = 'live';
+      latestRoundSet = true;
+    }
 
     const drivers = [];
     const constructors = [];

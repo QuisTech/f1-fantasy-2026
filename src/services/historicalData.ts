@@ -7,9 +7,9 @@ import type {
   HistoricalManagerScore
 } from '../types/f1';
 
-export const AVAILABLE_ROUNDS: RoundKey[] = ['R14', 'R13', 'R12', 'R11', 'R10', 'R9'];
-
 const dataMap = historicalRoundsData as Record<RoundKey, HistoricalRoundData>;
+export const AVAILABLE_ROUNDS: RoundKey[] = Object.keys(dataMap).sort((a, b) => parseInt(b.slice(1)) - parseInt(a.slice(1))) as RoundKey[];
+
 
 /**
  * Retrieve full data package for a specific round
