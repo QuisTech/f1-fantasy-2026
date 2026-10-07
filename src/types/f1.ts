@@ -149,9 +149,9 @@ export interface HistoricalDriver {
   selectedPercentage: number;
   captainSelectedPercentage: number;
   sessionWisePoints?: {
-    qualifying: number;
-    race: number;
-    sprint: number;
+    qualifying: number | null;
+    race: number | null;
+    sprint: number | null;
   };
   additionalStats?: Record<string, any>;
 }
@@ -169,9 +169,9 @@ export interface HistoricalConstructor {
   selectedPercentage: number;
   captainSelectedPercentage: number;
   sessionWisePoints?: {
-    qualifying: number;
-    race: number;
-    sprint: number;
+    qualifying: number | null;
+    race: number | null;
+    sprint: number | null;
   };
   additionalStats?: Record<string, any>;
 }

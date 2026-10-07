@@ -306,6 +306,19 @@ async function buildHistoricalDataset() {
   const outPath = path.join(__dirname, '../src/data/historicalRounds.json');
   fs.writeFileSync(outPath, JSON.stringify(history, null, 2));
   console.log(`Successfully wrote historicalRounds.json to ${outPath}!`);
+
+  try {
+    console.log('Pushing updated data to GitHub...');
+    const { execSync } = require('child_process');
+    // Using powershell syntax for multiple commands
+    execSync('git add src/data/eliteCohort.json src/data/historicalRounds.json src/data/f1Data.ts ; git commit -m "chore: Auto-update F1 Fantasy data feeds" ; git push', {
+      stdio: 'inherit',
+      cwd: path.join(__dirname, '..')
+    });
+    console.log('✅ Successfully pushed to GitHub!');
+  } catch (err) {
+    console.error('Failed to push to GitHub (maybe no changes or network error):', err.message);
+  }
 }
 
 buildHistoricalDataset();
