@@ -12,6 +12,9 @@ interface HeaderProps {
   setWildcardMode: (mode: boolean) => void;
   activeTeamId?: ManagedTeamId;
   onSelectTeam?: (id: ManagedTeamId) => void;
+  onSaveCloud?: () => void;
+  onLoadCloud?: () => void;
+  isCloudSyncing?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -24,6 +27,9 @@ export const Header: React.FC<HeaderProps> = ({
   setWildcardMode,
   activeTeamId = 'T1',
   onSelectTeam,
+  onSaveCloud,
+  onLoadCloud,
+  isCloudSyncing = false,
 }) => {
   return (
     <header className="col-span-12 flex flex-col xl:flex-row gap-4 items-stretch xl:items-center justify-between mb-4">
@@ -95,6 +101,38 @@ export const Header: React.FC<HeaderProps> = ({
                     </button>
                   );
                 })}
+              </div>
+            </div>
+          )}
+
+          {/* Cloud Sync Buttons */}
+          {(onSaveCloud || onLoadCloud) && (
+            <div className="flex flex-col justify-end w-full sm:w-auto">
+              <div className="flex items-center gap-1.5 justify-between sm:justify-start">
+                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium whitespace-nowrap">
+                  Cloud Sync
+                </span>
+                {isCloudSyncing && (
+                  <span className="text-[9px] font-mono text-cyan-400 font-bold px-1.5 py-0.2 rounded bg-cyan-950/60 animate-pulse">
+                    SYNCING...
+                  </span>
+                )}
+              </div>
+              <div className="flex gap-2 w-full sm:w-auto mt-1">
+                <button
+                  onClick={onSaveCloud}
+                  disabled={isCloudSyncing}
+                  className="flex-1 sm:flex-none px-3 py-1.5 bg-slate-950 rounded text-[10px] font-bold text-slate-400 hover:bg-emerald-900/50 hover:text-emerald-400 transition-all disabled:opacity-50"
+                >
+                  ☁️ SAVE
+                </button>
+                <button
+                  onClick={onLoadCloud}
+                  disabled={isCloudSyncing}
+                  className="flex-1 sm:flex-none px-3 py-1.5 bg-slate-950 rounded text-[10px] font-bold text-slate-400 hover:bg-cyan-900/50 hover:text-cyan-400 transition-all disabled:opacity-50"
+                >
+                  ☁️ LOAD
+                </button>
               </div>
             </div>
           )}

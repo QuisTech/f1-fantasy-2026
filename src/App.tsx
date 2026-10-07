@@ -20,6 +20,8 @@ import { TeammateDominance } from './components/TeammateDominance';
 import { RivalSpy } from './components/RivalSpy';
 import { MultiWeekPlanner } from './components/MultiWeekPlanner';
 import { F1_CALENDAR, parseHarFile } from './utils/harParser';
+import { db } from './firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { optimizeLineup } from './utils/optimizer';
 import { F1_RAW_CONSTRUCTOR_ID_MAP } from './utils/eliteConsensus';
 import { AVAILABLE_ROUNDS } from './services/historicalData';
@@ -73,6 +75,7 @@ export function App() {
     return saved !== null ? saved === 'true' : false;
   });
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isCloudSyncing, setIsCloudSyncing] = useState(false);
 
   useEffect(() => {
     try {
@@ -214,6 +217,48 @@ export function App() {
     }
   };
 
+  const handleSaveToCloud = async () => {
+    setIsCloudSyncing(true);
+    try {
+      await setDoc(doc(db, "users", "MichQuis"), {
+        managedTeams,
+        activeTeamId,
+        updatedAt: new Date().toISOString()
+      });
+      setToastMessage("☁️ Saved T1/T2/T3 to Firebase Cloud!");
+      setTimeout(() => setToastMessage(null), 4000);
+    } catch (e: any) {
+      setToastMessage(`❌ Cloud Save Failed: ${e.message}`);
+      setTimeout(() => setToastMessage(null), 4000);
+    }
+    setIsCloudSyncing(false);
+  };
+
+  const handleLoadFromCloud = async () => {
+    setIsCloudSyncing(true);
+    try {
+      const docSnap = await getDoc(doc(db, "users", "MichQuis"));
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.managedTeams) {
+          setManagedTeams(data.managedTeams);
+          if (data.activeTeamId && data.managedTeams[data.activeTeamId]) {
+            setActiveTeamId(data.activeTeamId);
+            setUserLineup(data.managedTeams[data.activeTeamId]);
+          }
+          setToastMessage("☁️ Successfully loaded teams from Firebase Cloud!");
+        }
+      } else {
+        setToastMessage("☁️ No saved teams found in Cloud.");
+      }
+      setTimeout(() => setToastMessage(null), 4000);
+    } catch (e: any) {
+      setToastMessage(`❌ Cloud Load Failed: ${e.message}`);
+      setTimeout(() => setToastMessage(null), 4000);
+    }
+    setIsCloudSyncing(false);
+  };
+
   const handleDataUpdate = (data: any) => {
     setDrivers(data.drivers);
     setConstructors(data.constructors);
@@ -279,6 +324,9 @@ export function App() {
           setWildcardMode={setWildcardMode}
           activeTeamId={activeTeamId}
           onSelectTeam={handleSelectTeam}
+          onSaveCloud={handleSaveToCloud}
+          onLoadCloud={handleLoadFromCloud}
+          isCloudSyncing={isCloudSyncing}
         />
 
         {/* Left Column: Metrics & Squad Values */}
