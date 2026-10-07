@@ -72,7 +72,7 @@ export interface Circuit {
   countryCode: string;
   laps: number;
   lengthKm: number;
-  overtakeDifficulty: 'Very Low' | 'Low' | 'Medium' | 'High' | 'Very High';
+  overtakeDifficulty: 'Very Low' | 'Low' | 'Medium' | 'High' | 'Very High' | 'Hard' | 'Very Hard';
   scProbability: number; // Percentage e.g. 85%
   pitLaneDeltaSec: number; // Time lost in pit stop e.g. 20.4s
   tireDegradation: 'Low' | 'Medium' | 'High' | 'Extreme';

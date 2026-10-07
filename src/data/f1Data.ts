@@ -874,18 +874,18 @@ export const INITIAL_CONSTRUCTORS: Constructor[] = [
 ];
 
 export const CURRENT_CIRCUIT: Circuit = {
-  "id": "usa",
-  "name": "Circuit of The Americas",
-  "grandPrixName": "United States Grand Prix",
-  "location": "Austin, USA",
-  "countryCode": "US",
-  "laps": 56,
-  "lengthKm": 5.513,
-  "overtakeDifficulty": "Medium",
-  "scProbability": 50,
-  "pitLaneDeltaSec": 20,
-  "tireDegradation": "Medium",
-  "activeAeroBenefit": "Balanced"
+  "id": "singapore",
+  "name": "Marina Bay Street Circuit",
+  "grandPrixName": "Singapore Grand Prix",
+  "location": "Singapore",
+  "countryCode": "SG",
+  "laps": 62,
+  "lengthKm": 4.94,
+  "overtakeDifficulty": "Hard",
+  "scProbability": 100,
+  "pitLaneDeltaSec": 28,
+  "tireDegradation": "High",
+  "activeAeroBenefit": "Z-Mode Corners"
 };
 
 export const INITIAL_CHIPS: ChipStatus[] = [

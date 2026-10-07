@@ -341,19 +341,20 @@ const F1_CALENDAR = [
   { date: '2026-08-30', id: 'netherlands', name: 'Circuit Zandvoort', grandPrixName: 'Dutch Grand Prix', location: 'Zandvoort, Netherlands', countryCode: 'NL', laps: 72, lengthKm: 4.259, overtakeDifficulty: 'Hard', scProbability: 60, pitLaneDeltaSec: 22.0, tireDegradation: 'High', activeAeroBenefit: 'Z-Mode Corners' },
   { date: '2026-09-06', id: 'italy', name: 'Autodromo Nazionale Monza', grandPrixName: 'Italian Grand Prix', location: 'Monza, Italy', countryCode: 'IT', laps: 53, lengthKm: 5.793, overtakeDifficulty: 'Medium', scProbability: 40, pitLaneDeltaSec: 24.5, tireDegradation: 'Low', activeAeroBenefit: 'X-Mode Straights' },
   { date: '2026-09-20', id: 'baku', name: 'Baku City Circuit', grandPrixName: 'Azerbaijan Grand Prix', location: 'Baku, Azerbaijan', countryCode: 'AZ', laps: 51, lengthKm: 6.003, overtakeDifficulty: 'Low', scProbability: 85, pitLaneDeltaSec: 21.0, tireDegradation: 'Low', activeAeroBenefit: 'X-Mode Straights' },
-  { date: '2026-10-04', id: 'singapore', name: 'Marina Bay Street Circuit', grandPrixName: 'Singapore Grand Prix', location: 'Singapore', countryCode: 'SG', laps: 62, lengthKm: 4.940, overtakeDifficulty: 'Hard', scProbability: 100, pitLaneDeltaSec: 28.0, tireDegradation: 'High', activeAeroBenefit: 'Z-Mode Corners' },
+  { date: '2026-10-11', id: 'singapore', name: 'Marina Bay Street Circuit', grandPrixName: 'Singapore Grand Prix', location: 'Singapore', countryCode: 'SG', laps: 62, lengthKm: 4.940, overtakeDifficulty: 'Hard', scProbability: 100, pitLaneDeltaSec: 28.0, tireDegradation: 'High', activeAeroBenefit: 'Z-Mode Corners' },
   { date: '2026-10-25', id: 'usa', name: 'Circuit of The Americas', grandPrixName: 'United States Grand Prix', location: 'Austin, USA', countryCode: 'US', laps: 56, lengthKm: 5.513, overtakeDifficulty: 'Medium', scProbability: 50, pitLaneDeltaSec: 20.0, tireDegradation: 'Medium', activeAeroBenefit: 'Balanced' },
   { date: '2026-11-01', id: 'mexico', name: 'Autódromo Hermanos Rodríguez', grandPrixName: 'Mexico City Grand Prix', location: 'Mexico City, Mexico', countryCode: 'MX', laps: 71, lengthKm: 4.304, overtakeDifficulty: 'Medium', scProbability: 55, pitLaneDeltaSec: 22.0, tireDegradation: 'Low', activeAeroBenefit: 'X-Mode Straights' },
   { date: '2026-11-15', id: 'brazil', name: 'Interlagos Circuit', grandPrixName: 'São Paulo Grand Prix', location: 'São Paulo, Brazil', countryCode: 'BR', laps: 71, lengthKm: 4.309, overtakeDifficulty: 'Medium', scProbability: 65, pitLaneDeltaSec: 20.5, tireDegradation: 'Medium', activeAeroBenefit: 'Balanced' },
-  { date: '2026-11-28', id: 'vegas', name: 'Las Vegas Strip Circuit', grandPrixName: 'Las Vegas Grand Prix', location: 'Las Vegas, USA', countryCode: 'US', laps: 50, lengthKm: 6.201, overtakeDifficulty: 'Medium', scProbability: 75, pitLaneDeltaSec: 21.0, tireDegradation: 'Low', activeAeroBenefit: 'X-Mode Straights' },
-  { date: '2026-12-06', id: 'qatar', name: 'Lusail International Circuit', grandPrixName: 'Qatar Grand Prix', location: 'Lusail, Qatar', countryCode: 'QA', laps: 57, lengthKm: 5.419, overtakeDifficulty: 'Hard', scProbability: 50, pitLaneDeltaSec: 23.0, tireDegradation: 'Very High', activeAeroBenefit: 'Z-Mode Corners' },
-  { date: '2026-12-13', id: 'abu_dhabi', name: 'Yas Marina Circuit', grandPrixName: 'Abu Dhabi Grand Prix', location: 'Yas Island, UAE', countryCode: 'AE', laps: 58, lengthKm: 5.281, overtakeDifficulty: 'Medium', scProbability: 45, pitLaneDeltaSec: 22.0, tireDegradation: 'Medium', activeAeroBenefit: 'Balanced' }
+  { date: '2026-11-22', id: 'vegas', name: 'Las Vegas Strip Circuit', grandPrixName: 'Las Vegas Grand Prix', location: 'Las Vegas, USA', countryCode: 'US', laps: 50, lengthKm: 6.201, overtakeDifficulty: 'Medium', scProbability: 75, pitLaneDeltaSec: 21.0, tireDegradation: 'Low', activeAeroBenefit: 'X-Mode Straights' },
+  { date: '2026-11-29', id: 'qatar', name: 'Lusail International Circuit', grandPrixName: 'Qatar Grand Prix', location: 'Lusail, Qatar', countryCode: 'QA', laps: 57, lengthKm: 5.419, overtakeDifficulty: 'Hard', scProbability: 50, pitLaneDeltaSec: 23.0, tireDegradation: 'Very High', activeAeroBenefit: 'Z-Mode Corners' },
+  { date: '2026-12-06', id: 'abu_dhabi', name: 'Yas Marina Circuit', grandPrixName: 'Abu Dhabi Grand Prix', location: 'Yas Island, UAE', countryCode: 'AE', laps: 58, lengthKm: 5.281, overtakeDifficulty: 'Medium', scProbability: 45, pitLaneDeltaSec: 22.0, tireDegradation: 'Medium', activeAeroBenefit: 'Balanced' }
 ];
 
 function getUpcomingCircuit() {
   const now = new Date();
   for (const race of F1_CALENDAR) {
-    if (new Date(race.date) > now) {
+    const raceEnd = new Date(race.date + 'T23:59:59Z');
+    if (raceEnd >= now) {
       // Return a copy without the 'date' property to match the Circuit type exactly
       const { date, ...circuitData } = race;
       return circuitData;
