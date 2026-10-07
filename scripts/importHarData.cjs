@@ -444,8 +444,11 @@ export const MOCK_RIVALS: MiniLeagueRival[] = [
         if (text.includes('cur_rank') && text.includes('user_team') && text.includes('leaderboard')) {
           const parsed = JSON.parse(text);
           if (parsed.Value && parsed.Value.leaderboard) {
-            lbPayload = parsed.Value.leaderboard;
-            break;
+            // Keep the largest leaderboard found to guarantee we grab the Global League (Top 500+)
+            // instead of prematurely stopping on a small Mini-League.
+            if (!lbPayload || parsed.Value.leaderboard.length > lbPayload.length) {
+              lbPayload = parsed.Value.leaderboard;
+            }
           }
         }
       }

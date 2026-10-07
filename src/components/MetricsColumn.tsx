@@ -82,6 +82,7 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   };
 
   const [cohortFilter, setCohortFilter] = useState<'all' | 'zero_chips' | 'normalized'>('all');
+  const [sortMode, setSortMode] = useState<'round' | 'global'>('round');
   const [expandedOmittedId, setExpandedOmittedId] = useState<string | null>(null);
   const [expandedManagerId, setExpandedManagerId] = useState<string | null>(null);
   const [syncedManagerId, setSyncedManagerId] = useState<string | null>(null);
@@ -99,7 +100,15 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
   const startingWeapons = useMemo(() => getStartingWeaponsForRound(activeRound), [activeRound]);
   const budgetEnablers = useMemo(() => getBudgetEnablersForRound(activeRound), [activeRound]);
   const topCaptains = useMemo(() => getTopCaptainsForRound(activeRound), [activeRound]);
-  const filteredCohort = useMemo(() => getCohortForRound(activeRound, cohortFilter), [activeRound, cohortFilter]);
+  
+  const sortedCohort = useMemo(() => {
+    const base = getCohortForRound(activeRound, cohortFilter);
+    if (sortMode === 'global') {
+      return [...base].sort((a, b) => a.overallRank - b.overallRank);
+    }
+    return base;
+  }, [activeRound, cohortFilter, sortMode]);
+  
   const totalCohortSize = roundData.cohortScores.length;
 
   const pureZeroChipsCount = useMemo(() => {
@@ -831,12 +840,34 @@ export const MetricsColumn: React.FC<MetricsColumnProps> = ({
                   {cohortFilter === 'zero_chips' && `Displaying ${activeRound} Pure 0-Chip Leaders (Organic Cap)`}
                   {cohortFilter === 'normalized' && `Displaying ${activeRound} Normalized Leaders`}
                 </span>
+                <div className="flex items-center gap-1 bg-slate-900 border border-slate-700/50 rounded overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setSortMode('round')}
+                    className={cn(
+                      "px-1.5 py-0.5 text-[8px] uppercase font-bold transition-colors cursor-pointer",
+                      sortMode === 'round' ? "bg-amber-500/20 text-amber-300" : "text-slate-400 hover:bg-slate-800"
+                    )}
+                  >
+                    Round Score
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSortMode('global')}
+                    className={cn(
+                      "px-1.5 py-0.5 text-[8px] uppercase font-bold transition-colors cursor-pointer",
+                      sortMode === 'global' ? "bg-amber-500/20 text-amber-300" : "text-slate-400 hover:bg-slate-800"
+                    )}
+                  >
+                    Global Rank
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* Scrollable Manager Leaderboard */}
             <div className="space-y-2 max-h-80 overflow-y-auto pr-1 text-[11px] border border-slate-800/40 rounded-xl p-1 bg-slate-950/40 custom-scrollbar">
-              {filteredCohort.map((manager, idx) => {
+              {sortedCohort.map((manager, idx) => {
                 const isExpanded = expandedManagerId === manager.managerId;
                 const chipBadge = getChipBadge(manager.activeChip, manager.squadCost);
                 const rawPoints = manager.roundPoints;
