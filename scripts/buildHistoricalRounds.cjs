@@ -310,11 +310,12 @@ async function buildHistoricalDataset() {
   try {
     console.log('Pushing updated data to GitHub...');
     const { execSync } = require('child_process');
-    // Using powershell syntax for multiple commands
-    execSync('git add src/data/eliteCohort.json src/data/historicalRounds.json src/data/f1Data.ts ; git commit -m "chore: Auto-update F1 Fantasy data feeds" ; git push', {
-      stdio: 'inherit',
-      cwd: path.join(__dirname, '..')
-    });
+    const cwd = path.join(__dirname, '..');
+    
+    execSync('git add src/data/eliteCohort.json src/data/historicalRounds.json src/data/f1Data.ts', { stdio: 'inherit', cwd });
+    execSync('git commit -m "chore: Auto-update F1 Fantasy data feeds"', { stdio: 'inherit', cwd });
+    execSync('git push', { stdio: 'inherit', cwd });
+    
     console.log('✅ Successfully pushed to GitHub!');
   } catch (err) {
     console.error('Failed to push to GitHub (maybe no changes or network error):', err.message);
