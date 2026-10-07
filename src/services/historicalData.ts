@@ -191,9 +191,9 @@ export interface RoundPerformance {
   selectedPercentage: number;
   captainSelectedPercentage: number;
   sessionWisePoints?: {
-    qualifying: number;
-    race: number;
-    sprint: number;
+    qualifying: number | null;
+    race: number | null;
+    sprint: number | null;
   };
 }
 
