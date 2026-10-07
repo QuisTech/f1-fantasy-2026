@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Driver, Constructor, ChipStatus, UserLineup } from '../types/f1';
+import type { Driver, Constructor, ChipStatus, UserLineup, TeamId } from '../types/f1';
 import { optimizeLineup } from '../utils/optimizer';
 import { Zap, ShieldAlert, Plus, Trash2 } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -58,7 +58,7 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
     }));
   };
 
-  const handleRemoveConstructor = (teamId: any) => {
+  const handleRemoveConstructor = (teamId: TeamId) => {
     if (setWildcardMode) setWildcardMode(false);
     setUserLineup((prev) => ({
       ...prev,
@@ -66,7 +66,7 @@ export const TeamBuilder: React.FC<TeamBuilderProps> = ({
     }));
   };
 
-  const handleAddConstructor = (teamId: string) => {
+  const handleAddConstructor = (teamId: TeamId) => {
     if (userLineup.constructorIds.length >= 2) return;
     if (setWildcardMode) setWildcardMode(false);
     setUserLineup((prev) => ({
